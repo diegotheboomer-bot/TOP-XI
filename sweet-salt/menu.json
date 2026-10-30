@@ -1,0 +1,1572 @@
+{
+ "sections": [
+  {
+   "id": "brunch",
+   "name": "BRUNCH",
+   "desc": "",
+   "info": "",
+   "categories": [
+    {
+     "id": "ovos-mais",
+     "name": "OVOS & MAIS",
+     "items": [
+      {
+       "name": "Crepes de Frango com Cogumelos",
+       "desc": "crepes recheados com frango, cogumelos e queijo, servidos com crème fraîche",
+       "price": 12.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_XbJcF-eblQZ-kZSDu.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/ZRfkOzJ-hUgHmNx-nqQqxnz.webp",
+       "soldOut": true,
+       "labels": [
+        "new"
+       ],
+       "volume": ""
+      },
+      {
+       "name": "Benedict de Salmão Fumado",
+       "desc": "brioche, salmão fumado, queijo creme, abacate esmagado, ovo poché, molho holandês",
+       "price": 12.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_eHbbP-lweTt-gJwFO.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/DaHSUIm-ycvmUdp-UbALzZR.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Benedict de Prosciutto",
+       "desc": "brioche, prosciutto cotto, queijo creme, abacate esmagado, ovo poché, molho holandês",
+       "price": 11.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_LWEyk-DIUez-wECTY.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/ITFilVV-jlWlqaU-LchcDvq.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Benedict de Camarão ⭐",
+       "desc": "brioche, camarões grelhados, queijo creme, abacate esmagado, ovo poché, molho holandês, rúcula, parmesão",
+       "price": 12.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_HCHvq-gSwiC-aYPdh.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/OIJCnrF-JDxTCTL-GYplgOp.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Sanduíche Croque Madame",
+       "desc": "sanduíche croque madame com prosciutto cotto, queijo, ovo estrelado, molho béchamel no brioche e salada mix com parmesão",
+       "price": 11.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_efCbI-FmOHO-AqfUJ.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/qGAchAZ-bIBvbJz-eOgiUKD.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Croissant Sweet & Salt",
+       "desc": "croissant, hambúrguer Angus, camembert grelhado, geleia de cebola, rúcula, amêndoas laminadas, xarope de ácer, servido com batatas dip e molho aioli",
+       "price": 15.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_OFHVb-ucIbQ-bWDpe.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/BKgJEme-xIdaDBx-pjBHAjF.webp",
+       "soldOut": false,
+       "labels": [
+        "recommended"
+       ],
+       "volume": ""
+      },
+      {
+       "name": "Chicken Croissant",
+       "desc": "croissant, frango panado em panko, bacon grelhado, alface romana, parmesão, molho Caesar",
+       "price": 12.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_bOGWs-UHDBz-zGkkr.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/GZEFySI-FSNjePw-BWleqki.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Breakfast Croissant",
+       "desc": "croissant, prosciutto cotto, ovos mexidos, queijo creme, rúcula, parmesão, molho cheddar, croquetes de batata",
+       "price": 12.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_NYcgE-rLlBY-uJSnd.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/wzGHtHb-wsmlCFw-eLPUsKH.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Croissant de Abacate & Ovo Poché",
+       "desc": "croissant, abacate esmagado, ovo poché, molho holandês, rúcula, Grana Padano",
+       "price": 9.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_CFxkI-qFSGb-iUGww.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/CJlFsJQ-abHHYcI-IOgdquH.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Croissant de Prosciutto & Camembert",
+       "desc": "croissant, prosciutto, camembert grelhado, figos frescos, mel & mostarda, mix de saladas",
+       "price": 11.0,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Melt de Novilho & Cheddar",
+       "desc": "tosta, novilho desfiado, geleia de cebola, cheddar, mozzarella, Grana Padano, picles, molho tonnato",
+       "price": 12.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_DRIQa-nYHwe-ucBfp.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/oFCMOBH-pDqwrNC-DNoeDkA.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Avo Tost",
+       "desc": "tosta, abacate esmagado, ovos mexidos",
+       "price": 8.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_uFbWO-FCGTd-eIGhK.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/IRTdOLz-iwYxHQE-OtfIRUC.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Hashbrown com Salmão Fumado",
+       "desc": "hashbrown, salmão fumado, abacate, ovo estrelado, crème fraîche, servido com salada",
+       "price": 12.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/CQCiYfB-igCbdkJ-SLvYmZx.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/CQCiYfB-igCbdkJ-SLvYmZx.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Hashbrown com Novilho Desfiado",
+       "desc": "hashbrown, novilho desfiado, abacate, crème fraîche, ovo estrelado, crème fraîche, servido com salada",
+       "price": 11.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/ZGPkeQl-tligQTZ-kXiaLtI.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/ZGPkeQl-tligQTZ-kXiaLtI.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Salty Panquecas",
+       "desc": "panquecas caseiras, bacon grelhado, cheddar, ovo estrelado, xarope de ácer",
+       "price": 12.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_xiFFk-lBiLu-VkAWQ.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/JuZglpc-SBEJgHr-JcxZjcI.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "doce",
+     "name": "DOCE",
+     "items": [
+      {
+       "name": "Berry Panquecas",
+       "desc": "panquecas caseiras, mascarpone, frutos vermelhos, coulis de frutos vermelhos, lemon curd",
+       "price": 13.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/OMeBNGw-teOlKgO-kKaJbCG_CZk.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/OMeBNGw-teOlKgO-kKaJbCG.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Guilty Panquecas",
+       "desc": "panquecas fofas caseiras, chocolate, banana, amendoins caramelizados",
+       "price": 12.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_taBIX-blSLA-KIoEZ.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/CDHeDJL-lAymkJD-xLemXGl.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "menu",
+   "name": "MENU",
+   "desc": "All day kitchen",
+   "info": "",
+   "categories": [
+    {
+     "id": "start-share",
+     "name": "ENTRADAS",
+     "items": [
+      {
+       "name": "Éclairs de Tártaro de Atum Marinado ⭐",
+       "desc": "tártaro de atum marinado, guacamole, chips de parmesão",
+       "price": 7.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_rjxlT-GUjpT-CDFHN.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/KZTBQGS-jDGpkBd-cpCLlIa.webp",
+       "soldOut": true,
+       "labels": [
+        "recommended"
+       ],
+       "volume": ""
+      },
+      {
+       "name": "Camarões Tigre ao Bisque",
+       "desc": "camarões tigre, molho bisque cremoso, pimentos marinados, tomate, cebolinho, ciabatta",
+       "price": 12.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_beeNn-rFQKh-BwoEm.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/IRSIlbI-gIVDKWd-aXDJwtR.webp",
+       "soldOut": false,
+       "labels": [
+        "recommended"
+       ],
+       "volume": ""
+      },
+      {
+       "name": "Camembert Grelhado com Pera",
+       "desc": "Queijo camembert grelhado, pera caramelizada, mel, amêndoas laminadas, ciabatta",
+       "price": 10.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_VlRbC-GDJKF-DblFH.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/CczqWcV-sQanBwu-yUOEbmN.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Tártaro Angus Grain Fed  👨‍🍳",
+       "desc": "lombo Angus Grain Fed, chalota, alcaparras, gema de ovo, batata frita, molho vitello tonnato, parmesão",
+       "price": 13.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_HaiyO-GahJg-lniDy.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/rCrAWQc-uHUCOVI-sRExRCh.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Tártaro de Salmão Marinado",
+       "desc": "salmão marinado, abacate, queijo crème, pão caseiro tostado",
+       "price": 11.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_GpYCz-FgkYG-xgeVD.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/fZTuoPI-lDCtfpb-WjbcGfe.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Croquetes de Prosciutto & Queijos",
+       "desc": "prosciutto cotto, mozzarella, parmesão, cebolinho servido com molho de frutos vermelhos",
+       "price": 8.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_fXNip-ebYiJ-ldWtH.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/jHkFIXC-FdHDJst-uPHrpYJ.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Bruschetta de Prosciutto & Tomate Concassé",
+       "desc": "prosciutto, tomate concassé, pão artesanal tostado",
+       "price": 7.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_lHXsf-aJbPh-THQbb.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/xhkpoIn-TjlpfQJ-YEsZlbw.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Bruschetta de Sardinha",
+       "desc": "sardinha, salsa de tomate e pickles, cebola roxa marinada, queijo creme, pão artesanal tostado",
+       "price": 7.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_jJHBE-NCbSI-GygbD.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/lCYGDmX-hCKDCcc-evKIrjp.webp",
+       "soldOut": false,
+       "labels": [
+        "new"
+       ],
+       "volume": ""
+      },
+      {
+       "name": "Pão Caseiro, Manteiga & Azeitonas Marinadas",
+       "desc": "pão caseiro, manteiga, azeitonas marinadas",
+       "price": 5.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_meQSh-lIEYI-uBJyM.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/ZtOONjZ-XCxCmil-mREIqcT.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "saladas-sopa",
+     "name": "SALADAS & SOPA",
+     "items": [
+      {
+       "name": "Caesar com Frango Grelhado",
+       "desc": "peito de frango grelhado, alface romana, tomate cherry, ovo em panko, parmesão, molho Caesar, tosta crocante",
+       "price": 13.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_kTEWS-FzLLX-blHbI.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/ulSOkbY-kSxSrEr-OklJNxH.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Salada de Camarões e Manga",
+       "desc": "camarões grelhados, manga, abacate, tomate cherry, mix de saladas, molho de manga, amêndoas laminadas",
+       "price": 14.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/EslUJIH-ffaEsGT-efXHkQl_oqg.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/EslUJIH-ffaEsGT-efXHkQl.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Salada de Camembert Grelhado",
+       "desc": "camembert grelhado, figos frescos, nozes, hortelã fresca, mix de saladas, molho de mel, mostarda e citrinos",
+       "price": 10.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_TEHhm-cUHVG-OZrhM.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/klMNgME-kZaZBcB-sXkpmmN.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Salada de Atum e Frutas Tropicais",
+       "desc": "atum fresco marinado, morango, manga, tomate cherry, lâminas de cenoura, molho tailandês",
+       "price": 14.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_wJICk-kLyDI-TeQgs.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/pLukuMH-MwPrXtF-DMFoCIg.webp",
+       "soldOut": true,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Sopa Caseira do Dia",
+       "desc": "sopa do dia, ciabatta torrada",
+       "price": 5.0,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "burger",
+     "name": "BURGER",
+     "items": [
+      {
+       "name": "Over Burger",
+       "desc": "pão brioche, hambúrguer Angus, molho burger, queijo cheddar, bacon, cebola caramelizada, jalapeños, alface romana, picles, molho BBQ servido com batatas dip e aioli",
+       "price": 16.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_fLoPF-VemNJ-GDBHG.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/wDDpskW-rViletz-QHgJWGp.webp",
+       "soldOut": false,
+       "labels": [
+        "recommended"
+       ],
+       "volume": ""
+      },
+      {
+       "name": "Croissant Sweet & Salt",
+       "desc": "croissant, hambúrguer Angus, camembert grelhado, geleia de cebola, rúcula, amêndoas laminadas, xarope de ácer, servido com batatas dip e molho aioli",
+       "price": 15.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_ZHerO-sHkCG-lVFDY.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/bGtxdll-UIxJnzk-YGblXZn.webp",
+       "soldOut": false,
+       "labels": [
+        "recommended"
+       ],
+       "volume": ""
+      },
+      {
+       "name": "Shrimp Burger ⭐",
+       "desc": "pão brioche caseiro, hambúrguer de camarão e peixe branco, molho tártaro, alface romana, pepino fresco, batatas dip, parmesão, aioli",
+       "price": 16.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_kOdzY-Qhrbo-TGbEK.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/BcdMpDg-lzGCplw-inHYDkN.webp",
+       "soldOut": false,
+       "labels": [
+        "new"
+       ],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "pizza",
+     "name": "PIZZA",
+     "items": [
+      {
+       "name": "Margherita Clássica",
+       "desc": "molho de tomate pelati, mozzarella, manjericão",
+       "price": 10.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_GaNHU-Hxjwc-OEUzO.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/WeVDVNX-EjWXqLG-wPPBIwZ.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Pepperoni & Alcaparras",
+       "desc": "molho de tomate pelati, mozzarella, pepperoni, parmesão, alcaparras",
+       "price": 13.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/HfHYiQc-bDcpItD-SVdzMSb_SoC.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/HfHYiQc-bDcpItD-SVdzMSb.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Prosciutto Cotto & Alcachofras",
+       "desc": "molho de tomate pelati, mozzarella, prosciutto cotto, alcachofras marinadas, parmesão, manjericão",
+       "price": 14.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_gZmEe-DFUiN-tlHFB.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/qbylqsV-bJJKgck-JollUsk.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Pêra & Camambert",
+       "desc": "molho cremoso, camambert, mozzarella, pêra, parmesão, mel de trufa com tomilho, amêndoas laminadas",
+       "price": 14.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_noReF-xVIih-zJWHC.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/MelhcHE-LFFTObe-AJLLxGL.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Salmão & Camarão",
+       "desc": "molho cremoso, mozzarella, salmão, camarão, rúcula, parmesão",
+       "price": 16.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_LEDCl-zFNkR-DATnm.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/gJguFQj-dveyGVf-ZEkHktC.webp",
+       "soldOut": false,
+       "labels": [
+        "new"
+       ],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "pasta",
+     "name": "PASTA",
+     "items": [
+      {
+       "name": "Bavette Carbonara",
+       "desc": "bavette, bacon, gema de ovo, queijo pecorino, parmesão, pimenta preta",
+       "price": 13.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_HqEEg-wtlry-grwgC.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/bMByZJx-JAlSWLR-MJIHDuX.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Linguini com Camarões ao Bisque",
+       "desc": "linguini com tinta de shock, camarões, molho bisque cremoso, cebolinho, parmesão",
+       "price": 15.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_qCiQZ-hCVwk-yoCfu.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/CVtcZkr-VNTHDGB-RwcNykY.webp",
+       "soldOut": false,
+       "labels": [
+        "recommended"
+       ],
+       "volume": ""
+      },
+      {
+       "name": "Bavette Alfredo de Trufa & Frango",
+       "desc": "bavette, molho Alfredo de trufa, peito de frango sous-vide, cogumelos pleurothus, cogumelos marrón, chips de parmesão",
+       "price": 14.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_njPOH-vbtpz-yqOoV.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/GXCFIPG-LkMUtuI-GeenfMG.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "rizotto",
+     "name": "RIZOTTO",
+     "items": [
+      {
+       "name": "Risotto de Limão com Dourada",
+       "desc": "risotto de limão, filé de dourada grelhado",
+       "price": 17.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/HgHCbiF-deHDJWs-IhFlbhW_cNm.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/HgHCbiF-deHDJWs-IhFlbhW.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Risotto de Pato & Trufa 👨‍🍳",
+       "desc": "peito de pato grelhado, trufa, cogumelos pleurothus, cogumelos marrón, chips de parmesão",
+       "price": 19.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_kIBit-loisb-ULuGl.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/rOnUHTj-EYmtAtw-LjPRxJl.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Risotto de Camarões Tigre ao Bisque ⭐",
+       "desc": "camarões tigre grelhados, risotto cremoso, molho bisque, parmesão",
+       "price": 19.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_NJVWk-pKuCZ-waSNx.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/ADyJfZZ-eeDvIhd-cNCDFpi.webp",
+       "soldOut": false,
+       "labels": [
+        "new"
+       ],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "peixe",
+     "name": "PEIXE",
+     "items": [
+      {
+       "name": "Fish & Chips",
+       "desc": "filé de perca vermelha, batatas dip, alface romana, parmesão, lima, molho tártaro",
+       "price": 16.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_eWGye-dgqHR-MQkwt.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/cRguzMe-jDbJXvm-THHUKHJ.webp",
+       "soldOut": false,
+       "labels": [
+        "recommended"
+       ],
+       "volume": ""
+      },
+      {
+       "name": "Lombo de Salmão com Molho Beurre Blanc",
+       "desc": "lombo de salmão grelhado, batata assada, Bimi branqueado, molho Beurre Blanc",
+       "price": 19.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_ldtwk-JBDDF-CsiUD.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/jSKLvIg-NFTCoHF-IVhrEib.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Fish Kyiv 👨‍🍳",
+       "desc": "filé de robalo panado recheado com camarão e queijo cheddar, puré de batata e pastinaca, bimi, molho parmesão",
+       "price": 18.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_vywLZ-DwzhJ-JMvCP.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/KiLZvJK-VTEuNau-PLGLbYn.webp",
+       "soldOut": true,
+       "labels": [
+        "recommended",
+        "new"
+       ],
+       "volume": ""
+      },
+      {
+       "name": "Polvo Grelhado sobre Cama de Espinafres 👨‍🍳",
+       "desc": "tentáculos de polvo grelhados, batata assada, Bimi, cama de espinafres salteados",
+       "price": 24.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_EHKnq-nqYom-qkJOw.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/rvfuILd-DglbsmN-FbjYEDg.webp",
+       "soldOut": true,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "carnes",
+     "name": "CARNES",
+     "items": [
+      {
+       "name": "Chicken Cordon Bleu",
+       "desc": "peito de frango panado, prosciutto cotto, queijo brie, espinafres, servido com puré de batata e parmesão",
+       "price": 17.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_ItFtO-HfYkS-dhGNu.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/ldAcFMB-OCkJVYC-JGiJCku.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Crepes de Frango com Cogumelos",
+       "desc": "crepes recheados com frango, cogumelos e queijo, servidos com crème fraîche",
+       "price": 12.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_bgHbl-lKgFw-CfmIl.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/pFZhJQH-AKxIvJc-ugGIcwG.webp",
+       "soldOut": true,
+       "labels": [
+        "new"
+       ],
+       "volume": ""
+      },
+      {
+       "name": "Medalhões de Porco com Mostarda",
+       "desc": "medalhões de porco grelhados, molho de mostarda, batata assada, cogumelos salteados",
+       "price": 18.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_lamPa-wmVWA-GXbmC.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/OJEjbJE-PSlBNCO-baCwSut.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Bife de Peru Grelhado",
+       "desc": "bife de peru, ananás grelhado, batatas dip",
+       "price": 16.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_Jyutg-DXafj-aHwsV.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/BDreeQo-FzdJVEQ-sswFcDM.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Perna de Pato Confit",
+       "desc": "perna de pato confit, molho demi-glace de vinho, cenoura baby, puré de pastinaca e batata",
+       "price": 18.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_CQznk-keSph-bBYOG.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/puFxRmv-NCcWPie-JljkslZ.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Bife de Vazia Angus Grain Fed",
+       "desc": "vazia Angus grelhada, batata assada, legumes grelhados, molho de pimenta",
+       "price": 23.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_PCIrS-jDUgb-yhOJw.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/mIslQOj-gEnAQdn-hmEFeWG.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Bochechas de Vitela Uruguaia 👨‍🍳",
+       "desc": "bochechas de vitela, puré de batata e pastinaca, cenoura baby, molho demi-glace",
+       "price": 17.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_QTfuX-ZbZQR-KpQcR.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/gkpGOSl-eDpIlhU-eGGOmGK.webp",
+       "soldOut": false,
+       "labels": [
+        "new"
+       ],
+       "volume": ""
+      },
+      {
+       "name": "Filé Mignon Angus Grain Fed com Camarões Tigre 👨‍🍳",
+       "desc": "filé mignon Angus, camarões tigre grelhados, batata assada, legumes grelhados, molho demi-glace de trufa",
+       "price": 28.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_tAvGQ-GQxoq-yTVpi.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/MiiYGJP-cUXtGZk-NUQvIIC.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "acompanhamentos",
+     "name": "ACOMPANHAMENTOS",
+     "items": [
+      {
+       "name": "Batatas Fritas com Aioli",
+       "desc": "batatas fritas crocantes, molho aioli",
+       "price": 4.0,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Legumes Grelhados em Molho de Ostra",
+       "desc": "legumes grelhados, molho de ostra, queijo creme, rúcula",
+       "price": 5.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/iJzpWpC-hLkkoXm-wlhIElL_Slj.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/iJzpWpC-hLkkoXm-wlhIElL.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sobremesas",
+   "name": "SOBREMESAS",
+   "desc": "",
+   "info": "",
+   "categories": [
+    {
+     "id": "bolos",
+     "name": "BOLOS",
+     "items": [
+      {
+       "name": "Honey cake",
+       "desc": "O mais delicioso bolo à base de mel, preparado nas melhores tradições, como a mamãe fazia",
+       "price": 6.75,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/WQvCIvP-KUJJuix-lsVyFLg_LwF.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/WQvCIvP-KUJJuix-lsVyFLg.webp",
+       "soldOut": false,
+       "labels": [
+        "recommended"
+       ],
+       "volume": ""
+      },
+      {
+       "name": "Ferrero Rocher cake",
+       "desc": "Uma deliciosa tentação de chocolate com um toque crocante de avelã. Ganache aveludado envolve um mousse rico de chocolate e avelã, em camadas com wafer crocante e nozes torradas para aquele crocante característico do Ferrero Rocher. Finalizado com um creme de chocolate sedoso e um praliné de avelã irresistível, é puro prazer em cada colherada.",
+       "price": 6.25,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/HjRiCQF-pJYTFFu-glgFQyO_DGT.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/HjRiCQF-pJYTFFu-glgFQyO.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Victoria Secret",
+       "desc": "Camadas de pão de ló de morango macio, creme suave de baunilha e recheio fresco de morango, finalizado com morangos frescos. Leve, frutado e irresistivelmente elegante.",
+       "price": 7.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_bYeGC-fuGmn-eHWKu.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/ebgHmXg-vrCKDEG-StfeJnS.webp",
+       "soldOut": false,
+       "labels": [
+        "recommended"
+       ],
+       "volume": ""
+      },
+      {
+       "name": "Esterházy",
+       "desc": "Uma sobremesa real com uma rica história. Camadas delicadas de merengue de amêndoas e avelãs, envolvidas em um creme leve de baunilha, criam uma experiência que derrete na boca. Coberto com a icônica glaçagem branca e o clássico padrão de teia de chocolate, é elegante, refinado e irresistivelmente delicioso. Perfeito para quem aprecia sabores atemporais com um toque de sofisticação.",
+       "price": 7.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/rgtFndO-KQefSDO-UkGbXby_iVh.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/rgtFndO-KQefSDO-UkGbXby.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Raffaello cake",
+       "desc": "Pão de ló de baunilha com creme de coco, mascarpone aveludado e toque crocante de amêndoas. Finalizado com coco ralado, raspas de chocolate branco e um bombom Raffaello.",
+       "price": 7.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/JDRwBPO-vbdWzcI-vksOboD_HRg.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/JDRwBPO-vbdWzcI-vksOboD.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Tarte de Curd de Limão e Merengue",
+       "desc": "Tarte delicada de massa amanteigada, recheada com creme de lemon curd aveludado e coberta com merengue italiano levemente tostado. Equilíbrio perfeito entre doçura e frescura cítrica.",
+       "price": 5.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_iHLcX-LNBrL-eEcpl.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/zhLHFxY-MpIXPFW-tnDoKHH.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Éclair Snickers",
+       "desc": "Massa choux leve recheada com creme de caramelo aveludado, amendoins crocantes e cobertura intensa de chocolate. Inspirado no clássico Snickers — indulgente, cremoso e irresistível.",
+       "price": 3.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_JRUlG-unEPG-xSBYB.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/rNOFSxe-WkbkEHM-KLNfVEn.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Napoleão",
+       "desc": "Camadas de massa folhada crocante com creme suave de baunilha. Crocante, cremoso e perfeitamente equilibrado — um clássico intemporal.",
+       "price": 7.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_GvkRG-uSkJP-HeZFa.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/PvndLks-CDzCGuJ-FCFrNEQ.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Apple Pie",
+       "desc": "Tarte caseira de maçã com maçãs macias aromatizadas com canela, envolvidas numa massa dourada e amanteigada, finalizada com açúcar em pó. Confortante e intemporal.",
+       "price": 3.95,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_BdTSR-rCFpo-GUXSh.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/UpjLkME-HIKXEre-KCcYfIS.webp",
+       "soldOut": true,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Nut Cookies",
+       "desc": "Biscoitos delicados de manteiga recheados com creme de manteiga e leite condensado com pedaços crocantes de frutos secos, levemente polvilhados com açúcar em pó. Rico, nostálgico e irresistível.",
+       "price": 1.3,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_moUgE-bPMFm-aCaXd.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/lBRzsvw-VbFdGeM-MRTJJHL.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "cheesecakes",
+     "name": "CHEESECAKES",
+     "items": [
+      {
+       "name": "Cheesecake de maracuja",
+       "desc": "Uma tentação tropical em cada pedaço! Cheesecake incrivelmente cremoso com uma base delicada de cacau. Coberto com uma vibrante camada de maracujá, trazendo o equilíbrio perfeito entre o doce e o ácido – uma verdadeira viagem ao paraíso. Perfeito para quem ama um toque exótico em uma sobremesa clássica. Dê uma mordida no sabor do verão!",
+       "price": 6.25,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/ivdvjYU-dtYeTUN-GuybjQN_yJD.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/ivdvjYU-dtYeTUN-GuybjQN.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Cheesecake tres chocolates",
+       "desc": "O sonho de qualquer amante de chocolate! Três camadas irresistíveis de cheesecake sedoso nos sabores chocolate ao leite, meio amargo e branco, sobre uma base crocante de biscoito de cacau. Cada mordida derrete na boca, criando uma harmonia perfeita de sabores intensos e texturas cremosas.",
+       "price": 7.5,
+       "img": null,
+       "imgBig": null,
+       "soldOut": true,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bolos-por-encomenda",
+   "name": "BOLOS POR ENCOMENDA",
+   "desc": "",
+   "info": "Estamos felizes por poder estar ao seu lado e celebrar os seus momentos mais especiais. O bolo perfeito já está esperando por você, faça o seu pedido agora mesmo!\n\n🎂 Com prazer, aceitamos seus pedidos de bolos de segunda a sexta-feira, das 10:00 às 18:00.\n⏰ Faça o pedido com pelo menos 72 horas de antecedência para que possamos preparar o seu bolo ideal!\n💳 Pagamento:\n• Pedidos para retirada – somente após o pagamento total no estabelecimento.\n\n❓ Tem dúvidas? Entre em contato com nossos gerentes:\n• 📞 Telefone: 282419549\n🍰 Escolha sua delícia no nosso menu abaixo!",
+   "categories": []
+  },
+  {
+   "id": "drinks",
+   "name": "BEBIDAS",
+   "desc": "",
+   "info": "",
+   "categories": [
+    {
+     "id": "cafe",
+     "name": "CAFÉ",
+     "items": [
+      {
+       "name": "Expresso",
+       "desc": "",
+       "price": 1.2,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Descafeinado",
+       "desc": "",
+       "price": 1.2,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Duplo",
+       "desc": "",
+       "price": 2.5,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Americano",
+       "desc": "",
+       "price": 1.8,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Americano com leite",
+       "desc": "",
+       "price": 2.0,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Meia de leite",
+       "desc": "",
+       "price": 2.0,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Latte",
+       "desc": "",
+       "price": 3.0,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Ice Latte",
+       "desc": "",
+       "price": 3.5,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Cappuccino",
+       "desc": "",
+       "price": 2.8,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Matcha Latte",
+       "desc": "",
+       "price": 3.5,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Tiramisu Latte",
+       "desc": "",
+       "price": 4.0,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Chocolate Quente",
+       "desc": "",
+       "price": 4.0,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Seleção de Chá",
+       "desc": "",
+       "price": 1.6,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "cocktails",
+     "name": "COCKTAILS",
+     "items": [
+      {
+       "name": "Mojito",
+       "desc": "rum • hortelã • lima • soda",
+       "price": 7.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_jrKlR-UHHWp-GICqA.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/PFSPFgR-qDSPytI-AeJJwmL.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Passion Fruit Mojito",
+       "desc": "rum • maracujá • hortelã • lima",
+       "price": 8.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_YGfce-QQCQq-bjvNU.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/CqHmFcM-wHQDuGl-yhcmxMZ.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Caipirinha",
+       "desc": "cachaça • lima",
+       "price": 7.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_FxTQE-oULjs-bbCBJ.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/zbQsDwS-TnYJdHX-dPpIlfL.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Aperol Spritz",
+       "desc": "aperol • prosecco • soda",
+       "price": 7.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_mGUYo-wTbfA-AgbGk.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/rHHsODB-OPVwQGx-MlFJeHU.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Gin & Tonic Bombay",
+       "desc": "gin • água tónica • pepino",
+       "price": 7.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_OOUbY-NfjFN-KlDzL.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/ojkEIed-HkbCSoW-BnJaJQq.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Piña Colada",
+       "desc": "rum • ananás • coco",
+       "price": 8.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_eEVCY-hUaQU-XJHkm.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/YhJqehp-YaqJGDX-wkfyHXK.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Negroni Sbagliato",
+       "desc": "campari • vermute • prosecco",
+       "price": 7.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_AICaf-togxF-VeaDM.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/FTvzlsI-HOOmAkA-gIFIUBJ.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Limoncello Spritz",
+       "desc": "limoncello • prosecco • soda",
+       "price": 7.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_TMDDN-knvGe-VknGF.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/eISAteJ-HQbGLuz-qIhvmRe.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Paloma",
+       "desc": "tequila • toranja",
+       "price": 8.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_GoJOF-vXjbR-uICPM.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/vHLGKHi-GHDVNOA-JiOxkIX.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "mocktails",
+     "name": "MOCKTAILS",
+     "items": [
+      {
+       "name": "Virgin Mojito",
+       "desc": "hortelã • lima • soda",
+       "price": 5.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_hGhJi-nvBvE-erDkB.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/icYHlOB-JVWFDua-WCgbUdR.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Grapefruit Rosemary Spritz",
+       "desc": "toranja • alecrim • soda",
+       "price": 5.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_SoehS-PXGGJ-GQhBM.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/JIUxHkT-clfrJVy-ITvHeLU.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "sangria",
+     "name": "SANGRIA",
+     "items": [
+      {
+       "name": "Sangria Tinto ou Branco",
+       "desc": "",
+       "price": 17.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_UWelW-HsJUU-HfWEi.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/boTlTZW-GLSZMex-AlKHiWK.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Sangria de Espumante Maracujá ou Frutos Vermelhos",
+       "desc": "",
+       "price": 20.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_UMJLh-tUohD-UbmAQ.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/cNcoCKi-HidXCDD-rScCllG.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "limonadas-caseiras",
+     "name": "LIMONADAS CASEIRAS",
+     "items": [
+      {
+       "name": "Lemon Mint Lemonade",
+       "desc": "limão • hortelã",
+       "price": 4.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_JBTGZ-XePDD-CmCPX.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/vfNfnfj-VCngHCE-IKsokhI.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Passion Fruit Lemonade",
+       "desc": "maracujá",
+       "price": 5.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_AOaId-GMgHv-BsSMv.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/XxGyVfD-bpQTsTv-mPzCsRR.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "smoothies",
+     "name": "BATIDOS",
+     "items": [
+      {
+       "name": "Açaí Power",
+       "desc": "açaí • morango • mirtilo • manga",
+       "price": 5.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_RIeYJ-bVLvu-UfrIL.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/DyMNzzc-kkQABsZ-lxkNFHI.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Carrot Passion",
+       "desc": "cenoura • ananás • papaia • maracujá",
+       "price": 5.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_VQsSA-XUGBe-UDcbb.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/YeYTvyo-inXlbCb-INcGInc.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Mad Berries",
+       "desc": "amora • morango • framboesa • mirtilo",
+       "price": 5.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_PbSjw-bqhxl-zIHvq.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/HCdeVIe-LlVkIhk-FDOZJMb.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "sumos-naturais",
+     "name": "SUMOS NATURAIS",
+     "items": [
+      {
+       "name": "Uma fruta",
+       "desc": "Laranja • Maçã • Cenoura",
+       "price": 4.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_dIPGX-dMbet-VGBhh.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/hegytMc-WLEGHOD-EMzgDaI.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Mix de 2 frutas",
+       "desc": "Laranja • Maçã • Cenoura",
+       "price": 5.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_PzLjC-fsFoF-raPxC.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/ugJlOiK-slIBthu-icdGykx.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Ananás & Hortelã",
+       "desc": "",
+       "price": 5.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_OBJSa-FvpIH-iwGkN.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/BJbpWPf-hMiglVB-qUhEeoF.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "aguas-e-refrigerantes",
+     "name": "ÁGUAS E REFRIGERANTES",
+     "items": [
+      {
+       "name": "Agua Natural 0.50cl",
+       "desc": "",
+       "price": 1.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_kUNNH-njBOX-lGbxa.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/hsSbWCg-jIVOzpG-pUjlFkK.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": "0,5"
+      },
+      {
+       "name": "Água Natural (Vidro) 0.75cl",
+       "desc": "",
+       "price": 2.9,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_Tlegm-eKGHC-QhyGW.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/RVaIfYE-LYiisDy-tIkQHTT.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": "0.75"
+      },
+      {
+       "name": "Pedras",
+       "desc": "",
+       "price": 2.2,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_uCmxl-hUCel-HFpwo.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/JGFCpep-TWqSnxk-llzMIFi.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Pedras Sabores",
+       "desc": "",
+       "price": 2.6,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_NkbIs-viRfB-jiaIO.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/HUuFCcI-OFfbGxT-JLjGCok.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Castello",
+       "desc": "",
+       "price": 2.2,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_brGpn-DfIIL-BSJVY.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/jwlWlyf-cBCrkMz-OaJsNDl.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Água Tónica",
+       "desc": "",
+       "price": 3.0,
+       "img": null,
+       "imgBig": null,
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Cola / Fanta / Sprite",
+       "desc": "",
+       "price": 3.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_KVjzg-AHMRw-bDSaN.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/IvyKzvC-iAfDqeP-kBEGCDj.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Nestea",
+       "desc": "limão, pêssego, manga-ananás",
+       "price": 0.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_dWvwl-DCcUX-edODL.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/NaJHTIe-RSJWvHr-loUQzNT.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "cervejas",
+     "name": "CERVEJAS",
+     "items": [
+      {
+       "name": "Super Bock",
+       "desc": "",
+       "price": 2.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_quDmI-Fytkx-SGGxq.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/iRlCkyt-vuHvVVj-cWtgefi.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Corona",
+       "desc": "",
+       "price": 4.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_UEvkx-MWcmq-kyoEI.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/lcOhCzP-YTFflas-rHbfyDr.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Somersby",
+       "desc": "",
+       "price": 3.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_oelWM-sDWjQ-xJvSk.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/oDCvkjj-GasFFPk-THIeegY.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Cerveja s/a",
+       "desc": "",
+       "price": 2.6,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_CUjGu-WQnFU-CFkHa.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/mdxhoAW-CfFsDDE-nTJTvTY.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Imperial 0,2cl",
+       "desc": "",
+       "price": 2.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_amoXw-poaEx-yeCJR.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/GhblJnH-HMfKaFu-LkbKgBM.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Imperial 0.4cl",
+       "desc": "",
+       "price": 3.5,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_HFWhb-iRNrP-TDSmA.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/zmYIbFB-sulnwRb-JKAFUjz.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "vinhos",
+   "name": "VINHOS",
+   "desc": "",
+   "info": "",
+   "categories": [
+    {
+     "id": "branco",
+     "name": "BRANCO",
+     "items": [
+      {
+       "name": "Beyra Chardonnay",
+       "desc": "Beira Interior",
+       "price": 24.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_FbIqV-fVlcH-GDhPw.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/KLjvSad-UOamBvI-ldjmEvM.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Lavradores de Feitoria",
+       "desc": "Douro",
+       "price": 17.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_liBTw-KfLsJ-mzGAb.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/hHvFXPU-PowQgSf-CKxSGqE.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Despedida Sauvignon Blanc",
+       "desc": "Algarve",
+       "price": 19.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_dCCpv-QGyDH-kwgLc.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/xCVCKex-IGJbCJV-KsxwbSE.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Verdelho Malhadinha",
+       "desc": "Baixo Alentejo",
+       "price": 28.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_DFFsT-DfDkq-uMIcQ.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/JAOtlXm-HbwVdXa-szmhfjE.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "red",
+     "name": "TINTO",
+     "items": [
+      {
+       "name": "Despedida",
+       "desc": "Algarve",
+       "price": 19.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_YvogH-reHvc-XJeDj.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/OGeJfzQ-tHESGwF-TZDQGdl.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Beyra Reserva",
+       "desc": "Beira Interior",
+       "price": 22.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_kGoND-HOvPe-Wpzbv.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/eXvbRSN-oKBkCJI-VqOTeeJ.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Dão Rótulo (Niepoort)",
+       "desc": "Douro",
+       "price": 19.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_bhVTV-KvybN-IDBSM.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/nTDCtyW-lltlbss-RJFVWxf.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Monte da Peceguina",
+       "desc": "Baixo Alentejo",
+       "price": 28.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_GtQyJ-LxqAD-cdlcg.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/SbIYyhr-tIHyDyz-ReEIAof.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Tiago Cabaço",
+       "desc": "Alentejo",
+       "price": 16.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_xCznG-DVbob-qijSF.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/CHliuEx-FdjNFlg-cplqBQJ.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "green",
+     "name": "VERDE",
+     "items": [
+      {
+       "name": "Muros Antigos Loureiro",
+       "desc": "Vinhos Verdes",
+       "price": 18.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_gkHFE-cVqXC-byRmm.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/MHDeFKE-IFuzwXz-JtZRvJZ.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Marquês de Lara Alvarinho",
+       "desc": "Vinhos Verdes",
+       "price": 21.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_KUssI-uVsOQ-wguNp.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/qiAlYHf-wujVqRy-VDlhehV.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    },
+    {
+     "id": "rose-espumante",
+     "name": "ROSÉ & ESPUMANTE",
+     "items": [
+      {
+       "name": "Lavradores de Feitoria Rosé",
+       "desc": "Douro",
+       "price": 17.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_cWjgR-fCHOm-HHzTW.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/LgFQXle-eYmMSrg-IUhIFHh.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Freshly Squeezed Rosé",
+       "desc": "Alentejo",
+       "price": 19.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_GBgmT-yiJqJ-VTGMp.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/bFjXfIk-qLnCSlK-BHReubJ.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      },
+      {
+       "name": "Prosecco Natale Verga",
+       "desc": "Italy",
+       "price": 22.0,
+       "img": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/img_KOfls-sfQWe-QfYIm.webp",
+       "imgBig": "https://cdn-media.choiceqr.com/prod-eat-sweet-salt/menu/qJbZqHs-kCDXCeh-mgppLnS.webp",
+       "soldOut": false,
+       "labels": [],
+       "volume": ""
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

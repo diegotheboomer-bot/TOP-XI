@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sweet & Salt — Menu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Portimão · Algarve</p>
+      <h1>Sweet <span>&amp;</span> Salt</h1>
+      <p class="meta">
+        <span id="open-status"></span>
+        <a href="https://maps.google.com/?q=Avenida+Miguel+Bombarda+9,+Portimão" target="_blank" rel="noopener">Av. Miguel Bombarda 9</a>
+        <a href="tel:282419549">282 419 549</a>
+      </p>
+    </div>
+  </header>
+
+  <nav class="bar">
+    <div class="wrap">
+      <div class="tabs" id="tabs" role="tablist"></div>
+      <div class="chips" id="chips"></div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <div class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="search" type="search" placeholder="Procurar no menu…" autocomplete="off">
+    </div>
+    <div id="content"></div>
+  </main>
+
+  <footer class="wrap foot">
+    <div>
+      <h3>Horário</h3>
+      <p>Dom – Qui · 10:00 – 22:00<br>Sex – Sáb · 10:00 – 22:30</p>
+    </div>
+    <div>
+      <h3>Contacto</h3>
+      <p>Avenida Miguel Bombarda 9<br>8500-643 Portimão</p>
+      <p><a href="tel:282419549">282 419 549</a> · <a href="mailto:sweetsalt.pt@gmail.com">sweetsalt.pt@gmail.com</a></p>
+    </div>
+    <div>
+      <h3>Siga-nos</h3>
+      <p><a href="https://www.instagram.com/sweetsalt.pt/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.tripadvisor.com/Restaurant_Review-g189120-d26155451-Reviews-Sweet_Salt-Portimao_Faro_District_Algarve.html" target="_blank" rel="noopener">Tripadvisor</a></p>
+    </div>
+  </footer>
+
+  <dialog id="dish">
+    <button class="close" aria-label="Fechar">×</button>
+    <img alt="">
+    <div class="body">
+      <h2></h2>
+      <p class="desc"></p>
+      <p class="price"></p>
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
