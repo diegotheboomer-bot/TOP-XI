@@ -1,6 +1,9 @@
-"""Bundle menu.json, its photos and a QR code into one self-contained page.
+"""Build the phone menu from menu.json, its photos and a QR code.
 
-Usage: python3 build.py <menu url for the QR code>
+Usage:
+  python3 build.py <url for the QR code>               one self-contained file in dist/ (photos embedded)
+  python3 build.py <url for the QR code> --site <dir>  a static site: index.html, img/*.webp, qr-code.png
+
 Needs Pillow and segno. Photos are cached in ~/.cache/sweet-salt.
 """
 import base64, hashlib, io, json, pathlib, sys, urllib.request
@@ -21,11 +24,18 @@ def photo(url):
     im.thumbnail((820, 820))
     buf = io.BytesIO()
     im.save(buf, "WEBP", quality=58)
-    return "data:image/webp;base64," + base64.b64encode(buf.getvalue()).decode()
+    return buf.getvalue()
 
 
-def main(qr_url):
+def main(qr_url, site=None):
     CACHE.mkdir(parents=True, exist_ok=True)
+    out_dir = pathlib.Path(site) if site else HERE / "dist"
+    if site:
+        (out_dir / "img").mkdir(parents=True, exist_ok=True)
+        (out_dir / ".nojekyll").touch()
+    else:
+        out_dir.mkdir(exist_ok=True)
+
     menu = json.loads((HERE.parent / "menu.json").read_text())
     imgs = {}
     for s in menu["sections"]:
@@ -36,19 +46,23 @@ def main(qr_url):
                 if url:
                     key = hashlib.md5(url.encode()).hexdigest()[:8]
                     if key not in imgs:
-                        imgs[key] = photo(url)
+                        data = photo(url)
+                        if site:
+                            (out_dir / "img" / f"{key}.webp").write_bytes(data)
+                            imgs[key] = f"img/{key}.webp"
+                        else:
+                            imgs[key] = "data:image/webp;base64," + base64.b64encode(data).decode()
                     i["img"] = key
 
     qr = segno.make(qr_url, error="m")
     qr_svg = qr.svg_inline(border=0, omitsize=True, dark="#111c26")
-    qr.save(HERE.parent / "qr-code.png", scale=24, border=4, dark="#111c26")
+    qr.save(out_dir / "qr-code.png" if site else HERE.parent / "qr-code.png", scale=24, border=4, dark="#111c26")
 
     data = (f"const MENU={json.dumps(menu, ensure_ascii=False)};\n"
             f"const IMGS={json.dumps(imgs)};\n"
             f"const QR_URL={json.dumps(qr_url)};\n"
             f"const QR_SVG={json.dumps(qr_svg)};\n")
-    out = HERE / "dist" / "sweet-salt-menu.html"
-    out.parent.mkdir(exist_ok=True)
+    out = out_dir / ("index.html" if site else "sweet-salt-menu.html")
     head = ('<!DOCTYPE html>\n<html lang="pt">\n<head>\n<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
             '<style>:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }'
@@ -61,4 +75,6 @@ def main(qr_url):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    args = sys.argv[1:]
+    site = args[args.index("--site") + 1] if "--site" in args else None
+    main(args[0], site)

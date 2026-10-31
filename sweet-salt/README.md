@@ -22,3 +22,11 @@ python3 phone/build.py https://claude.ai/artifact/CN9HWNeqrKppbdGVwvhbpA
 ```
 
 This writes `phone/dist/sweet-salt-menu.html` and `qr-code.png` (printable QR for the URL).
+
+## Website (GitHub Pages)
+
+The live site at https://diegotheboomer-bot.github.io/TOP-XI/ is served from `docs/`. Rebuild it with:
+
+```
+python3 sweet-salt/phone/build.py https://diegotheboomer-bot.github.io/TOP-XI/ --site docs
+```

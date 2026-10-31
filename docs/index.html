@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); } body { margin: 0; } img { max-width: 100%; }</style>
+<title>Sweet &amp; Salt Menu</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Photo-led, phone-first: full-bleed cover photo per section, swipeable picks, big photo cards, dish details in a bottom sheet. */
+:root {
+  --bg: #f4f3ef;
+  --surface: #ffffff;
+  --ink: #111c26;
+  --muted: #66707a;
+  --line: #e3e2dc;
+  --accent: #e2456b;
+  --accent-ink: #ffffff;
+  --accent-soft: #fde4ea;
+  --good: #23805a;
+  --good-soft: #dcf1e6;
+  --scrim: rgba(8, 14, 20, .55);
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, sans-serif;
+  --r: 22px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1218; --surface: #151e27; --ink: #f2f4f5; --muted: #99a5b0; --line: #24303b;
+    --accent: #ff6b8d; --accent-ink: #1a0a10; --accent-soft: #3b1d27; --good: #6fd3a3; --good-soft: #143528; --scrim: rgba(0, 0, 0, .7);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1218; --surface: #151e27; --ink: #f2f4f5; --muted: #99a5b0; --line: #24303b;
+  --accent: #ff6b8d; --accent-ink: #1a0a10; --accent-soft: #3b1d27; --good: #6fd3a3; --good-soft: #143528; --scrim: rgba(0, 0, 0, .7);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font: 17px/1.45 var(--body); -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
+button { font: inherit; color: inherit; }
+.pad { max-width: 1100px; margin: 0 auto; padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+
+/* Cover */
+.cover { position: relative; min-height: 400px; display: flex; align-items: flex-end; overflow: hidden; color: #fff; background: #111c26; }
+.cover img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: 100%; object-fit: cover; transform: scale(1.04); }
+.cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,.15) 50%, rgba(0,0,0,.82) 100%); }
+.cover .pad { position: relative; z-index: 1; width: 100%; padding-block: 24px 28px; display: grid; gap: 14px; }
+.cover-top { position: absolute; z-index: 2; top: 16px; left: max(18px, env(safe-area-inset-left, 0px)); right: max(18px, env(safe-area-inset-right, 0px)); display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.cover-top .actions { display: flex; gap: 8px; }
+.eyebrow { font: 600 12px var(--body); letter-spacing: .2em; text-transform: uppercase; opacity: .9; }
+.brand { margin: 0; font: 800 clamp(56px, 17vw, 120px)/.86 var(--display); letter-spacing: -.045em; text-wrap: balance; }
+.brand em { font-style: normal; color: var(--accent); }
+.cover-row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.pill { display: inline-flex; align-items: center; gap: 7px; min-height: 34px; padding: 0 14px; border-radius: 999px; background: rgba(255,255,255,.16); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: 14px; font-weight: 600; color: #fff; }
+.pill.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #c9cfd4; }
+.pill.status.open::before { background: #5be0a0; box-shadow: 0 0 0 4px rgba(91,224,160,.25); }
+.glass-btn { min-width: 46px; height: 46px; display: grid; place-items: center; border: 0; border-radius: 999px; background: rgba(255,255,255,.18); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: #fff; cursor: pointer; }
+.glass-btn svg, .icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.lang-toggle { display: flex; padding: 4px; gap: 2px; }
+.lang-toggle span { min-width: 38px; height: 38px; display: grid; place-items: center; border-radius: 999px; font: 700 14px var(--display); letter-spacing: .04em; opacity: .75; }
+.lang-toggle span.on { background: #fff; color: #111c26; opacity: 1; }
+.cover-dish { font-size: 14px; opacity: .85; }
+
+/* Sticky nav */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); box-shadow: 0 1px 0 var(--line); }
+.scroller { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; }
+.scroller::-webkit-scrollbar { display: none; }
+.tabs, .chips { -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); padding-right: 28px; }
+.navrow { display: flex; align-items: center; gap: 8px; padding-block: 12px 10px; }
+.tabs { flex: 1; min-width: 0; }
+.tab { flex: none; min-height: 46px; padding: 0 20px; border: 0; border-radius: 999px; background: var(--surface); font: 700 16px var(--display); color: var(--muted); cursor: pointer; box-shadow: inset 0 0 0 1px var(--line); }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--bg); box-shadow: none; }
+.icon { flex: none; width: 46px; height: 46px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); cursor: pointer; }
+.chips { padding-block: 0 12px; gap: 18px; }
+.chips:empty { display: none; }
+.chip { flex: none; padding: 4px 0; border: 0; border-bottom: 2.5px solid transparent; background: none; font-size: 15px; font-weight: 600; color: var(--muted); cursor: pointer; text-transform: capitalize; }
+.chip.active { color: var(--ink); border-color: var(--accent); }
+.search { display: flex; gap: 8px; padding-block: 12px; }
+.search input { flex: 1; min-width: 0; height: 50px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); font: inherit; color: inherit; outline: none; }
+.search input:focus { box-shadow: inset 0 0 0 2px var(--accent); }
+.search button { padding: 0 8px; border: 0; background: none; color: var(--accent); font-weight: 700; cursor: pointer; }
+
+/* Content */
+main { padding-block: 8px 56px; }
+.tagline { margin: 22px 0 0; font: 600 13px var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.note { margin: 22px 0 0; padding: 22px; border-radius: var(--r); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-size: 16px; white-space: pre-line; }
+.picks h2, .cat h2 { margin: 0; font: 800 clamp(34px, 10vw, 52px)/1 var(--display); letter-spacing: -.035em; text-transform: capitalize; text-wrap: balance; }
+.cat h2 sup { margin-left: 6px; font: 600 15px var(--body); letter-spacing: 0; color: var(--muted); vertical-align: top; }
+.cat h2 small { display: block; margin-bottom: 6px; font: 600 13px var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.picks { margin-top: 30px; }
+.picks h2 { font-size: 26px; }
+.rail { margin: 14px calc(-1 * max(18px, env(safe-area-inset-left, 0px))) 0; padding: 0 max(18px, env(safe-area-inset-left, 0px)) 6px; scroll-snap-type: x mandatory; scroll-padding: 0 max(18px, env(safe-area-inset-left, 0px)); gap: 12px; }
+.pick { position: relative; flex: none; width: 78%; max-width: 340px; aspect-ratio: 4 / 5; scroll-snap-align: start; border: 0; padding: 0; border-radius: var(--r); overflow: hidden; background: var(--line); cursor: pointer; color: #fff; text-align: left; }
+.pick img { width: 100%; height: 100%; max-width: 100%; object-fit: cover; display: block; }
+.pick::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.8)); }
+.pick .over { position: absolute; z-index: 1; left: 16px; right: 16px; bottom: 16px; }
+.pick .name { font: 700 22px/1.1 var(--display); letter-spacing: -.01em; }
+.pick .price-tag { position: absolute; z-index: 1; top: 12px; right: 12px; }
+
+.cat { margin-top: 44px; scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 130px); }
+.grid { display: grid; gap: 16px; margin-top: 18px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+.card { display: flex; flex-direction: column; width: 100%; padding: 0; border: 0; border-radius: var(--r); background: var(--surface); overflow: hidden; text-align: left; cursor: pointer; box-shadow: 0 1px 0 var(--line), 0 10px 30px -18px rgba(17, 28, 38, .35); transition: transform .2s; }
+.card:active { transform: scale(.985); }
+.card .photo { position: relative; display: block; aspect-ratio: 4 / 3; max-width: 100%; background: var(--line); }
+.card .photo img { width: 100%; height: 100%; max-width: 100%; object-fit: cover; display: block; }
+.card .badges { position: absolute; left: 12px; top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+.card .price-tag { position: absolute; right: 12px; bottom: 12px; }
+.card .text { padding: 16px 18px 20px; display: grid; gap: 6px; min-width: 0; }
+.card .name { font: 700 22px/1.15 var(--display); letter-spacing: -.015em; }
+.card .desc { font-size: 15px; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card.sold-out .photo img { filter: grayscale(1); opacity: .6; }
+.card.sold-out .name { color: var(--muted); }
+
+.price-tag { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 999px; background: var(--surface); color: var(--ink); font: 700 17px var(--display); font-variant-numeric: tabular-nums; box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+.badge { display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.badge.new { background: var(--good-soft); color: var(--good); }
+.badge.recommended { background: var(--accent); color: var(--accent-ink); }
+.badge.sold { background: var(--ink); color: var(--bg); }
+
+/* Rows for items without photos (coffee, extras) */
+.rows { margin-top: 14px; border-radius: var(--r); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+.line { display: flex; align-items: baseline; gap: 12px; width: 100%; padding: 16px 18px; border: 0; background: none; text-align: left; cursor: pointer; }
+.line + .line { box-shadow: 0 -1px 0 var(--line); }
+.line > span:first-child { min-width: 0; }
+.line .name { font-weight: 600; font-size: 17px; }
+.line .desc { display: block; font-size: 14px; color: var(--muted); }
+.line .dots { flex: 1; min-width: 12px; border-bottom: 2px dotted var(--line); transform: translateY(-4px); }
+.line .p { font: 700 17px var(--display); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.line .vol { color: var(--muted); font: 500 14px var(--body); }
+.line.sold-out .name { color: var(--muted); text-decoration: line-through; }
+
+.empty { padding: 64px 0; text-align: center; color: var(--muted); font-size: 18px; }
+.card:focus-visible, .pick:focus-visible, .line:focus-visible, .tab:focus-visible, .chip:focus-visible, .icon:focus-visible, .glass-btn:focus-visible, .lang-choice:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Bottom sheet */
+.sheet { position: fixed; inset: 0; z-index: 40; display: flex; align-items: flex-end; justify-content: center; background: var(--scrim); }
+.panel { position: relative; width: 100%; max-width: 600px; max-height: 94%; overflow-y: auto; border-radius: 28px 28px 0 0; background: var(--surface); padding-bottom: env(safe-area-inset-bottom, 0px); animation: up .25s cubic-bezier(.2, .8, .2, 1); }
+@keyframes up { from { transform: translateY(60px); opacity: .5; } }
+@media (prefers-reduced-motion: reduce) { .panel { animation: none; } .card { transition: none; } }
+.panel > img { display: block; width: 100%; max-width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+.panel .body { padding: 22px max(22px, env(safe-area-inset-right, 0px)) 30px max(22px, env(safe-area-inset-left, 0px)); display: grid; gap: 12px; }
+.panel h3 { margin: 0; font: 800 32px/1.05 var(--display); letter-spacing: -.03em; text-wrap: balance; }
+.panel p { margin: 0; color: var(--muted); font-size: 17px; }
+.panel .meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.panel .big-price { font: 800 30px var(--display); font-variant-numeric: tabular-nums; margin-right: 6px; }
+.close { position: absolute; top: 14px; right: max(14px, env(safe-area-inset-right, 0px)); z-index: 1; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--surface); color: var(--ink); font-size: 26px; line-height: 1; cursor: pointer; box-shadow: 0 4px 14px rgba(0, 0, 0, .2); }
+.info .body { padding-top: 30px; gap: 22px; }
+.info dl { display: grid; gap: 20px; margin: 0; }
+.info dt { font: 700 12px var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.info dd { margin: 6px 0 0; font-size: 17px; }
+.info a { color: var(--ink); font-weight: 600; }
+.hours { display: grid; grid-template-columns: auto auto; justify-content: start; gap: 4px 20px; font-variant-numeric: tabular-nums; }
+.hours .today { font-weight: 700; color: var(--accent); }
+.copy { margin-left: 10px; min-height: 32px; padding: 0 12px; border: 0; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 700; cursor: pointer; }
+
+/* QR */
+.body.qr { padding-top: 34px; justify-items: center; text-align: center; }
+.qr-code { width: min(300px, 78vw); max-width: 100%; aspect-ratio: 1; padding: 16px; border-radius: 24px; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 18px 40px -20px rgba(17, 28, 38, .5); }
+.qr-code svg { display: block; width: 100%; height: 100%; }
+.qr .url { font-size: 14px; color: var(--muted); word-break: break-all; user-select: all; }
+
+/* Language picker on first visit */
+.welcome { position: fixed; inset: 0; z-index: 50; display: flex; align-items: flex-end; justify-content: center; background: linear-gradient(180deg, rgba(8,14,20,.2), rgba(8,14,20,.75)); }
+.welcome .panel { padding: 30px max(22px, env(safe-area-inset-right, 0px)) calc(26px + env(safe-area-inset-bottom, 0px)) max(22px, env(safe-area-inset-left, 0px)); display: grid; gap: 18px; }
+.welcome h2 { margin: 0; font: 800 34px/1.02 var(--display); letter-spacing: -.035em; }
+.welcome h2 span { display: block; color: var(--muted); font-weight: 700; }
+.lang-choice { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 66px; padding: 0 22px; border: 0; border-radius: 18px; background: var(--bg); box-shadow: inset 0 0 0 1.5px var(--line); font: 700 21px var(--display); cursor: pointer; }
+.lang-choice small { font: 600 13px var(--body); letter-spacing: .14em; color: var(--muted); }
+.lang-choice.suggested { background: var(--ink); color: var(--bg); box-shadow: none; }
+.lang-choice.suggested small { color: inherit; opacity: .7; }
+</style>
+
+</head>
+<body>
+<header class="cover" id="cover">
+  <img id="cover-img" alt="">
+  <div class="cover-top">
+    <span class="eyebrow">Portimão</span>
+    <div class="actions">
+      <button class="glass-btn lang-toggle" id="lang-btn" aria-label="Português / English"><span data-l="pt">PT</span><span data-l="en">EN</span></button>
+      <button class="glass-btn" id="qr-btn" aria-label="QR"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg></button>
+      <button class="glass-btn" id="info-btn" aria-label="Info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg></button>
+    </div>
+  </div>
+  <div class="pad">
+    <h1 class="brand">Sweet <em>&amp;</em><br>Salt</h1>
+    <div class="cover-row">
+      <span class="pill status" id="status"></span>
+      <span class="cover-dish" id="cover-dish"></span>
+    </div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="pad">
+    <div class="search" id="search-row" hidden>
+      <input id="q" type="search" autocomplete="off" enterkeyhint="search">
+      <button id="search-cancel"></button>
+    </div>
+    <div class="navrow" id="nav-row">
+      <div class="scroller tabs" id="tabs" role="tablist"></div>
+      <button class="icon" id="search-btn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    </div>
+    <div class="scroller chips" id="chips"></div>
+  </div>
+</nav>
+
+<main class="pad" id="content"></main>
+
+<div class="sheet" id="sheet" hidden><div class="panel" id="panel"></div></div>
+
+<div class="welcome" id="welcome" hidden>
+  <div class="panel">
+    <h2>Bem-vindo<span>Welcome</span></h2>
+    <button class="lang-choice" data-lang="pt">Português <small>PT</small></button>
+    <button class="lang-choice" data-lang="en">English <small>EN</small></button>
+  </div>
+</div>
+
+<script>
+const MENU={"sections": [{"id": "brunch", "name": "BRUNCH", "desc": "", "info": "", "en": {"name": "BRUNCH", "desc": "", "info": ""}, "categories": [{"id": "ovos-mais", "name": "OVOS & MAIS", "en": {"name": "EGGS & MORE"}, "items": [{"name": "Crepes de Frango com Cogumelos", "desc": "crepes recheados com frango, cogumelos e queijo, servidos com crème fraîche", "price": 12.5, "img": "7e6d7691", "soldOut": false, "labels": ["new"], "volume": "", "en": {"name": "Chicken & Mushroom Crêpes", "desc": "crêpes filled with chicken, mushrooms and cheese, served with sour cream"}}, {"name": "Benedict de Salmão Fumado", "desc": "brioche, salmão fumado, queijo creme, abacate esmagado, ovo poché, molho holandês", "price": 12.0, "img": "8aa6e28e", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Smoked Salmon Benedict", "desc": "brioche, smoked salmon, cream cheese, smashed avocado, poached egg, hollandaise sauce"}}, {"name": "Benedict de Prosciutto", "desc": "brioche, prosciutto cotto, queijo creme, abacate esmagado, ovo poché, molho holandês", "price": 11.0, "img": "e032f8b9", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Prosciutto Benedict", "desc": "brioche, prosciutto cotto, cream cheese, smashed avocado, poached egg, hollandaise sauce"}}, {"name": "Benedict de Camarão ⭐", "desc": "brioche, camarões grelhados, queijo creme, abacate esmagado, ovo poché, molho holandês, rúcula, parmesão", "price": 12.5, "img": "da5c9f14", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Shrimp Benedict", "desc": "brioche, grilled shrimp, cream cheese, smashed avocado, poached egg, hollandaise sauce, arugula, parmesan"}}, {"name": "Sanduíche Croque Madame", "desc": "sanduíche croque madame com prosciutto cotto, queijo, ovo estrelado, molho béchamel no brioche e salada mix com parmesão", "price": 11.0, "img": "49d1f530", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Croque Madame Sandwich", "desc": "Croque Madame Sandwich with prosciutto cotto, cheese, fried egg, truffle béchamel sauce on brioche, and salad."}}, {"name": "Croissant Sweet & Salt", "desc": "croissant, hambúrguer Angus, camembert grelhado, geleia de cebola, rúcula, amêndoas laminadas, xarope de ácer, servido com batatas dip e molho aioli", "price": 15.5, "img": "7a079f01", "soldOut": false, "labels": ["recommended"], "volume": "", "en": {"name": "Sweet & Salt Croissant", "desc": "croissant, Angus beef burger, grilled camembert, onion jelly, arugula, almond flakes, maple syrup served with dip potatoes and aioli sauce"}}, {"name": "Chicken Croissant", "desc": "croissant, frango panado em panko, bacon grelhado, alface romana, parmesão, molho Caesar", "price": 12.0, "img": "74a4bb72", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Chicken Croissant", "desc": "croissant, panko breaded chicken, grilled bacon, romaine lettuce, parmesan, Caesar dressing"}}, {"name": "Breakfast Croissant", "desc": "croissant, prosciutto cotto, ovos mexidos, queijo creme, rúcula, parmesão, molho cheddar, croquetes de batata", "price": 12.5, "img": "d1d31ce5", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Breakfast Croissant", "desc": "croissant, prosciutto cotto, scrambled eggs, cream cheese, arugula, parmesan, cheddar sauce, potato croquettes"}}, {"name": "Croissant de Abacate & Ovo Poché", "desc": "croissant, abacate esmagado, ovo poché, molho holandês, rúcula, Grana Padano", "price": 9.0, "img": "242712b7", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Avocado & Poached Egg Croissant", "desc": "croissant, smashed avocado, poached egg, hollandaise sauce, arugula, Grana Padano"}}, {"name": "Croissant de Prosciutto & Camembert", "desc": "croissant, prosciutto, camembert grelhado, figos frescos, mel & mostarda, mix de saladas", "price": 11.0, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Prosciutto & Camembert Croissant", "desc": "croissant, prosciutto, grilled camembert, fresh figs, honey mustard, mixed salad"}}, {"name": "Melt de Novilho & Cheddar", "desc": "tosta, novilho desfiado, geleia de cebola, cheddar, mozzarella, Grana Padano, picles, molho tonnato", "price": 12.0, "img": "0969f7c3", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Beef & Cheddar Melt", "desc": "toast, shredded beef, onion jelly, cheddar, mozzarella, Grana Padano, pickles, tonnato sauce"}}, {"name": "Avo Tost", "desc": "tosta, abacate esmagado, ovos mexidos", "price": 8.5, "img": "6868a270", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Avo Tost", "desc": "toast, smashed avocado, scrambled eggs"}}, {"name": "Hashbrown com Salmão Fumado", "desc": "hashbrown, salmão fumado, abacate, ovo estrelado, crème fraîche, servido com salada", "price": 12.0, "img": "7b66649d", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Hashbrown with Smoked Salmon", "desc": "hashbrown, smoked salmon, avocado, fried egg, crème fraîche, served with salad"}}, {"name": "Hashbrown com Novilho Desfiado", "desc": "hashbrown, novilho desfiado, abacate, crème fraîche, ovo estrelado, crème fraîche, servido com salada", "price": 11.0, "img": "77e76cd9", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Hashbrown with Shredded Beef", "desc": "hashbrown, shredded beef, avocado, crème fraîche, fried egg, sour cream sauce, served with salad"}}, {"name": "Salty Panquecas", "desc": "panquecas caseiras, bacon grelhado, cheddar, ovo estrelado, xarope de ácer", "price": 12.5, "img": "f340fe46", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Salty Pancakes", "desc": "fluffy homemade pancakes, grilled bacon, cheddar, fried egg, maple syrup"}}]}, {"id": "doce", "name": "DOCE", "en": {"name": "SWEET"}, "items": [{"name": "Berry Panquecas", "desc": "panquecas caseiras, mascarpone, frutos vermelhos, coulis de frutos vermelhos, lemon curd", "price": 13.0, "img": "733629a5", "soldOut": false, "labels": [], "volume": "", "en": {"name": "BERRY PANCAKES", "desc": "fluffy homemade pancakes, mascarpone, fresh berries, berry coulis, lemon curd"}}, {"name": "Guilty Panquecas", "desc": "panquecas fofas caseiras, chocolate, banana, amendoins caramelizados", "price": 12.5, "img": "d66714cc", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Guilty Pancakes", "desc": "fluffy homemade pancakes, chocolate, banana, caramelized peanuts"}}]}]}, {"id": "menu", "name": "MENU", "desc": "All day kitchen", "info": "", "en": {"name": "MENU", "desc": "All day kitchen", "info": ""}, "categories": [{"id": "start-share", "name": "ENTRADAS", "en": {"name": "START & SHARE"}, "items": [{"name": "Éclairs de Tártaro de Atum Marinado ⭐", "desc": "tártaro de atum marinado, guacamole, chips de parmesão", "price": 7.0, "img": "eb07a335", "soldOut": true, "labels": ["recommended"], "volume": "", "en": {"name": "Marinated Tuna Tartare Éclairs", "desc": "marinated tuna tartare, guacamole, parmesan chips"}}, {"name": "Camarões Tigre ao Bisque", "desc": "camarões tigre, molho bisque cremoso, pimentos marinados, tomate, cebolinho, ciabatta", "price": 12.5, "img": "64a810d4", "soldOut": false, "labels": ["recommended"], "volume": "", "en": {"name": "Tiger Prawns in Bisque Sauce", "desc": "tiger prawns, creamy bisque sauce, marinated peppers, tomato, chives, ciabatta"}}, {"name": "Camembert Grelhado com Pera", "desc": "Queijo camembert grelhado, pera caramelizada, mel, amêndoas laminadas, ciabatta", "price": 10.0, "img": "70d8c83a", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Grilled Camembert with Pear", "desc": "grilled camembert cheese, caramelized pear, honey, almond flakes, ciabatta"}}, {"name": "Tártaro Angus Grain Fed  👨‍🍳", "desc": "lombo Angus Grain Fed, chalota, alcaparras, gema de ovo, batata frita, molho vitello tonnato, parmesão", "price": 13.5, "img": "91f17902", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Angus Grain Fed Beef Tartare 👨‍🍳", "desc": "Angus beef tenderloin, shallots, capers, egg yolk, fries, vitello tonnato sauce, parmesan"}}, {"name": "Tártaro de Salmão Marinado", "desc": "salmão marinado, abacate, queijo crème, pão caseiro tostado", "price": 11.5, "img": "fcf91d1d", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Marinated Salmon Tartare", "desc": "marinated salmon, avocado, cream cheese, homemade toasted bread"}}, {"name": "Croquetes de Prosciutto & Queijos", "desc": "prosciutto cotto, mozzarella, parmesão, cebolinho servido com molho de frutos vermelhos", "price": 8.0, "img": "ca7a6c61", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Prosciutto & Cheese Croquettes", "desc": "prosciutto cotto, mozzarella, parmesan, chives, served with red berry sauce"}}, {"name": "Bruschetta de Prosciutto & Tomate Concassé", "desc": "prosciutto, tomate concassé, pão artesanal tostado", "price": 7.0, "img": "004bf7e7", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Prosciutto & Tomato Concassé Bruschetta", "desc": "prosciutto, tomato concassé, toasted artisan bread"}}, {"name": "Bruschetta de Sardinha", "desc": "sardinha, salsa de tomate e pickles, cebola roxa marinada, queijo creme, pão artesanal tostado", "price": 7.0, "img": "83be19cc", "soldOut": false, "labels": ["new"], "volume": "", "en": {"name": "Sardine Bruschetta", "desc": "sardine, tomato salsa and pickles, marinated red onion,cream cheese, toasted artisan bread"}}, {"name": "Pão Caseiro, Manteiga & Azeitonas Marinadas", "desc": "pão caseiro, manteiga, azeitonas marinadas", "price": 5.5, "img": "f840511b", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Homemade Bread, Butter & Marinated Olives", "desc": "homemade bread, butter, marinated olives"}}]}, {"id": "saladas-sopa", "name": "SALADAS & SOPA", "en": {"name": "SALADS & SOUP"}, "items": [{"name": "Caesar com Frango Grelhado", "desc": "peito de frango grelhado, alface romana, tomate cherry, ovo em panko, parmesão, molho Caesar, tosta crocante", "price": 13.5, "img": "4831652e", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Grilled Chicken Caesar Salad", "desc": "grilled chicken breast, romaine lettuce, cherry tomatoes, panko egg, parmesan, Caesar dressing, crispy toast"}}, {"name": "Salada de Camarões e Manga", "desc": "camarões grelhados, manga, abacate, tomate cherry, mix de saladas, molho de manga, amêndoas laminadas", "price": 14.0, "img": "4ae52742", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Grilled Shrimp & Mango Salad", "desc": "grilled shrimp, mango, avocado, cherry tomatoes, mixed salad, mango dressing, almond flakes"}}, {"name": "Salada de Camembert Grelhado", "desc": "camembert grelhado, figos frescos, nozes, hortelã fresca, mix de saladas, molho de mel, mostarda e citrinos", "price": 10.5, "img": "ef4a0333", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Grilled Camembert Salad", "desc": "grilled camembert, fresh figs, walnuts, fresh mint, mixed salad, honey mustard citrus dressing"}}, {"name": "Salada de Atum e Frutas Tropicais", "desc": "atum fresco marinado, morango, manga, tomate cherry, lâminas de cenoura, molho tailandês", "price": 14.0, "img": "0cdf4a7a", "soldOut": true, "labels": [], "volume": "", "en": {"name": "Marinated Tuna & Tropical Fruit Salad", "desc": "fresh marinated tuna, strawberry, mango, cherry tomatoes, carrot slices, Thai dressing"}}, {"name": "Sopa Caseira do Dia", "desc": "sopa do dia, ciabatta torrada", "price": 5.0, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Homemade Soup of the Day", "desc": "homemade soup of the day, toasted ciabatta"}}]}, {"id": "burger", "name": "BURGER", "en": {"name": "BURGER"}, "items": [{"name": "Over Burger", "desc": "pão brioche, hambúrguer Angus, molho burger, queijo cheddar, bacon, cebola caramelizada, jalapeños, alface romana, picles, molho BBQ servido com batatas dip e aioli", "price": 16.0, "img": "57bd6a19", "soldOut": false, "labels": ["recommended"], "volume": "", "en": {"name": "Over Burger", "desc": "brioche bun, Angus beef burger, burger sauce, cheddar cheese, bacon, caramelized onion, jalapeños, romaine lettuce, pickles, BBQ sauce with dip potatoes and aioli"}}, {"name": "Croissant Sweet & Salt", "desc": "croissant, hambúrguer Angus, camembert grelhado, geleia de cebola, rúcula, amêndoas laminadas, xarope de ácer, servido com batatas dip e molho aioli", "price": 15.5, "img": "04dd728b", "soldOut": false, "labels": ["recommended"], "volume": "", "en": {"name": "Sweet & Salt Croissant Copy", "desc": "croissant, Angus beef burger, grilled camembert, onion jelly, arugula, almond flakes, maple syrup served with dip potatoes and aioli sauce"}}, {"name": "Shrimp Burger ⭐", "desc": "pão brioche caseiro, hambúrguer de camarão e peixe branco, molho tártaro, alface romana, pepino fresco, batatas dip, parmesão, aioli", "price": 16.0, "img": "3d013bd4", "soldOut": false, "labels": ["new"], "volume": "", "en": {"name": "Shrimp Burger", "desc": "homemade brioche bun, shrimp & white fish patty, tartar sauce, romaine lettuce, fresh cucumber, dip potatoes, parmesan, aioli"}}]}, {"id": "pizza", "name": "PIZZA", "en": {"name": "PIZZA"}, "items": [{"name": "Margherita Clássica", "desc": "molho de tomate pelati, mozzarella, manjericão", "price": 10.5, "img": "70403d99", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Classic Margherita Pizza", "desc": "pelati tomato sauce, mozzarella, basil"}}, {"name": "Pepperoni & Alcaparras", "desc": "molho de tomate pelati, mozzarella, pepperoni, parmesão, alcaparras", "price": 13.5, "img": "ab735947", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Pepperoni Pizza with Capers", "desc": "pelati tomato sauce, mozzarella, pepperoni, parmesan, capers"}}, {"name": "Prosciutto Cotto & Alcachofras", "desc": "molho de tomate pelati, mozzarella, prosciutto cotto, alcachofras marinadas, parmesão, manjericão", "price": 14.5, "img": "1a02d186", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Prosciutto  Cotto & Artichoke Pizza", "desc": "pelati tomato sauce, mozzarella, prosciutto cotto, marinated artichokes, parmesan, basil"}}, {"name": "Pêra & Camambert", "desc": "molho cremoso, camambert, mozzarella, pêra, parmesão, mel de trufa com tomilho, amêndoas laminadas", "price": 14.0, "img": "09e58632", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Pear & Camamber", "desc": "creamy sauce, camamber, mozzarella, pear, parmesan, truffle honey with thyme, almond flakes"}}, {"name": "Salmão & Camarão", "desc": "molho cremoso, mozzarella, salmão, camarão, rúcula, parmesão", "price": 16.0, "img": "a8c265ad", "soldOut": false, "labels": ["new"], "volume": "", "en": {"name": "Salmon & Shrimp", "desc": "creamy sauce, mozzarella, salmon, shrimp, arugula, parmesan"}}]}, {"id": "pasta", "name": "PASTA", "en": {"name": "PASTA"}, "items": [{"name": "Bavette Carbonara", "desc": "bavette, bacon, gema de ovo, queijo pecorino, parmesão, pimenta preta", "price": 13.0, "img": "5f5ad0ae", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Bavette Carbonara", "desc": "bavette, bacon, egg yolk, pecorino cheese, parmesan, black pepper"}}, {"name": "Linguini com Camarões ao Bisque", "desc": "linguini com tinta de shock, camarões, molho bisque cremoso, cebolinho, parmesão", "price": 15.0, "img": "f2fb85f5", "soldOut": false, "labels": ["recommended"], "volume": "", "en": {"name": "Linguini with Shrimp in Bisque Sauce", "desc": "black linguini with cuttlefish ink, shrimp, creamy bisque sauce, chives, parmesan"}}, {"name": "Bavette Alfredo de Trufa & Frango", "desc": "bavette, molho Alfredo de trufa, peito de frango sous-vide, cogumelos pleurothus, cogumelos marrón, chips de parmesão", "price": 14.0, "img": "e240b255", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Bavette with Truffle Alfredo & Chicken", "desc": "bavette, truffle Alfredo sauce, sous-vide chicken breast, pleurothus mushrooms, brown mushrooms, parmesan chips"}}]}, {"id": "rizotto", "name": "RIZOTTO", "en": {"name": "RIZOTTO"}, "items": [{"name": "Risotto de Limão com Dourada", "desc": "risotto de limão, filé de dourada grelhado", "price": 17.5, "img": "c6b2624c", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Lemon Risotto with Sea Bream", "desc": "lemon risotto, grilled sea bream fillet"}}, {"name": "Risotto de Pato & Trufa 👨‍🍳", "desc": "peito de pato grelhado, trufa, cogumelos pleurothus, cogumelos marrón, chips de parmesão", "price": 19.5, "img": "ec0bf896", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Duck & Truffle Risotto 👨‍🍳", "desc": "grilled duck breast, truffle, pleurothus mushrooms, brown mushrooms, parmesan chips"}}, {"name": "Risotto de Camarões Tigre ao Bisque ⭐", "desc": "camarões tigre grelhados, risotto cremoso, molho bisque, parmesão", "price": 19.5, "img": "1991adeb", "soldOut": false, "labels": ["new"], "volume": "", "en": {"name": "Tiger Prawn Bisque Risotto", "desc": "grilled tiger prawns, creamy risotto, bisque sauce, parmesan"}}]}, {"id": "peixe", "name": "PEIXE", "en": {"name": "FISH"}, "items": [{"name": "Fish & Chips", "desc": "filé de perca vermelha, batatas dip, alface romana, parmesão, lima, molho tártaro", "price": 16.5, "img": "e08395a2", "soldOut": false, "labels": ["recommended"], "volume": "", "en": {"name": "Fish & Chips", "desc": "sea perch fillet, dip potatoes, romaine lettuce, parmesan, lime, tartar sauce"}}, {"name": "Lombo de Salmão com Molho Beurre Blanc", "desc": "lombo de salmão grelhado, batata assada, Bimi branqueado, molho Beurre Blanc", "price": 19.0, "img": "ddb043d2", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Salmon Loin with Beurre Blanc", "desc": "grilled salmon loin, roasted potatoes, blanched Bimi, Beurre Blanc sauce"}}, {"name": "Fish Kyiv 👨‍🍳", "desc": "filé de robalo panado recheado com camarão e queijo cheddar, puré de batata e pastinaca, bimi, molho parmesão", "price": 18.0, "img": "ca2ad57a", "soldOut": true, "labels": ["recommended", "new"], "volume": "", "en": {"name": "Fish Kyiv with Shrimp & Cheddar 👨‍🍳", "desc": "breaded sea bass fillet stuffed with shrimp and cheddar cheese, roasted celeriac, potato & parsnip purée, bimi, parmesan sauce"}}, {"name": "Polvo Grelhado sobre Cama de Espinafres 👨‍🍳", "desc": "tentáculos de polvo grelhados, batata assada, Bimi, cama de espinafres salteados", "price": 24.0, "img": "53e89398", "soldOut": true, "labels": [], "volume": "", "en": {"name": "Grilled Octopus on a Bed of Spinach", "desc": "grilled octopus tentacles, roasted potatoes, Bimi, bed of sautéed spinach"}}]}, {"id": "carnes", "name": "CARNES", "en": {"name": "MEAT"}, "items": [{"name": "Chicken Cordon Bleu", "desc": "peito de frango panado, prosciutto cotto, queijo brie, espinafres, servido com puré de batata e parmesão", "price": 17.0, "img": "41f407f2", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Chicken Cordon Bleu", "desc": "breaded chicken breast, prosciutto cotto, brie cheese, spinach, served with potato and parmesan purée"}}, {"name": "Crepes de Frango com Cogumelos", "desc": "crepes recheados com frango, cogumelos e queijo, servidos com crème fraîche", "price": 12.5, "img": "664ff77a", "soldOut": false, "labels": ["new"], "volume": "", "en": {"name": "Chicken & Mushroom Crêpes", "desc": "crêpes filled with chicken, mushrooms and cheese, served with sour cream"}}, {"name": "Medalhões de Porco com Mostarda", "desc": "medalhões de porco grelhados, molho de mostarda, batata assada, cogumelos salteados", "price": 18.0, "img": "88a751d9", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Pork Medallions with Mustard Sauce", "desc": "grilled pork medallions, mustard sauce, roasted potatoes, sautéed mushrooms"}}, {"name": "Bife de Peru Grelhado", "desc": "bife de peru, ananás grelhado, batatas dip", "price": 16.0, "img": "794d666a", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Grilled Turkey Steak", "desc": "grilled turkey steak, grilled pineapple, dip potatoes"}}, {"name": "Perna de Pato Confit", "desc": "perna de pato confit, molho demi-glace de vinho, cenoura baby, puré de pastinaca e batata", "price": 18.5, "img": "5e58ddc9", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Confit Duck Leg", "desc": "confit duck leg, wine demi-glace, baby carrots, parsnip & potato purée"}}, {"name": "Bife de Vazia Angus Grain Fed", "desc": "vazia Angus grelhada, batata assada, legumes grelhados, molho de pimenta", "price": 23.5, "img": "479d8ded", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Grilled Angus Rump Steak", "desc": "grilled Angus rump steak, roasted potatoes, grilled vegetables, pepper sauce"}}, {"name": "Bochechas de Vitela Uruguaia 👨‍🍳", "desc": "bochechas de vitela, puré de batata e pastinaca, cenoura baby, molho demi-glace", "price": 17.0, "img": "18943001", "soldOut": false, "labels": ["new"], "volume": "", "en": {"name": "Braised Uruguayan Veal Cheeks", "desc": "braised Uruguayan veal cheeks, potato & parsnip purée, baby carrots, demi-glace"}}, {"name": "Filé Mignon Angus Grain Fed com Camarões Tigre 👨‍🍳", "desc": "filé mignon Angus, camarões tigre grelhados, batata assada, legumes grelhados, molho demi-glace de trufa", "price": 28.0, "img": "218dd895", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Angus Grain Fed Filet Mignon with Tiger Prawns", "desc": "Angus filet mignon, grilled tiger prawns, roasted potatoes, grilled vegetables, truffle demi-glace"}}]}, {"id": "acompanhamentos", "name": "ACOMPANHAMENTOS", "en": {"name": "SIDES"}, "items": [{"name": "Batatas Fritas com Aioli", "desc": "batatas fritas crocantes, molho aioli", "price": 4.0, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Crispy Fries with Aioli", "desc": "crispy fries, aioli sauce"}}, {"name": "Legumes Grelhados em Molho de Ostra", "desc": "legumes grelhados, molho de ostra, queijo creme, rúcula", "price": 5.0, "img": "e57bed90", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Grilled Vegetables in Oyster Sauce", "desc": "grilled vegetables, oyster sauce, cream cheese, arugula"}}]}]}, {"id": "sobremesas", "name": "SOBREMESAS", "desc": "", "info": "", "en": {"name": "DESSERTS", "desc": "", "info": ""}, "categories": [{"id": "bolos", "name": "BOLOS", "en": {"name": "CAKES"}, "items": [{"name": "Honey cake", "desc": "O mais delicioso bolo à base de mel, preparado nas melhores tradições, como a mamãe fazia", "price": 6.75, "img": "453ed12f", "soldOut": false, "labels": ["recommended"], "volume": "", "en": {"name": "Honey cake", "desc": "O mais delicioso bolo à base de mel, preparado nas melhores tradições, como a mamãe fazia"}}, {"name": "Ferrero Rocher cake", "desc": "Uma deliciosa tentação de chocolate com um toque crocante de avelã. Ganache aveludado envolve um mousse rico de chocolate e avelã, em camadas com wafer crocante e nozes torradas para aquele crocante característico do Ferrero Rocher. Finalizado com um creme de chocolate sedoso e um praliné de avelã irresistível, é puro prazer em cada colherada.", "price": 6.25, "img": "ac641ed4", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Ferrero Rocher cake", "desc": "A dreamy chocolate delight with a crunchy hazelnut twist. Smooth, velvety ganache wraps around a rich chocolate-hazelnut mousse, layered with crispy wafer and roasted nuts for that signature Ferrero Rocher crunch. Topped with silky chocolate cream and a bite-sized hazelnut praline, it’s pure indulgence in every spoonful."}}, {"name": "Victoria Secret", "desc": "Camadas de pão de ló de morango macio, creme suave de baunilha e recheio fresco de morango, finalizado com morangos frescos. Leve, frutado e irresistivelmente elegante.", "price": 7.5, "img": "2e6555a7", "soldOut": false, "labels": ["recommended"], "volume": "", "en": {"name": "Victoria Secret", "desc": "Layers of soft strawberry sponge, delicate vanilla cream, and fresh strawberry filling, topped with juicy strawberries. Light, fruity, and irresistibly elegant."}}, {"name": "Esterházy", "desc": "Uma sobremesa real com uma rica história. Camadas delicadas de merengue de amêndoas e avelãs, envolvidas em um creme leve de baunilha, criam uma experiência que derrete na boca. Coberto com a icônica glaçagem branca e o clássico padrão de teia de chocolate, é elegante, refinado e irresistivelmente delicioso. Perfeito para quem aprecia sabores atemporais com um toque de sofisticação.", "price": 7.5, "img": "7df3eceb", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Esterházy", "desc": "A royal dessert with a rich history. Delicate almond-hazelnut meringue layers, soaked in light vanilla cream, create a melt-in-your-mouth experience. Topped with a signature white glaze and the classic chocolate web pattern, it’s elegant, refined, and irresistibly delicious. Perfect for those who appreciate timeless flavors with a touch of sophistication."}}, {"name": "Raffaello cake", "desc": "Pão de ló de baunilha com creme de coco, mascarpone aveludado e toque crocante de amêndoas. Finalizado com coco ralado, raspas de chocolate branco e um bombom Raffaello.", "price": 7.5, "img": "bb7a6f06", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Raffaello cake", "desc": "Light vanilla sponge with creamy coconut filling, silky mascarpone, and a touch of almond crunch. Topped with coconut flakes, white chocolate shavings, and a signature Raffaello truffle."}}, {"name": "Tarte de Curd de Limão e Merengue", "desc": "Tarte delicada de massa amanteigada, recheada com creme de lemon curd aveludado e coberta com merengue italiano levemente tostado. Equilíbrio perfeito entre doçura e frescura cítrica.", "price": 5.5, "img": "852bb70a", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Lemon Curd & Meringue Tart", "desc": "A delicate buttery tart filled with silky lemon curd, topped with lightly toasted Italian meringue. Perfect balance of sweetness and refreshing citrus notes."}}, {"name": "Éclair Snickers", "desc": "Massa choux leve recheada com creme de caramelo aveludado, amendoins crocantes e cobertura intensa de chocolate. Inspirado no clássico Snickers — indulgente, cremoso e irresistível.", "price": 3.5, "img": "540aa5cf", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Éclair Snickers", "desc": "Light choux pastry filled with smooth caramel cream, crunchy peanuts, and rich chocolate glaze. Inspired by the classic Snickers — indulgent, creamy, and irresistible."}}, {"name": "Napoleão", "desc": "Camadas de massa folhada crocante com creme suave de baunilha. Crocante, cremoso e perfeitamente equilibrado — um clássico intemporal.", "price": 7.5, "img": "f8ca475c", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Napoleon Cake", "desc": "Layers of delicate puff pastry with smooth vanilla custard cream. Crispy, creamy, and perfectly balanced — a timeless classic."}}, {"name": "Apple Pie", "desc": "Tarte caseira de maçã com maçãs macias aromatizadas com canela, envolvidas numa massa dourada e amanteigada, finalizada com açúcar em pó. Confortante e intemporal.", "price": 3.95, "img": "eccdacce", "soldOut": true, "labels": [], "volume": "", "en": {"name": "Apple Pie", "desc": "Homemade apple pie with tender cinnamon-spiced apples in a golden buttery crust, finished with powdered sugar. Warm, comforting, and timeless."}}, {"name": "Nut Cookies", "desc": "Biscoitos delicados de manteiga recheados com creme de manteiga e leite condensado com pedaços crocantes de frutos secos, levemente polvilhados com açúcar em pó. Rico, nostálgico e irresistível.", "price": 1.3, "img": "a2dadba8", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Nut Cookies", "desc": "Delicate buttery cookies filled with creamy condensed milk buttercream with crunchy nuts, lightly dusted with powdered sugar. Rich, nostalgic, and irresistible."}}]}, {"id": "cheesecakes", "name": "CHEESECAKES", "en": {"name": "CHEESECAKES"}, "items": [{"name": "Cheesecake de maracuja", "desc": "Uma tentação tropical em cada pedaço! Cheesecake incrivelmente cremoso com uma base delicada de cacau. Coberto com uma vibrante camada de maracujá, trazendo o equilíbrio perfeito entre o doce e o ácido – uma verdadeira viagem ao paraíso. Perfeito para quem ama um toque exótico em uma sobremesa clássica. Dê uma mordida no sabor do verão!", "price": 6.25, "img": "230bd125", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Cheesecake de maracuja", "desc": "Tropical indulgence in every bite! A silky smooth cheesecake with a rich, creamy texture, nestled in a delicate cocoa crust. Topped with a vibrant passion fruit glaze, bursting with sweet and tangy flavors that transport you straight to paradise.\nPerfect for those who love a refreshing, exotic twist on a classic dessert. Take a bite of sunshine!"}}, {"name": "Cheesecake tres chocolates", "desc": "O sonho de qualquer amante de chocolate! Três camadas irresistíveis de cheesecake sedoso nos sabores chocolate ao leite, meio amargo e branco, sobre uma base crocante de biscoito de cacau. Cada mordida derrete na boca, criando uma harmonia perfeita de sabores intensos e texturas cremosas.", "price": 7.5, "img": null, "soldOut": true, "labels": [], "volume": "", "en": {"name": "Three chocolates cheesecake", "desc": "A chocolate lover’s dream! Three decadent layers of silky milk, dark, and white chocolate cheesecake, resting on a crunchy cocoa biscuit base. Each bite melts in your mouth, creating a perfect harmony of rich flavors and creamy textures."}}]}]}, {"id": "bolos-por-encomenda", "name": "BOLOS POR ENCOMENDA", "desc": "", "info": "Estamos felizes por poder estar ao seu lado e celebrar os seus momentos mais especiais. O bolo perfeito já está esperando por você, faça o seu pedido agora mesmo!\n\n🎂 Com prazer, aceitamos seus pedidos de bolos de segunda a sexta-feira, das 10:00 às 18:00.\n⏰ Faça o pedido com pelo menos 72 horas de antecedência para que possamos preparar o seu bolo ideal!\n💳 Pagamento:\n• Pedidos para retirada – somente após o pagamento total no estabelecimento.\n\n❓ Tem dúvidas? Entre em contato com nossos gerentes:\n• 📞 Telefone: 282419549\n🍰 Escolha sua delícia no nosso menu abaixo!", "en": {"name": "CUSTOM CAKES", "desc": "", "info": "We are happy to be by your side, celebrating your most special moments. The perfect cake is already waiting for you—place your order now!\n\n🎂 We gladly accept cake orders from Monday to Friday, from 10:00 AM to 6:00 PM.\n⏰ Please place your order at least 72 hours in advance so we can prepare your ideal cake!\n💳 Payment:\n• Pickup orders – only after full payment at the establishment.\n\n❓ Have any questions? Contact our managers:\n• 📞 Phone: 282419549\n🍰 Choose your sweet treat from our menu!"}, "categories": []}, {"id": "drinks", "name": "BEBIDAS", "desc": "", "info": "", "en": {"name": "DRINKS", "desc": "", "info": ""}, "categories": [{"id": "cafe", "name": "CAFÉ", "en": {"name": "COFFEE"}, "items": [{"name": "Expresso", "desc": "", "price": 1.2, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Expresso", "desc": ""}}, {"name": "Descafeinado", "desc": "", "price": 1.2, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Decafe", "desc": ""}}, {"name": "Duplo", "desc": "", "price": 2.5, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Double Espresso", "desc": ""}}, {"name": "Americano", "desc": "", "price": 1.8, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Americano", "desc": ""}}, {"name": "Americano com leite", "desc": "", "price": 2.0, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Americano with milk", "desc": ""}}, {"name": "Meia de leite", "desc": "", "price": 2.0, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Flat White", "desc": ""}}, {"name": "Latte", "desc": "", "price": 3.0, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Latte", "desc": ""}}, {"name": "Ice Latte", "desc": "", "price": 3.5, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Ice Latte", "desc": ""}}, {"name": "Cappuccino", "desc": "", "price": 2.8, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Cappuccino", "desc": ""}}, {"name": "Matcha Latte", "desc": "", "price": 3.5, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Matcha Latte", "desc": ""}}, {"name": "Tiramisu Latte", "desc": "", "price": 4.0, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Tiramisu Latte", "desc": ""}}, {"name": "Chocolate Quente", "desc": "", "price": 4.0, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Hot Chocolate", "desc": ""}}, {"name": "Seleção de Chá", "desc": "", "price": 1.6, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Tea selection", "desc": ""}}]}, {"id": "cocktails", "name": "COCKTAILS", "en": {"name": "COCKTAILS"}, "items": [{"name": "Mojito", "desc": "rum • hortelã • lima • soda", "price": 7.0, "img": "15e78bdd", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Mojito", "desc": "rum • mint • lime • soda"}}, {"name": "Passion Fruit Mojito", "desc": "rum • maracujá • hortelã • lima", "price": 8.5, "img": "33eeb407", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Passion Fruit Mojito", "desc": "rum • passion fruit • mint • lime"}}, {"name": "Caipirinha", "desc": "cachaça • lima", "price": 7.0, "img": "c19f2e84", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Caipirinha", "desc": "cachaça • lime"}}, {"name": "Aperol Spritz", "desc": "aperol • prosecco • soda", "price": 7.0, "img": "4d58e3af", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Aperol Spritz", "desc": "aperol • prosecco • soda"}}, {"name": "Gin & Tonic Bombay", "desc": "gin • água tónica • pepino", "price": 7.0, "img": "a53db38f", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Gin & Tonic Bombay", "desc": "gin • tonic water • cucumber"}}, {"name": "Piña Colada", "desc": "rum • ananás • coco", "price": 8.5, "img": "21dd8654", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Piña Colada", "desc": "rum • pineapple • coconut"}}, {"name": "Negroni Sbagliato", "desc": "campari • vermute • prosecco", "price": 7.0, "img": "a43533c9", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Negroni Sbagliato", "desc": "campari • vermouth • prosecco"}}, {"name": "Limoncello Spritz", "desc": "limoncello • prosecco • soda", "price": 7.0, "img": "d42d378e", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Limoncello Spritz", "desc": "limoncello • prosecco • soda"}}, {"name": "Paloma", "desc": "tequila • toranja", "price": 8.0, "img": "2e8a24d9", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Paloma", "desc": "tequila • grapefruit"}}]}, {"id": "mocktails", "name": "MOCKTAILS", "en": {"name": "MOCKTAILS"}, "items": [{"name": "Virgin Mojito", "desc": "hortelã • lima • soda", "price": 5.0, "img": "698fc4b1", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Virgin Mojito", "desc": "mint • lime • soda"}}, {"name": "Grapefruit Rosemary Spritz", "desc": "toranja • alecrim • soda", "price": 5.5, "img": "f128210a", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Grapefruit Rosemary Spritz", "desc": "grapefruit • rosemary • soda"}}]}, {"id": "sangria", "name": "SANGRIA", "en": {"name": "SANGRIA"}, "items": [{"name": "Sangria Tinto ou Branco", "desc": "", "price": 17.0, "img": "4bb4b3b5", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Red or White Sangria", "desc": ""}}, {"name": "Sangria de Espumante Maracujá ou Frutos Vermelhos", "desc": "", "price": 20.0, "img": "3813b96b", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Sparkling Passion Fruit or Red Berries  Sangria", "desc": ""}}]}, {"id": "limonadas-caseiras", "name": "LIMONADAS CASEIRAS", "en": {"name": "HOMEMADE LEMONADES"}, "items": [{"name": "Lemon Mint Lemonade", "desc": "limão • hortelã", "price": 4.5, "img": "55d0d03e", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Lemon Mint Lemonade", "desc": "limão • hortelã"}}, {"name": "Passion Fruit Lemonade", "desc": "maracujá", "price": 5.0, "img": "5672908f", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Passion Fruit Lemonade", "desc": "maracujá"}}]}, {"id": "smoothies", "name": "BATIDOS", "en": {"name": "SMOOTHIES"}, "items": [{"name": "Açaí Power", "desc": "açaí • morango • mirtilo • manga", "price": 5.5, "img": "898313f4", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Açaí Power", "desc": "açaí • strawberry • blueberry • mango"}}, {"name": "Carrot Passion", "desc": "cenoura • ananás • papaia • maracujá", "price": 5.0, "img": "53babbff", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Carrot Passion", "desc": "carrot • pineapple • papaya • passion fruit"}}, {"name": "Mad Berries", "desc": "amora • morango • framboesa • mirtilo", "price": 5.0, "img": "57250634", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Mad Berries", "desc": "blackberry • strawberry • raspberry • blueberry"}}]}, {"id": "sumos-naturais", "name": "SUMOS NATURAIS", "en": {"name": "FRESH JUICES"}, "items": [{"name": "Uma fruta", "desc": "Laranja • Maçã • Cenoura", "price": 4.5, "img": "04dcc7f9", "soldOut": false, "labels": [], "volume": "", "en": {"name": "One fruit", "desc": ""}}, {"name": "Mix de 2 frutas", "desc": "Laranja • Maçã • Cenoura", "price": 5.0, "img": "03dff6e1", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Mix of 2 fruits", "desc": ""}}, {"name": "Ananás & Hortelã", "desc": "", "price": 5.5, "img": "fb290317", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Pineapple & Mint", "desc": ""}}]}, {"id": "aguas-e-refrigerantes", "name": "ÁGUAS E REFRIGERANTES", "en": {"name": "WATER SODA"}, "items": [{"name": "Agua Natural 0.50cl", "desc": "", "price": 1.5, "img": "1d6f4a14", "soldOut": false, "labels": [], "volume": "0,5", "en": {"name": "Still Water 0.50cl", "desc": ""}}, {"name": "Água Natural (Vidro) 0.75cl", "desc": "", "price": 2.9, "img": "781dc169", "soldOut": false, "labels": [], "volume": "0.75", "en": {"name": "Still Water (Glass) 0.75cl", "desc": ""}}, {"name": "Pedras", "desc": "", "price": 2.2, "img": "349538f6", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Pedras", "desc": ""}}, {"name": "Pedras Sabores", "desc": "", "price": 2.6, "img": "153ed157", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Pedras Flavoured", "desc": ""}}, {"name": "Castello", "desc": "", "price": 2.2, "img": "7a8d778c", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Castelo Sparkling Water", "desc": ""}}, {"name": "Água Tónica", "desc": "", "price": 3.0, "img": null, "soldOut": false, "labels": [], "volume": "", "en": {"name": "Tonic Water", "desc": ""}}, {"name": "Cola / Fanta / Sprite", "desc": "", "price": 3.0, "img": "34b99e61", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Cola / Fanta / Sprite", "desc": ""}}, {"name": "Nestea", "desc": "limão, pêssego, manga-ananás", "price": 0.0, "img": "3deee030", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Nestea", "desc": "lemon, peach, mango-pineapple"}}]}, {"id": "cervejas", "name": "CERVEJAS", "en": {"name": "BEER"}, "items": [{"name": "Super Bock", "desc": "", "price": 2.5, "img": "616da503", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Super Bock", "desc": ""}}, {"name": "Corona", "desc": "", "price": 4.0, "img": "160bc490", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Corona", "desc": ""}}, {"name": "Somersby", "desc": "", "price": 3.5, "img": "dbfba56e", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Somersby", "desc": ""}}, {"name": "Cerveja s/a", "desc": "", "price": 2.6, "img": "a60d3d15", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Cerveja s/a", "desc": ""}}, {"name": "Imperial 0,2cl", "desc": "", "price": 2.0, "img": "e49f66b1", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Imperial 0,2cl", "desc": ""}}, {"name": "Imperial 0.4cl", "desc": "", "price": 3.5, "img": "01c6b8b1", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Imperial 0.4cl", "desc": ""}}]}]}, {"id": "vinhos", "name": "VINHOS", "desc": "", "info": "", "en": {"name": "WINES", "desc": "", "info": ""}, "categories": [{"id": "branco", "name": "BRANCO", "en": {"name": "WHITE"}, "items": [{"name": "Beyra Chardonnay", "desc": "Beira Interior", "price": 24.0, "img": "fee9465c", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Beyra Chardonnay", "desc": "Beira Interior"}}, {"name": "Lavradores de Feitoria", "desc": "Douro", "price": 17.0, "img": "b01fe5d6", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Lavradores de Feitoria", "desc": "Douro"}}, {"name": "Despedida Sauvignon Blanc", "desc": "Algarve", "price": 19.0, "img": "2500ba19", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Despedida Sauvignon Blanc", "desc": "Algarve"}}, {"name": "Verdelho Malhadinha", "desc": "Baixo Alentejo", "price": 28.0, "img": "33afb9c6", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Verdelho Malhadinha", "desc": "Baixo Alentejo"}}]}, {"id": "red", "name": "TINTO", "en": {"name": "RED"}, "items": [{"name": "Despedida", "desc": "Algarve", "price": 19.0, "img": "9c4dcdf8", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Despedida", "desc": "Algarve"}}, {"name": "Beyra Reserva", "desc": "Beira Interior", "price": 22.0, "img": "a15d6546", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Beyra Reserva", "desc": "Beira Interior"}}, {"name": "Dão Rótulo (Niepoort)", "desc": "Douro", "price": 19.0, "img": "03cedda3", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Dão Rótulo (Niepoort)", "desc": "Douro"}}, {"name": "Monte da Peceguina", "desc": "Baixo Alentejo", "price": 28.0, "img": "21e524d9", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Monte da Peceguina", "desc": "Baixo Alentejo"}}, {"name": "Tiago Cabaço", "desc": "Alentejo", "price": 16.0, "img": "7147ef40", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Tiago Cabaço", "desc": "Alentejo"}}]}, {"id": "green", "name": "VERDE", "en": {"name": "GREEN"}, "items": [{"name": "Muros Antigos Loureiro", "desc": "Vinhos Verdes", "price": 18.0, "img": "1065e759", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Muros Antigos Loureiro", "desc": "Vinhos Verdes"}}, {"name": "Marquês de Lara Alvarinho", "desc": "Vinhos Verdes", "price": 21.0, "img": "6bfafe5f", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Marquês de Lara Alvarinho", "desc": "Vinhos Verdes"}}]}, {"id": "rose-espumante", "name": "ROSÉ & ESPUMANTE", "en": {"name": "ROSE & SPARKLING"}, "items": [{"name": "Lavradores de Feitoria Rosé", "desc": "Douro", "price": 17.0, "img": "f62d4b7a", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Lavradores de Feitoria Rosé", "desc": "Douro"}}, {"name": "Freshly Squeezed Rosé", "desc": "Alentejo", "price": 19.0, "img": "d6c3302d", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Freshly Squeezed Rosé", "desc": "Alentejo"}}, {"name": "Prosecco Natale Verga", "desc": "Italy", "price": 22.0, "img": "ff91ac85", "soldOut": false, "labels": [], "volume": "", "en": {"name": "Prosecco Natale Verga", "desc": "Italy"}}]}]}]};
+const IMGS={"7e6d7691": "img/7e6d7691.webp", "8aa6e28e": "img/8aa6e28e.webp", "e032f8b9": "img/e032f8b9.webp", "da5c9f14": "img/da5c9f14.webp", "49d1f530": "img/49d1f530.webp", "7a079f01": "img/7a079f01.webp", "74a4bb72": "img/74a4bb72.webp", "d1d31ce5": "img/d1d31ce5.webp", "242712b7": "img/242712b7.webp", "0969f7c3": "img/0969f7c3.webp", "6868a270": "img/6868a270.webp", "7b66649d": "img/7b66649d.webp", "77e76cd9": "img/77e76cd9.webp", "f340fe46": "img/f340fe46.webp", "733629a5": "img/733629a5.webp", "d66714cc": "img/d66714cc.webp", "eb07a335": "img/eb07a335.webp", "64a810d4": "img/64a810d4.webp", "70d8c83a": "img/70d8c83a.webp", "91f17902": "img/91f17902.webp", "fcf91d1d": "img/fcf91d1d.webp", "ca7a6c61": "img/ca7a6c61.webp", "004bf7e7": "img/004bf7e7.webp", "83be19cc": "img/83be19cc.webp", "f840511b": "img/f840511b.webp", "4831652e": "img/4831652e.webp", "4ae52742": "img/4ae52742.webp", "ef4a0333": "img/ef4a0333.webp", "0cdf4a7a": "img/0cdf4a7a.webp", "57bd6a19": "img/57bd6a19.webp", "04dd728b": "img/04dd728b.webp", "3d013bd4": "img/3d013bd4.webp", "70403d99": "img/70403d99.webp", "ab735947": "img/ab735947.webp", "1a02d186": "img/1a02d186.webp", "09e58632": "img/09e58632.webp", "a8c265ad": "img/a8c265ad.webp", "5f5ad0ae": "img/5f5ad0ae.webp", "f2fb85f5": "img/f2fb85f5.webp", "e240b255": "img/e240b255.webp", "c6b2624c": "img/c6b2624c.webp", "ec0bf896": "img/ec0bf896.webp", "1991adeb": "img/1991adeb.webp", "e08395a2": "img/e08395a2.webp", "ddb043d2": "img/ddb043d2.webp", "ca2ad57a": "img/ca2ad57a.webp", "53e89398": "img/53e89398.webp", "41f407f2": "img/41f407f2.webp", "664ff77a": "img/664ff77a.webp", "88a751d9": "img/88a751d9.webp", "794d666a": "img/794d666a.webp", "5e58ddc9": "img/5e58ddc9.webp", "479d8ded": "img/479d8ded.webp", "18943001": "img/18943001.webp", "218dd895": "img/218dd895.webp", "e57bed90": "img/e57bed90.webp", "453ed12f": "img/453ed12f.webp", "ac641ed4": "img/ac641ed4.webp", "2e6555a7": "img/2e6555a7.webp", "7df3eceb": "img/7df3eceb.webp", "bb7a6f06": "img/bb7a6f06.webp", "852bb70a": "img/852bb70a.webp", "540aa5cf": "img/540aa5cf.webp", "f8ca475c": "img/f8ca475c.webp", "eccdacce": "img/eccdacce.webp", "a2dadba8": "img/a2dadba8.webp", "230bd125": "img/230bd125.webp", "15e78bdd": "img/15e78bdd.webp", "33eeb407": "img/33eeb407.webp", "c19f2e84": "img/c19f2e84.webp", "4d58e3af": "img/4d58e3af.webp", "a53db38f": "img/a53db38f.webp", "21dd8654": "img/21dd8654.webp", "a43533c9": "img/a43533c9.webp", "d42d378e": "img/d42d378e.webp", "2e8a24d9": "img/2e8a24d9.webp", "698fc4b1": "img/698fc4b1.webp", "f128210a": "img/f128210a.webp", "4bb4b3b5": "img/4bb4b3b5.webp", "3813b96b": "img/3813b96b.webp", "55d0d03e": "img/55d0d03e.webp", "5672908f": "img/5672908f.webp", "898313f4": "img/898313f4.webp", "53babbff": "img/53babbff.webp", "57250634": "img/57250634.webp", "04dcc7f9": "img/04dcc7f9.webp", "03dff6e1": "img/03dff6e1.webp", "fb290317": "img/fb290317.webp", "1d6f4a14": "img/1d6f4a14.webp", "781dc169": "img/781dc169.webp", "349538f6": "img/349538f6.webp", "153ed157": "img/153ed157.webp", "7a8d778c": "img/7a8d778c.webp", "34b99e61": "img/34b99e61.webp", "3deee030": "img/3deee030.webp", "616da503": "img/616da503.webp", "160bc490": "img/160bc490.webp", "dbfba56e": "img/dbfba56e.webp", "a60d3d15": "img/a60d3d15.webp", "e49f66b1": "img/e49f66b1.webp", "01c6b8b1": "img/01c6b8b1.webp", "fee9465c": "img/fee9465c.webp", "b01fe5d6": "img/b01fe5d6.webp", "2500ba19": "img/2500ba19.webp", "33afb9c6": "img/33afb9c6.webp", "9c4dcdf8": "img/9c4dcdf8.webp", "a15d6546": "img/a15d6546.webp", "03cedda3": "img/03cedda3.webp", "21e524d9": "img/21e524d9.webp", "7147ef40": "img/7147ef40.webp", "1065e759": "img/1065e759.webp", "6bfafe5f": "img/6bfafe5f.webp", "f62d4b7a": "img/f62d4b7a.webp", "d6c3302d": "img/d6c3302d.webp", "ff91ac85": "img/ff91ac85.webp"};
+const QR_URL="https://diegotheboomer-bot.github.io/TOP-XI/";
+const QR_SVG="<svg viewBox=\"0 0 33 33\" class=\"segno\"><path class=\"qrline\" stroke=\"#111c26\" d=\"M0 0.5h7m2 0h1m1 0h1m2 0h1m4 0h2m1 0h2m2 0h7m-33 1h1m5 0h1m1 0h1m1 0h1m2 0h2m2 0h1m3 0h4m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m7 0h2m2 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m3 0h1m1 0h4m2 0h1m2 0h4m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h3m4 0h2m2 0h1m1 0h1m3 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m3 0h1m1 0h1m3 0h2m1 0h2m3 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h3m3 0h2m1 0h1m4 0h1m-24 1h3m1 0h2m3 0h3m4 0h1m3 0h1m1 0h1m6 0h2m-31 1h1m1 0h1m4 0h2m2 0h1m1 0h8m1 0h1m2 0h2m1 0h4m-33 1h3m1 0h4m1 0h1m5 0h1m2 0h1m3 0h3m2 0h3m1 0h2m-31 1h3m2 0h1m2 0h1m1 0h3m1 0h2m1 0h2m1 0h4m1 0h1m1 0h1m2 0h1m-32 1h1m4 0h1m1 0h1m1 0h1m3 0h1m1 0h1m2 0h1m1 0h2m1 0h2m1 0h3m1 0h2m-31 1h1m1 0h2m1 0h1m1 0h3m1 0h1m5 0h3m2 0h2m1 0h1m3 0h1m-32 1h4m1 0h2m1 0h3m1 0h2m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m-29 1h2m2 0h2m4 0h1m2 0h4m4 0h1m2 0h3m3 0h1m-27 1h1m1 0h4m1 0h2m2 0h2m2 0h4m2 0h2m1 0h3m-27 1h2m1 0h1m2 0h3m2 0h3m2 0h7m1 0h2m1 0h2m-33 1h3m1 0h1m1 0h5m5 0h2m2 0h1m1 0h1m2 0h1m1 0h2m1 0h2m-32 1h1m1 0h4m1 0h1m5 0h1m3 0h1m1 0h1m2 0h5m1 0h1m-28 1h1m3 0h3m5 0h2m2 0h1m9 0h1m1 0h3m-32 1h2m2 0h1m3 0h1m2 0h1m1 0h2m3 0h1m1 0h4m2 0h1m2 0h1m2 0h1m-31 1h3m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h2m1 0h3m1 0h4m-32 1h1m1 0h1m1 0h1m2 0h1m1 0h5m1 0h1m1 0h2m3 0h3m3 0h1m1 0h1m-32 1h1m1 0h1m1 0h5m7 0h4m2 0h7m2 0h2m-25 1h1m3 0h2m2 0h1m1 0h2m3 0h2m3 0h2m-30 1h7m2 0h1m1 0h2m1 0h1m3 0h3m1 0h3m1 0h1m1 0h1m-29 1h1m5 0h1m1 0h3m1 0h4m1 0h5m1 0h2m3 0h4m-32 1h1m1 0h3m1 0h1m4 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h6m1 0h2m-32 1h1m1 0h3m1 0h1m1 0h1m1 0h5m4 0h2m1 0h2m3 0h1m1 0h1m1 0h2m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m4 0h1m5 0h2m1 0h1m-30 1h1m5 0h1m1 0h3m1 0h3m1 0h2m5 0h2m1 0h3m3 0h1m-33 1h7m2 0h1m3 0h1m1 0h4m2 0h1m3 0h2m1 0h1m1 0h1\"/></svg>";
+
+</script>
+<script>
+// Hours from the original site, Sunday = 0.
+const HOURS = [["10:00","22:00"],["10:00","22:00"],["10:00","22:00"],["10:00","22:00"],["10:00","22:00"],["10:00","22:30"],["10:00","22:30"]];
+const T = {
+  pt: {
+    days: ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"],
+    open: (t) => `Aberto até às ${t}`, closed: (t) => `Fechado · abre às ${t}`,
+    new: "Novo", recommended: "Top", sold: "Esgotado", picks: "Recomendados",
+    search: "Procurar pratos e bebidas", cancel: "Cancelar", searchLabel: "Procurar",
+    none: "Nada encontrado.", empty: "Sem itens nesta secção.", close: "Fechar",
+    hours: "Horário", address: "Morada", map: "Abrir no mapa →", phone: "Telefone", email: "Email", follow: "Siga-nos",
+    copy: "Copiar", copied: "Copiado ✓", info: "Horário e contacto",
+    qrTitle: "Partilhe o menu", qrText: "Aponte a câmara para abrir este menu.", qrBtn: "Código QR",
+  },
+  en: {
+    days: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    open: (t) => `Open until ${t}`, closed: (t) => `Closed · opens at ${t}`,
+    new: "New", recommended: "Top", sold: "Sold out", picks: "Recommended",
+    search: "Search dishes and drinks", cancel: "Cancel", searchLabel: "Search",
+    none: "Nothing found.", empty: "No items in this section.", close: "Close",
+    hours: "Opening hours", address: "Address", map: "Open in maps →", phone: "Phone", email: "Email", follow: "Follow us",
+    copy: "Copy", copied: "Copied ✓", info: "Hours and contact",
+    qrTitle: "Share the menu", qrText: "Point your camera here to open this menu.", qrBtn: "QR code",
+  },
+};
+const $ = (s) => document.querySelector(s);
+const euro = new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR" });
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const title = (s) => s.charAt(0) + s.slice(1).toLowerCase();
+const items = [];
+let current, lang = "pt", t = T.pt;
+
+// Text in the chosen language; menu entries carry their English version under `en`.
+const tx = (o, key) => (lang === "en" && o.en && o.en[key]) || o[key];
+
+const store = {
+  get() { try { return localStorage.getItem("lang"); } catch { return null; } },
+  set(v) { try { localStorage.setItem("lang", v); } catch {} },
+};
+
+function lisbonNow() {
+  return new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Lisbon" }));
+}
+function status() {
+  const now = lisbonNow(), [from, till] = HOURS[now.getDay()], hm = now.toTimeString().slice(0, 5);
+  const open = hm >= from && hm < till;
+  $("#status").textContent = open ? t.open(till) : t.closed(hm < from ? from : HOURS[(now.getDay() + 1) % 7][0]);
+  $("#status").classList.toggle("open", open);
+}
+
+const all = (s) => s.categories.flatMap((c) => c.items);
+const ref = (item) => (items.push(item), items.length - 1);
+const badges = (item) => item.labels.map((l) => `<span class="badge ${esc(l)}">${esc(t[l] || l)}</span>`).join("")
+  + (item.soldOut ? `<span class="badge sold">${t.sold}</span>` : "");
+
+function card(item) {
+  const desc = tx(item, "desc");
+  return `<button class="card${item.soldOut ? " sold-out" : ""}" data-i="${ref(item)}">
+    <span class="photo"><img src="${IMGS[item.img]}" alt="" loading="lazy" decoding="async">
+      <span class="badges">${badges(item)}</span>
+      <span class="price-tag">${euro.format(item.price)}</span></span>
+    <span class="text"><span class="name">${esc(tx(item, "name"))}</span>${desc ? `<span class="desc">${esc(desc)}</span>` : ""}</span>
+  </button>`;
+}
+function line(item) {
+  const desc = tx(item, "desc");
+  return `<button class="line${item.soldOut ? " sold-out" : ""}" data-i="${ref(item)}">
+    <span><span class="name">${esc(tx(item, "name"))}</span>${desc ? `<span class="desc">${esc(desc)}</span>` : ""}</span>
+    <span class="dots"></span>
+    <span class="p">${item.volume ? `<span class="vol">${esc(item.volume)} · </span>` : ""}${euro.format(item.price)}</span>
+  </button>`;
+}
+function pick(item) {
+  return `<button class="pick" data-i="${ref(item)}"><img src="${IMGS[item.img]}" alt="" loading="lazy" decoding="async">
+    <span class="price-tag">${euro.format(item.price)}</span>
+    <span class="over"><span class="name">${esc(tx(item, "name"))}</span></span></button>`;
+}
+function block(list) {
+  const withImg = list.filter((i) => i.img), without = list.filter((i) => !i.img);
+  return (withImg.length ? `<div class="grid">${withImg.map(card).join("")}</div>` : "")
+    + (without.length ? `<div class="rows">${without.map(line).join("")}</div>` : "");
+}
+
+function render() {
+  const q = $("#q").value.trim().toLowerCase();
+  const searching = !$("#search-row").hidden && q;
+  items.length = 0;
+  let html = "";
+  if (!searching) {
+    const s = current;
+    if (tx(s, "desc")) html += `<p class="tagline">${esc(tx(s, "desc"))}</p>`;
+    if (tx(s, "info")) html += `<div class="note">${esc(tx(s, "info"))}</div>`;
+    const picks = all(s).filter((i) => i.labels.includes("recommended") && i.img && !i.soldOut);
+    if (picks.length > 1) html += `<section class="picks"><h2>${t.picks}</h2><div class="scroller rail">${picks.map(pick).join("")}</div></section>`;
+  }
+  // Search matches either language, so a guest can type what they know.
+  const match = (i) => [i.name, i.desc, i.en?.name, i.en?.desc].join(" ").toLowerCase().includes(q);
+  for (const s of searching ? MENU.sections : [current]) {
+    for (const c of s.categories) {
+      const list = searching ? c.items.filter(match) : c.items;
+      if (!list.length) continue;
+      html += `<section class="cat" id="cat-${s.id}-${c.id}">
+        <h2>${searching ? `<small>${esc(title(tx(s, "name")))}</small>` : ""}${esc(tx(c, "name").toLowerCase())}<sup>${list.length}</sup></h2>
+        ${block(list)}</section>`;
+    }
+  }
+  $("#content").innerHTML = html || `<p class="empty">${searching ? t.none : t.empty}</p>`;
+
+  const cats = searching ? [] : current.categories.filter((c) => c.items.length);
+  $("#chips").innerHTML = cats.length > 1
+    ? cats.map((c) => `<button class="chip" data-target="cat-${current.id}-${c.id}">${esc(tx(c, "name").toLowerCase())}</button>`).join("")
+    : "";
+  spy();
+}
+
+function renderTabs() {
+  $("#tabs").innerHTML = MENU.sections.map((s) =>
+    `<button class="tab" role="tab" data-id="${s.id}" aria-selected="${s === current}">${esc(title(tx(s, "name")))}</button>`).join("");
+  $(`.tab[data-id="${current.id}"]`).scrollIntoView({ block: "nearest", inline: "center" });
+}
+
+// Cover photo follows the section: its first recommended dish, else its first photo, else the brunch cover.
+function renderCover() {
+  const pool = all(current).filter((i) => i.img && !i.soldOut);
+  const hero = pool.find((i) => i.labels.includes("recommended")) || pool[0] || all(MENU.sections[0]).find((i) => i.img);
+  $("#cover-img").src = IMGS[hero.img];
+  $("#cover-dish").textContent = tx(hero, "name");
+}
+
+// Underline the chip for the last category whose heading has passed under the sticky nav.
+function spy() {
+  const chips = [...document.querySelectorAll(".chip")];
+  if (!chips.length) return;
+  const navBottom = $(".nav").getBoundingClientRect().bottom + 40;
+  let active = chips[0];
+  for (const c of chips) if (document.getElementById(c.dataset.target).getBoundingClientRect().top <= navBottom) active = c;
+  if (active.classList.contains("active")) return;
+  chips.forEach((c) => c.classList.toggle("active", c === active));
+  active.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+}
+window.addEventListener("scroll", () => requestAnimationFrame(spy), { passive: true });
+
+function setLang(l) {
+  lang = l;
+  t = T[l];
+  document.documentElement.lang = l;
+  $("#lang-btn").querySelectorAll("span").forEach((s) => s.classList.toggle("on", s.dataset.l === l));
+  $("#q").placeholder = t.search;
+  $("#search-cancel").textContent = t.cancel;
+  $("#search-btn").setAttribute("aria-label", t.searchLabel);
+  $("#info-btn").setAttribute("aria-label", t.info);
+  $("#qr-btn").setAttribute("aria-label", t.qrBtn);
+  status();
+  if (current) { renderTabs(); renderCover(); render(); }
+}
+
+function go(id, scroll) {
+  current = MENU.sections.find((s) => s.id === id) || MENU.sections[0];
+  renderTabs();
+  renderCover();
+  render();
+  // Keep the tabs in view when switching sections after scrolling past the cover.
+  const navTop = $("#cover").offsetHeight;
+  if (scroll && window.scrollY > navTop) window.scrollTo({ top: navTop });
+}
+
+function openSheet(html) {
+  $("#panel").innerHTML = `<button class="close" aria-label="${t.close}">×</button>` + html;
+  $("#panel").scrollTop = 0;
+  $("#sheet").hidden = false;
+  document.body.style.overflow = "hidden";
+}
+function closeSheet() {
+  $("#sheet").hidden = true;
+  document.body.style.overflow = "";
+}
+
+function showItem(item) {
+  const desc = tx(item, "desc");
+  openSheet(`${item.img ? `<img src="${IMGS[item.img]}" alt="">` : ""}
+    <div class="body"${item.img ? "" : ' style="padding-top:34px"'}>
+      <h3>${esc(tx(item, "name"))}</h3>
+      ${desc ? `<p>${esc(desc)}</p>` : ""}
+      <div class="meta"><span class="big-price">${euro.format(item.price)}</span>${item.volume ? `<span class="badge sold">${esc(item.volume)}</span>` : ""}${badges(item)}</div>
+    </div>`);
+}
+
+function showInfo() {
+  const today = lisbonNow().getDay();
+  const hours = [1, 2, 3, 4, 5, 6, 0].map((d) => {
+    const c = d === today ? ' class="today"' : "";
+    return `<span${c}>${t.days[d]}</span><span${c}>${HOURS[d][0]} – ${HOURS[d][1]}</span>`;
+  }).join("");
+  openSheet(`<div class="body info"><h3>Sweet &amp; Salt</h3><dl>
+    <div><dt>${t.hours}</dt><dd class="hours">${hours}</dd></div>
+    <div><dt>${t.address}</dt><dd>Avenida Miguel Bombarda 9<br>8500-643 Portimão<br><a href="https://maps.google.com/?q=Sweet+%26+Salt+Avenida+Miguel+Bombarda+9+Portim%C3%A3o" target="_blank" rel="noopener">${t.map}</a></dd></div>
+    <div><dt>${t.phone}</dt><dd>282 419 549<button class="copy" data-copy="282419549">${t.copy}</button></dd></div>
+    <div><dt>${t.email}</dt><dd>sweetsalt.pt@gmail.com<button class="copy" data-copy="sweetsalt.pt@gmail.com">${t.copy}</button></dd></div>
+    <div><dt>${t.follow}</dt><dd><a href="https://www.instagram.com/sweetsalt.pt/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.tripadvisor.com/Restaurant_Review-g189120-d26155451-Reviews-Sweet_Salt-Portimao_Faro_District_Algarve.html" target="_blank" rel="noopener">Tripadvisor</a></dd></div>
+  </dl></div>`);
+}
+
+function showQR() {
+  openSheet(`<div class="body qr"><h3>${t.qrTitle}</h3><div class="qr-code">${QR_SVG}</div><p>${t.qrText}</p><p class="url">${esc(QR_URL)}</p></div>`);
+}
+
+$("#tabs").addEventListener("click", (e) => {
+  const tab = e.target.closest(".tab");
+  if (tab) location.hash = tab.dataset.id;
+});
+$("#chips").addEventListener("click", (e) => {
+  const c = e.target.closest(".chip");
+  if (c) document.getElementById(c.dataset.target).scrollIntoView({ behavior: "smooth" });
+});
+$("#content").addEventListener("click", (e) => {
+  const el = e.target.closest("[data-i]");
+  if (el) showItem(items[el.dataset.i]);
+});
+$("#sheet").addEventListener("click", async (e) => {
+  const copy = e.target.closest(".copy");
+  if (copy) {
+    try { await navigator.clipboard.writeText(copy.dataset.copy); copy.textContent = t.copied; }
+    catch { getSelection().selectAllChildren(copy.parentNode); }
+    return;
+  }
+  if (e.target === e.currentTarget || e.target.closest(".close")) closeSheet();
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeSheet(); });
+$("#info-btn").addEventListener("click", showInfo);
+$("#qr-btn").addEventListener("click", showQR);
+$("#lang-btn").addEventListener("click", () => {
+  const next = lang === "pt" ? "en" : "pt";
+  store.set(next);
+  setLang(next);
+});
+$("#welcome").addEventListener("click", (e) => {
+  const b = e.target.closest(".lang-choice");
+  if (!b) return;
+  store.set(b.dataset.lang);
+  setLang(b.dataset.lang);
+  $("#welcome").hidden = true;
+});
+$("#search-btn").addEventListener("click", () => {
+  $("#search-row").hidden = false;
+  $("#nav-row").hidden = true;
+  const navTop = $("#cover").offsetHeight;
+  if (window.scrollY < navTop) window.scrollTo({ top: navTop });
+  $("#q").focus();
+});
+$("#search-cancel").addEventListener("click", () => {
+  $("#q").value = "";
+  $("#search-row").hidden = true;
+  $("#nav-row").hidden = false;
+  render();
+});
+$("#q").addEventListener("input", () => {
+  render();
+  window.scrollTo({ top: $("#cover").offsetHeight });
+});
+window.addEventListener("hashchange", () => go(location.hash.slice(1), true));
+
+// First visit: ask for a language, highlighting the phone's own. Later visits reuse the choice.
+const saved = store.get();
+const guess = (navigator.language || "").toLowerCase().startsWith("pt") ? "pt" : "en";
+setLang(saved || guess);
+if (!saved) {
+  document.querySelector(`.lang-choice[data-lang="${guess}"]`).classList.add("suggested");
+  $("#welcome").hidden = false;
+}
+setInterval(status, 60000);
+go(location.hash.slice(1));
+</script>
+</body>
+</html>
