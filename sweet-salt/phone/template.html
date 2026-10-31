@@ -1,0 +1,496 @@
+<title>Sweet &amp; Salt Menu</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Photo-led, phone-first: full-bleed cover photo per section, swipeable picks, big photo cards, dish details in a bottom sheet. */
+:root {
+  --bg: #f4f3ef;
+  --surface: #ffffff;
+  --ink: #111c26;
+  --muted: #66707a;
+  --line: #e3e2dc;
+  --accent: #e2456b;
+  --accent-ink: #ffffff;
+  --accent-soft: #fde4ea;
+  --good: #23805a;
+  --good-soft: #dcf1e6;
+  --scrim: rgba(8, 14, 20, .55);
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, sans-serif;
+  --r: 22px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1218; --surface: #151e27; --ink: #f2f4f5; --muted: #99a5b0; --line: #24303b;
+    --accent: #ff6b8d; --accent-ink: #1a0a10; --accent-soft: #3b1d27; --good: #6fd3a3; --good-soft: #143528; --scrim: rgba(0, 0, 0, .7);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1218; --surface: #151e27; --ink: #f2f4f5; --muted: #99a5b0; --line: #24303b;
+  --accent: #ff6b8d; --accent-ink: #1a0a10; --accent-soft: #3b1d27; --good: #6fd3a3; --good-soft: #143528; --scrim: rgba(0, 0, 0, .7);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font: 17px/1.45 var(--body); -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
+button { font: inherit; color: inherit; }
+.pad { max-width: 1100px; margin: 0 auto; padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+
+/* Cover */
+.cover { position: relative; min-height: 400px; display: flex; align-items: flex-end; overflow: hidden; color: #fff; background: #111c26; }
+.cover img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: 100%; object-fit: cover; transform: scale(1.04); }
+.cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,.15) 50%, rgba(0,0,0,.82) 100%); }
+.cover .pad { position: relative; z-index: 1; width: 100%; padding-block: 24px 28px; display: grid; gap: 14px; }
+.cover-top { position: absolute; z-index: 2; top: 16px; left: max(18px, env(safe-area-inset-left, 0px)); right: max(18px, env(safe-area-inset-right, 0px)); display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.cover-top .actions { display: flex; gap: 8px; }
+.eyebrow { font: 600 12px var(--body); letter-spacing: .2em; text-transform: uppercase; opacity: .9; }
+.brand { margin: 0; font: 800 clamp(56px, 17vw, 120px)/.86 var(--display); letter-spacing: -.045em; text-wrap: balance; }
+.brand em { font-style: normal; color: var(--accent); }
+.cover-row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.pill { display: inline-flex; align-items: center; gap: 7px; min-height: 34px; padding: 0 14px; border-radius: 999px; background: rgba(255,255,255,.16); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: 14px; font-weight: 600; color: #fff; }
+.pill.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #c9cfd4; }
+.pill.status.open::before { background: #5be0a0; box-shadow: 0 0 0 4px rgba(91,224,160,.25); }
+.glass-btn { min-width: 46px; height: 46px; display: grid; place-items: center; border: 0; border-radius: 999px; background: rgba(255,255,255,.18); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: #fff; cursor: pointer; }
+.glass-btn svg, .icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.lang-toggle { display: flex; padding: 4px; gap: 2px; }
+.lang-toggle span { min-width: 38px; height: 38px; display: grid; place-items: center; border-radius: 999px; font: 700 14px var(--display); letter-spacing: .04em; opacity: .75; }
+.lang-toggle span.on { background: #fff; color: #111c26; opacity: 1; }
+.cover-dish { font-size: 14px; opacity: .85; }
+
+/* Sticky nav */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); box-shadow: 0 1px 0 var(--line); }
+.scroller { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; }
+.scroller::-webkit-scrollbar { display: none; }
+.tabs, .chips { -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); padding-right: 28px; }
+.navrow { display: flex; align-items: center; gap: 8px; padding-block: 12px 10px; }
+.tabs { flex: 1; min-width: 0; }
+.tab { flex: none; min-height: 46px; padding: 0 20px; border: 0; border-radius: 999px; background: var(--surface); font: 700 16px var(--display); color: var(--muted); cursor: pointer; box-shadow: inset 0 0 0 1px var(--line); }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--bg); box-shadow: none; }
+.icon { flex: none; width: 46px; height: 46px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); cursor: pointer; }
+.chips { padding-block: 0 12px; gap: 18px; }
+.chips:empty { display: none; }
+.chip { flex: none; padding: 4px 0; border: 0; border-bottom: 2.5px solid transparent; background: none; font-size: 15px; font-weight: 600; color: var(--muted); cursor: pointer; text-transform: capitalize; }
+.chip.active { color: var(--ink); border-color: var(--accent); }
+.search { display: flex; gap: 8px; padding-block: 12px; }
+.search input { flex: 1; min-width: 0; height: 50px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); font: inherit; color: inherit; outline: none; }
+.search input:focus { box-shadow: inset 0 0 0 2px var(--accent); }
+.search button { padding: 0 8px; border: 0; background: none; color: var(--accent); font-weight: 700; cursor: pointer; }
+
+/* Content */
+main { padding-block: 8px 56px; }
+.tagline { margin: 22px 0 0; font: 600 13px var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.note { margin: 22px 0 0; padding: 22px; border-radius: var(--r); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-size: 16px; white-space: pre-line; }
+.picks h2, .cat h2 { margin: 0; font: 800 clamp(34px, 10vw, 52px)/1 var(--display); letter-spacing: -.035em; text-transform: capitalize; text-wrap: balance; }
+.cat h2 sup { margin-left: 6px; font: 600 15px var(--body); letter-spacing: 0; color: var(--muted); vertical-align: top; }
+.cat h2 small { display: block; margin-bottom: 6px; font: 600 13px var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.picks { margin-top: 30px; }
+.picks h2 { font-size: 26px; }
+.rail { margin: 14px calc(-1 * max(18px, env(safe-area-inset-left, 0px))) 0; padding: 0 max(18px, env(safe-area-inset-left, 0px)) 6px; scroll-snap-type: x mandatory; scroll-padding: 0 max(18px, env(safe-area-inset-left, 0px)); gap: 12px; }
+.pick { position: relative; flex: none; width: 78%; max-width: 340px; aspect-ratio: 4 / 5; scroll-snap-align: start; border: 0; padding: 0; border-radius: var(--r); overflow: hidden; background: var(--line); cursor: pointer; color: #fff; text-align: left; }
+.pick img { width: 100%; height: 100%; max-width: 100%; object-fit: cover; display: block; }
+.pick::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.8)); }
+.pick .over { position: absolute; z-index: 1; left: 16px; right: 16px; bottom: 16px; }
+.pick .name { font: 700 22px/1.1 var(--display); letter-spacing: -.01em; }
+.pick .price-tag { position: absolute; z-index: 1; top: 12px; right: 12px; }
+
+.cat { margin-top: 44px; scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 130px); }
+.grid { display: grid; gap: 16px; margin-top: 18px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+.card { display: flex; flex-direction: column; width: 100%; padding: 0; border: 0; border-radius: var(--r); background: var(--surface); overflow: hidden; text-align: left; cursor: pointer; box-shadow: 0 1px 0 var(--line), 0 10px 30px -18px rgba(17, 28, 38, .35); transition: transform .2s; }
+.card:active { transform: scale(.985); }
+.card .photo { position: relative; display: block; aspect-ratio: 4 / 3; max-width: 100%; background: var(--line); }
+.card .photo img { width: 100%; height: 100%; max-width: 100%; object-fit: cover; display: block; }
+.card .badges { position: absolute; left: 12px; top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+.card .price-tag { position: absolute; right: 12px; bottom: 12px; }
+.card .text { padding: 16px 18px 20px; display: grid; gap: 6px; min-width: 0; }
+.card .name { font: 700 22px/1.15 var(--display); letter-spacing: -.015em; }
+.card .desc { font-size: 15px; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card.sold-out .photo img { filter: grayscale(1); opacity: .6; }
+.card.sold-out .name { color: var(--muted); }
+
+.price-tag { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 999px; background: var(--surface); color: var(--ink); font: 700 17px var(--display); font-variant-numeric: tabular-nums; box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+.badge { display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.badge.new { background: var(--good-soft); color: var(--good); }
+.badge.recommended { background: var(--accent); color: var(--accent-ink); }
+.badge.sold { background: var(--ink); color: var(--bg); }
+
+/* Rows for items without photos (coffee, extras) */
+.rows { margin-top: 14px; border-radius: var(--r); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+.line { display: flex; align-items: baseline; gap: 12px; width: 100%; padding: 16px 18px; border: 0; background: none; text-align: left; cursor: pointer; }
+.line + .line { box-shadow: 0 -1px 0 var(--line); }
+.line > span:first-child { min-width: 0; }
+.line .name { font-weight: 600; font-size: 17px; }
+.line .desc { display: block; font-size: 14px; color: var(--muted); }
+.line .dots { flex: 1; min-width: 12px; border-bottom: 2px dotted var(--line); transform: translateY(-4px); }
+.line .p { font: 700 17px var(--display); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.line .vol { color: var(--muted); font: 500 14px var(--body); }
+.line.sold-out .name { color: var(--muted); text-decoration: line-through; }
+
+.empty { padding: 64px 0; text-align: center; color: var(--muted); font-size: 18px; }
+.card:focus-visible, .pick:focus-visible, .line:focus-visible, .tab:focus-visible, .chip:focus-visible, .icon:focus-visible, .glass-btn:focus-visible, .lang-choice:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Bottom sheet */
+.sheet { position: fixed; inset: 0; z-index: 40; display: flex; align-items: flex-end; justify-content: center; background: var(--scrim); }
+.panel { position: relative; width: 100%; max-width: 600px; max-height: 94%; overflow-y: auto; border-radius: 28px 28px 0 0; background: var(--surface); padding-bottom: env(safe-area-inset-bottom, 0px); animation: up .25s cubic-bezier(.2, .8, .2, 1); }
+@keyframes up { from { transform: translateY(60px); opacity: .5; } }
+@media (prefers-reduced-motion: reduce) { .panel { animation: none; } .card { transition: none; } }
+.panel > img { display: block; width: 100%; max-width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+.panel .body { padding: 22px max(22px, env(safe-area-inset-right, 0px)) 30px max(22px, env(safe-area-inset-left, 0px)); display: grid; gap: 12px; }
+.panel h3 { margin: 0; font: 800 32px/1.05 var(--display); letter-spacing: -.03em; text-wrap: balance; }
+.panel p { margin: 0; color: var(--muted); font-size: 17px; }
+.panel .meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.panel .big-price { font: 800 30px var(--display); font-variant-numeric: tabular-nums; margin-right: 6px; }
+.close { position: absolute; top: 14px; right: max(14px, env(safe-area-inset-right, 0px)); z-index: 1; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--surface); color: var(--ink); font-size: 26px; line-height: 1; cursor: pointer; box-shadow: 0 4px 14px rgba(0, 0, 0, .2); }
+.info .body { padding-top: 30px; gap: 22px; }
+.info dl { display: grid; gap: 20px; margin: 0; }
+.info dt { font: 700 12px var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.info dd { margin: 6px 0 0; font-size: 17px; }
+.info a { color: var(--ink); font-weight: 600; }
+.hours { display: grid; grid-template-columns: auto auto; justify-content: start; gap: 4px 20px; font-variant-numeric: tabular-nums; }
+.hours .today { font-weight: 700; color: var(--accent); }
+.copy { margin-left: 10px; min-height: 32px; padding: 0 12px; border: 0; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 700; cursor: pointer; }
+
+/* QR */
+.body.qr { padding-top: 34px; justify-items: center; text-align: center; }
+.qr-code { width: min(300px, 78vw); max-width: 100%; aspect-ratio: 1; padding: 16px; border-radius: 24px; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 18px 40px -20px rgba(17, 28, 38, .5); }
+.qr-code svg { display: block; width: 100%; height: 100%; }
+.qr .url { font-size: 14px; color: var(--muted); word-break: break-all; user-select: all; }
+
+/* Language picker on first visit */
+.welcome { position: fixed; inset: 0; z-index: 50; display: flex; align-items: flex-end; justify-content: center; background: linear-gradient(180deg, rgba(8,14,20,.2), rgba(8,14,20,.75)); }
+.welcome .panel { padding: 30px max(22px, env(safe-area-inset-right, 0px)) calc(26px + env(safe-area-inset-bottom, 0px)) max(22px, env(safe-area-inset-left, 0px)); display: grid; gap: 18px; }
+.welcome h2 { margin: 0; font: 800 34px/1.02 var(--display); letter-spacing: -.035em; }
+.welcome h2 span { display: block; color: var(--muted); font-weight: 700; }
+.lang-choice { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 66px; padding: 0 22px; border: 0; border-radius: 18px; background: var(--bg); box-shadow: inset 0 0 0 1.5px var(--line); font: 700 21px var(--display); cursor: pointer; }
+.lang-choice small { font: 600 13px var(--body); letter-spacing: .14em; color: var(--muted); }
+.lang-choice.suggested { background: var(--ink); color: var(--bg); box-shadow: none; }
+.lang-choice.suggested small { color: inherit; opacity: .7; }
+</style>
+
+<header class="cover" id="cover">
+  <img id="cover-img" alt="">
+  <div class="cover-top">
+    <span class="eyebrow">Portimão</span>
+    <div class="actions">
+      <button class="glass-btn lang-toggle" id="lang-btn" aria-label="Português / English"><span data-l="pt">PT</span><span data-l="en">EN</span></button>
+      <button class="glass-btn" id="qr-btn" aria-label="QR"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg></button>
+      <button class="glass-btn" id="info-btn" aria-label="Info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg></button>
+    </div>
+  </div>
+  <div class="pad">
+    <h1 class="brand">Sweet <em>&amp;</em><br>Salt</h1>
+    <div class="cover-row">
+      <span class="pill status" id="status"></span>
+      <span class="cover-dish" id="cover-dish"></span>
+    </div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="pad">
+    <div class="search" id="search-row" hidden>
+      <input id="q" type="search" autocomplete="off" enterkeyhint="search">
+      <button id="search-cancel"></button>
+    </div>
+    <div class="navrow" id="nav-row">
+      <div class="scroller tabs" id="tabs" role="tablist"></div>
+      <button class="icon" id="search-btn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    </div>
+    <div class="scroller chips" id="chips"></div>
+  </div>
+</nav>
+
+<main class="pad" id="content"></main>
+
+<div class="sheet" id="sheet" hidden><div class="panel" id="panel"></div></div>
+
+<div class="welcome" id="welcome" hidden>
+  <div class="panel">
+    <h2>Bem-vindo<span>Welcome</span></h2>
+    <button class="lang-choice" data-lang="pt">Português <small>PT</small></button>
+    <button class="lang-choice" data-lang="en">English <small>EN</small></button>
+  </div>
+</div>
+
+<script>
+/*DATA*/
+</script>
+<script>
+// Hours from the original site, Sunday = 0.
+const HOURS = [["10:00","22:00"],["10:00","22:00"],["10:00","22:00"],["10:00","22:00"],["10:00","22:00"],["10:00","22:30"],["10:00","22:30"]];
+const T = {
+  pt: {
+    days: ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"],
+    open: (t) => `Aberto até às ${t}`, closed: (t) => `Fechado · abre às ${t}`,
+    new: "Novo", recommended: "Top", sold: "Esgotado", picks: "Recomendados",
+    search: "Procurar pratos e bebidas", cancel: "Cancelar", searchLabel: "Procurar",
+    none: "Nada encontrado.", empty: "Sem itens nesta secção.", close: "Fechar",
+    hours: "Horário", address: "Morada", map: "Abrir no mapa →", phone: "Telefone", email: "Email", follow: "Siga-nos",
+    copy: "Copiar", copied: "Copiado ✓", info: "Horário e contacto",
+    qrTitle: "Partilhe o menu", qrText: "Aponte a câmara para abrir este menu.", qrBtn: "Código QR",
+  },
+  en: {
+    days: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    open: (t) => `Open until ${t}`, closed: (t) => `Closed · opens at ${t}`,
+    new: "New", recommended: "Top", sold: "Sold out", picks: "Recommended",
+    search: "Search dishes and drinks", cancel: "Cancel", searchLabel: "Search",
+    none: "Nothing found.", empty: "No items in this section.", close: "Close",
+    hours: "Opening hours", address: "Address", map: "Open in maps →", phone: "Phone", email: "Email", follow: "Follow us",
+    copy: "Copy", copied: "Copied ✓", info: "Hours and contact",
+    qrTitle: "Share the menu", qrText: "Point your camera here to open this menu.", qrBtn: "QR code",
+  },
+};
+const $ = (s) => document.querySelector(s);
+const euro = new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR" });
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const title = (s) => s.charAt(0) + s.slice(1).toLowerCase();
+const items = [];
+let current, lang = "pt", t = T.pt;
+
+// Text in the chosen language; menu entries carry their English version under `en`.
+const tx = (o, key) => (lang === "en" && o.en && o.en[key]) || o[key];
+
+const store = {
+  get() { try { return localStorage.getItem("lang"); } catch { return null; } },
+  set(v) { try { localStorage.setItem("lang", v); } catch {} },
+};
+
+function lisbonNow() {
+  return new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Lisbon" }));
+}
+function status() {
+  const now = lisbonNow(), [from, till] = HOURS[now.getDay()], hm = now.toTimeString().slice(0, 5);
+  const open = hm >= from && hm < till;
+  $("#status").textContent = open ? t.open(till) : t.closed(hm < from ? from : HOURS[(now.getDay() + 1) % 7][0]);
+  $("#status").classList.toggle("open", open);
+}
+
+const all = (s) => s.categories.flatMap((c) => c.items);
+const ref = (item) => (items.push(item), items.length - 1);
+const badges = (item) => item.labels.map((l) => `<span class="badge ${esc(l)}">${esc(t[l] || l)}</span>`).join("")
+  + (item.soldOut ? `<span class="badge sold">${t.sold}</span>` : "");
+
+function card(item) {
+  const desc = tx(item, "desc");
+  return `<button class="card${item.soldOut ? " sold-out" : ""}" data-i="${ref(item)}">
+    <span class="photo"><img src="${IMGS[item.img]}" alt="" loading="lazy" decoding="async">
+      <span class="badges">${badges(item)}</span>
+      <span class="price-tag">${euro.format(item.price)}</span></span>
+    <span class="text"><span class="name">${esc(tx(item, "name"))}</span>${desc ? `<span class="desc">${esc(desc)}</span>` : ""}</span>
+  </button>`;
+}
+function line(item) {
+  const desc = tx(item, "desc");
+  return `<button class="line${item.soldOut ? " sold-out" : ""}" data-i="${ref(item)}">
+    <span><span class="name">${esc(tx(item, "name"))}</span>${desc ? `<span class="desc">${esc(desc)}</span>` : ""}</span>
+    <span class="dots"></span>
+    <span class="p">${item.volume ? `<span class="vol">${esc(item.volume)} · </span>` : ""}${euro.format(item.price)}</span>
+  </button>`;
+}
+function pick(item) {
+  return `<button class="pick" data-i="${ref(item)}"><img src="${IMGS[item.img]}" alt="" loading="lazy" decoding="async">
+    <span class="price-tag">${euro.format(item.price)}</span>
+    <span class="over"><span class="name">${esc(tx(item, "name"))}</span></span></button>`;
+}
+function block(list) {
+  const withImg = list.filter((i) => i.img), without = list.filter((i) => !i.img);
+  return (withImg.length ? `<div class="grid">${withImg.map(card).join("")}</div>` : "")
+    + (without.length ? `<div class="rows">${without.map(line).join("")}</div>` : "");
+}
+
+function render() {
+  const q = $("#q").value.trim().toLowerCase();
+  const searching = !$("#search-row").hidden && q;
+  items.length = 0;
+  let html = "";
+  if (!searching) {
+    const s = current;
+    if (tx(s, "desc")) html += `<p class="tagline">${esc(tx(s, "desc"))}</p>`;
+    if (tx(s, "info")) html += `<div class="note">${esc(tx(s, "info"))}</div>`;
+    const picks = all(s).filter((i) => i.labels.includes("recommended") && i.img && !i.soldOut);
+    if (picks.length > 1) html += `<section class="picks"><h2>${t.picks}</h2><div class="scroller rail">${picks.map(pick).join("")}</div></section>`;
+  }
+  // Search matches either language, so a guest can type what they know.
+  const match = (i) => [i.name, i.desc, i.en?.name, i.en?.desc].join(" ").toLowerCase().includes(q);
+  for (const s of searching ? MENU.sections : [current]) {
+    for (const c of s.categories) {
+      const list = searching ? c.items.filter(match) : c.items;
+      if (!list.length) continue;
+      html += `<section class="cat" id="cat-${s.id}-${c.id}">
+        <h2>${searching ? `<small>${esc(title(tx(s, "name")))}</small>` : ""}${esc(tx(c, "name").toLowerCase())}<sup>${list.length}</sup></h2>
+        ${block(list)}</section>`;
+    }
+  }
+  $("#content").innerHTML = html || `<p class="empty">${searching ? t.none : t.empty}</p>`;
+
+  const cats = searching ? [] : current.categories.filter((c) => c.items.length);
+  $("#chips").innerHTML = cats.length > 1
+    ? cats.map((c) => `<button class="chip" data-target="cat-${current.id}-${c.id}">${esc(tx(c, "name").toLowerCase())}</button>`).join("")
+    : "";
+  spy();
+}
+
+function renderTabs() {
+  $("#tabs").innerHTML = MENU.sections.map((s) =>
+    `<button class="tab" role="tab" data-id="${s.id}" aria-selected="${s === current}">${esc(title(tx(s, "name")))}</button>`).join("");
+  $(`.tab[data-id="${current.id}"]`).scrollIntoView({ block: "nearest", inline: "center" });
+}
+
+// Cover photo follows the section: its first recommended dish, else its first photo, else the brunch cover.
+function renderCover() {
+  const pool = all(current).filter((i) => i.img && !i.soldOut);
+  const hero = pool.find((i) => i.labels.includes("recommended")) || pool[0] || all(MENU.sections[0]).find((i) => i.img);
+  $("#cover-img").src = IMGS[hero.img];
+  $("#cover-dish").textContent = tx(hero, "name");
+}
+
+// Underline the chip for the last category whose heading has passed under the sticky nav.
+function spy() {
+  const chips = [...document.querySelectorAll(".chip")];
+  if (!chips.length) return;
+  const navBottom = $(".nav").getBoundingClientRect().bottom + 40;
+  let active = chips[0];
+  for (const c of chips) if (document.getElementById(c.dataset.target).getBoundingClientRect().top <= navBottom) active = c;
+  if (active.classList.contains("active")) return;
+  chips.forEach((c) => c.classList.toggle("active", c === active));
+  active.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+}
+window.addEventListener("scroll", () => requestAnimationFrame(spy), { passive: true });
+
+function setLang(l) {
+  lang = l;
+  t = T[l];
+  document.documentElement.lang = l;
+  $("#lang-btn").querySelectorAll("span").forEach((s) => s.classList.toggle("on", s.dataset.l === l));
+  $("#q").placeholder = t.search;
+  $("#search-cancel").textContent = t.cancel;
+  $("#search-btn").setAttribute("aria-label", t.searchLabel);
+  $("#info-btn").setAttribute("aria-label", t.info);
+  $("#qr-btn").setAttribute("aria-label", t.qrBtn);
+  status();
+  if (current) { renderTabs(); renderCover(); render(); }
+}
+
+function go(id, scroll) {
+  current = MENU.sections.find((s) => s.id === id) || MENU.sections[0];
+  renderTabs();
+  renderCover();
+  render();
+  // Keep the tabs in view when switching sections after scrolling past the cover.
+  const navTop = $("#cover").offsetHeight;
+  if (scroll && window.scrollY > navTop) window.scrollTo({ top: navTop });
+}
+
+function openSheet(html) {
+  $("#panel").innerHTML = `<button class="close" aria-label="${t.close}">×</button>` + html;
+  $("#panel").scrollTop = 0;
+  $("#sheet").hidden = false;
+  document.body.style.overflow = "hidden";
+}
+function closeSheet() {
+  $("#sheet").hidden = true;
+  document.body.style.overflow = "";
+}
+
+function showItem(item) {
+  const desc = tx(item, "desc");
+  openSheet(`${item.img ? `<img src="${IMGS[item.img]}" alt="">` : ""}
+    <div class="body"${item.img ? "" : ' style="padding-top:34px"'}>
+      <h3>${esc(tx(item, "name"))}</h3>
+      ${desc ? `<p>${esc(desc)}</p>` : ""}
+      <div class="meta"><span class="big-price">${euro.format(item.price)}</span>${item.volume ? `<span class="badge sold">${esc(item.volume)}</span>` : ""}${badges(item)}</div>
+    </div>`);
+}
+
+function showInfo() {
+  const today = lisbonNow().getDay();
+  const hours = [1, 2, 3, 4, 5, 6, 0].map((d) => {
+    const c = d === today ? ' class="today"' : "";
+    return `<span${c}>${t.days[d]}</span><span${c}>${HOURS[d][0]} – ${HOURS[d][1]}</span>`;
+  }).join("");
+  openSheet(`<div class="body info"><h3>Sweet &amp; Salt</h3><dl>
+    <div><dt>${t.hours}</dt><dd class="hours">${hours}</dd></div>
+    <div><dt>${t.address}</dt><dd>Avenida Miguel Bombarda 9<br>8500-643 Portimão<br><a href="https://maps.google.com/?q=Sweet+%26+Salt+Avenida+Miguel+Bombarda+9+Portim%C3%A3o" target="_blank" rel="noopener">${t.map}</a></dd></div>
+    <div><dt>${t.phone}</dt><dd>282 419 549<button class="copy" data-copy="282419549">${t.copy}</button></dd></div>
+    <div><dt>${t.email}</dt><dd>sweetsalt.pt@gmail.com<button class="copy" data-copy="sweetsalt.pt@gmail.com">${t.copy}</button></dd></div>
+    <div><dt>${t.follow}</dt><dd><a href="https://www.instagram.com/sweetsalt.pt/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.tripadvisor.com/Restaurant_Review-g189120-d26155451-Reviews-Sweet_Salt-Portimao_Faro_District_Algarve.html" target="_blank" rel="noopener">Tripadvisor</a></dd></div>
+  </dl></div>`);
+}
+
+function showQR() {
+  openSheet(`<div class="body qr"><h3>${t.qrTitle}</h3><div class="qr-code">${QR_SVG}</div><p>${t.qrText}</p><p class="url">${esc(QR_URL)}</p></div>`);
+}
+
+$("#tabs").addEventListener("click", (e) => {
+  const tab = e.target.closest(".tab");
+  if (tab) location.hash = tab.dataset.id;
+});
+$("#chips").addEventListener("click", (e) => {
+  const c = e.target.closest(".chip");
+  if (c) document.getElementById(c.dataset.target).scrollIntoView({ behavior: "smooth" });
+});
+$("#content").addEventListener("click", (e) => {
+  const el = e.target.closest("[data-i]");
+  if (el) showItem(items[el.dataset.i]);
+});
+$("#sheet").addEventListener("click", async (e) => {
+  const copy = e.target.closest(".copy");
+  if (copy) {
+    try { await navigator.clipboard.writeText(copy.dataset.copy); copy.textContent = t.copied; }
+    catch { getSelection().selectAllChildren(copy.parentNode); }
+    return;
+  }
+  if (e.target === e.currentTarget || e.target.closest(".close")) closeSheet();
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeSheet(); });
+$("#info-btn").addEventListener("click", showInfo);
+$("#qr-btn").addEventListener("click", showQR);
+$("#lang-btn").addEventListener("click", () => {
+  const next = lang === "pt" ? "en" : "pt";
+  store.set(next);
+  setLang(next);
+});
+$("#welcome").addEventListener("click", (e) => {
+  const b = e.target.closest(".lang-choice");
+  if (!b) return;
+  store.set(b.dataset.lang);
+  setLang(b.dataset.lang);
+  $("#welcome").hidden = true;
+});
+$("#search-btn").addEventListener("click", () => {
+  $("#search-row").hidden = false;
+  $("#nav-row").hidden = true;
+  const navTop = $("#cover").offsetHeight;
+  if (window.scrollY < navTop) window.scrollTo({ top: navTop });
+  $("#q").focus();
+});
+$("#search-cancel").addEventListener("click", () => {
+  $("#q").value = "";
+  $("#search-row").hidden = true;
+  $("#nav-row").hidden = false;
+  render();
+});
+$("#q").addEventListener("input", () => {
+  render();
+  window.scrollTo({ top: $("#cover").offsetHeight });
+});
+window.addEventListener("hashchange", () => go(location.hash.slice(1), true));
+
+// First visit: ask for a language, highlighting the phone's own. Later visits reuse the choice.
+const saved = store.get();
+const guess = (navigator.language || "").toLowerCase().startsWith("pt") ? "pt" : "en";
+setLang(saved || guess);
+if (!saved) {
+  document.querySelector(`.lang-choice[data-lang="${guess}"]`).classList.add("suggested");
+  $("#welcome").hidden = false;
+}
+setInterval(status, 60000);
+go(location.hash.slice(1));
+</script>

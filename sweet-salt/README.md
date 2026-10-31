@@ -10,3 +10,15 @@ python3 -m http.server 8000
 Open http://localhost:8000. Links work like the original, e.g. `#brunch/ovos-mais`.
 
 To refresh prices and dishes from the live site: `python3 scripts/fetch_menu.py`
+
+## Phone version
+
+`phone/` holds the single-file, photo-led version (Portuguese/English, QR code) published at
+https://claude.ai/artifact/CN9HWNeqrKppbdGVwvhbpA. Rebuild it after refreshing `menu.json`:
+
+```
+pip install pillow segno
+python3 phone/build.py https://claude.ai/artifact/CN9HWNeqrKppbdGVwvhbpA
+```
+
+This writes `phone/dist/sweet-salt-menu.html` and `qr-code.png` (printable QR for the URL).
