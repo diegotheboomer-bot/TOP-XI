@@ -53,6 +53,14 @@
       return out;
     },
     featured: (s = Menu.section) => s.categories.flatMap((c) => c.items).filter((i) => i.labels.includes("recommended") && i.img && !i.soldOut),
+    // Up to n photos for headers and collages: recommended dishes first, then the rest of the section.
+    // Sections without photos borrow from the whole menu.
+    photos(s = Menu.section, n = 8) {
+      const ok = (i) => i.img && !i.soldOut;
+      let pool = s.categories.flatMap((c) => c.items).filter(ok);
+      if (!pool.length) pool = Menu.data.sections.flatMap((x) => x.categories.flatMap((c) => c.items)).filter(ok);
+      return [...pool.filter((i) => i.labels.includes("recommended")), ...pool.filter((i) => !i.labels.includes("recommended"))].slice(0, n);
+    },
 
     // Navigation markup. Templates style the buttons; core handles taps and highlighting.
     catId: (c) => "cat-" + c.id,
@@ -164,6 +172,10 @@
     async start(o) {
       if (FRAMED) return Menu.frame();
       opts = o;
+      // A light press effect on every tappable dish.
+      const press = document.createElement("style");
+      press.textContent = "[data-item]{transition:transform .15s ease}[data-item]:active{transform:scale(.97)}@media (prefers-reduced-motion:reduce){[data-item]{transition:none}[data-item]:active{transform:none}}";
+      document.head.append(press);
       Menu.data = await (await fetch(new URL("templates/menu.json", ROOT))).json();
       Menu.info = Menu.data.info;
       const saved = store.get();

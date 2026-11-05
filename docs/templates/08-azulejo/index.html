@@ -21,6 +21,15 @@ body { margin: 0; background: var(--white); color: var(--deep); font: 16px/1.5 v
 .hero p { margin: 6px 0 0; font-size: 14px; color: var(--soft); }
 .hero .open { color: #2a7a4b; }
 .lang { flex: none; min-width: 44px; height: 44px; border: 1.5px solid var(--cobalt); border-radius: 4px; background: var(--white); color: var(--cobalt); font: 600 14px var(--body); cursor: pointer; }
+.frame { display: block; width: 100%; margin: 0 0 18px; padding: 10px; border: 0; border-radius: 6px; background: var(--tile) center/34px; cursor: pointer; text-align: left; }
+.frame img { display: block; width: 100%; aspect-ratio: 16/10; object-fit: cover; border: 3px solid var(--white); border-radius: 3px; }
+.frame span { display: inline-block; margin-top: 8px; padding: 4px 12px; background: var(--cobalt); color: var(--white); font: 400 15px var(--display); }
+.rail { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x mandatory; margin: 0 calc(-1 * max(18px, env(safe-area-inset-left))); padding: 0 max(18px, env(safe-area-inset-left)) 4px; scroll-padding: 0 max(18px, env(safe-area-inset-left)); }
+.rail::-webkit-scrollbar { display: none; }
+.pick { flex: none; width: 58%; max-width: 230px; scroll-snap-align: start; padding: 6px; border: 1.5px solid var(--cobalt); border-radius: 6px; background: #fff; text-align: left; cursor: pointer; }
+.pick img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 3px; }
+.pick span { display: block; padding: 8px 4px 2px; color: var(--cobalt); font-weight: 600; }
+.pick b { display: block; font: 400 17px/1.2 var(--display); color: var(--deep); }
 .bar { position: sticky; top: 0; z-index: 5; background: var(--white); border-bottom: 1px solid var(--sky); }
 .row { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
 .row::-webkit-scrollbar { display: none; }
@@ -77,10 +86,12 @@ Menu.start({
     $app.innerHTML = `
       <div class="strip"></div>
       <header class="pad hero"><div><h1>${esc(info.name)}</h1><p class="${st.open ? "open" : ""}">${esc(st.text)}${Menu.desc(s) ? ` · ${esc(Menu.desc(s))}` : ""}</p></div><button class="lang" data-lang-toggle data-lang-label></button></header>
+      ${Menu.photos(s, 1).map((i) => `<div class="pad"><button class="frame" ${Menu.ref(i)}><img src="${Menu.img(i.img)}" alt=""><span>${esc(Menu.name(i))} · ${Menu.price(i.price)}</span></button></div>`).join("")}
       <i data-top></i>
       <div class="bar" data-sticky><div class="pad"><nav class="row secs">${Menu.sectionsNav()}</nav><nav class="row cats">${Menu.catsNav()}</nav></div></div>
       <main class="pad">
         ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}
+        ${Menu.featured(s).length > 2 ? `<section class="cat"><h2>${Menu.t.recommended}</h2><div class="rail">${Menu.featured(s).slice(1).map((i) => `<button class="pick" ${Menu.ref(i)}><img src="${Menu.img(i.img)}" alt="" loading="lazy"><span><b>${esc(Menu.name(i))}</b>${Menu.price(i.price)}</span></button>`).join("")}</div></section>` : ""}
         ${Menu.categories().map((c) => `<section class="cat" id="${Menu.catId(c)}"><h2>${esc(Menu.title(c))}</h2><div class="list">
           ${c.items.map((i) => `<button class="dish${i.soldOut ? " sold" : ""}" ${Menu.ref(i)}>
             ${i.img ? `<img src="${Menu.img(i.img)}" alt="" loading="lazy">` : `<span class="ph"></span>`}

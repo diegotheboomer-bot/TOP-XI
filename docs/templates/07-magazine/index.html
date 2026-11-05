@@ -15,11 +15,18 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 15px/1.55 v
 .wrap { max-width: 720px; margin: 0 auto; padding: max(14px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) 56px max(18px, env(safe-area-inset-left)); }
 .strap { display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid var(--rule); font: 800 11px var(--sans); letter-spacing: .16em; text-transform: uppercase; }
 .strap button { border: 1px solid var(--ink); background: none; padding: 5px 9px; font: 800 11px var(--sans); letter-spacing: .12em; cursor: pointer; }
-.cover { padding: 14px 0 12px; border-bottom: 4px solid var(--rule); }
-.cover h1 { margin: 0; font: 900 clamp(54px, 17vw, 108px)/.88 var(--serif); letter-spacing: -.03em; }
-.cover h1 em { color: var(--red); font-style: italic; }
-.cover .issue { display: flex; justify-content: space-between; margin-top: 10px; font: 600 12px var(--sans); text-transform: uppercase; letter-spacing: .12em; }
-.cover .issue b { color: var(--red); }
+.cover { position: relative; min-height: 470px; margin: 10px calc(-1 * max(18px, env(safe-area-inset-left))) 0; padding: 16px max(18px, env(safe-area-inset-left)) 14px; display: flex; flex-direction: column; color: #fff; background: var(--ink); overflow: hidden; }
+.cover > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 32%, rgba(0,0,0,.15) 48%, rgba(0,0,0,.88) 78%); }
+.cover .lines span { text-shadow: 0 1px 10px rgba(0,0,0,.5); }
+.cover > :not(img) { position: relative; z-index: 1; }
+.cover h1 { margin: 0; font: 900 clamp(58px, 18vw, 110px)/.86 var(--serif); letter-spacing: -.03em; }
+.cover h1 em { color: #ff5a4e; font-style: italic; }
+.cover .lines { margin-top: auto; display: grid; gap: 6px; max-width: 70%; }
+.cover .lines span { font: 700 italic 19px/1.15 var(--serif); }
+.cover .lines span::before { content: ""; display: inline-block; width: 18px; height: 3px; margin-right: 8px; vertical-align: middle; background: #ff5a4e; }
+.cover .issue { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,.5); font: 600 11.5px var(--sans); text-transform: uppercase; letter-spacing: .12em; }
+.cover .issue b { color: #ff7a70; }
 .bar { position: sticky; top: 0; z-index: 5; margin: 0 calc(-1 * max(18px, env(safe-area-inset-left))); padding: 0 max(18px, env(safe-area-inset-left)); background: var(--paper); border-bottom: 1px solid var(--rule); }
 nav { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
 nav::-webkit-scrollbar { display: none; }
@@ -85,7 +92,9 @@ Menu.start({
     const idx = Menu.data.sections.indexOf(s) + 1;
     $app.innerHTML = `
       <div class="strap"><span>${esc(st.text)}</span><button data-lang-toggle data-lang-label></button></div>
-      <header class="cover"><h1>${b.length ? `${esc(a)} <em>&amp;</em> ${esc(b.join(" & "))}` : esc(info.name)}</h1>
+      <header class="cover">${Menu.photos(s, 1).map((i) => `<img src="${Menu.img(i.img)}" alt="">`).join("")}
+        <h1>${b.length ? `${esc(a)} <em>&amp;</em> ${esc(b.join(" & "))}` : esc(info.name)}</h1>
+        <div class="lines">${Menu.photos(s, 4).slice(1).map((i) => `<span>${esc(Menu.name(i))}</span>`).join("")}</div>
         <div class="issue"><span>Nº ${String(idx).padStart(2, "0")} — <b>${esc(Menu.title(s))}</b></span><span>${esc(Menu.desc(s))}</span></div></header>
       <i data-top></i>
       <div class="bar" data-sticky><nav class="secs">${Menu.sectionsNav()}</nav><nav class="cats">${Menu.catsNav()}</nav></div>

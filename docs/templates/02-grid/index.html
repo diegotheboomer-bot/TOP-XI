@@ -12,10 +12,16 @@
 * { box-sizing: border-box; }
 button { font: inherit; color: inherit; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--body); -webkit-font-smoothing: antialiased; }
-header { padding: max(18px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 4px max(16px, env(safe-area-inset-left)); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-header h1 { margin: 0; font: 800 26px/1 var(--display); letter-spacing: -.02em; }
-header .st { display: block; margin-top: 4px; font-size: 13px; color: var(--soft); }
-header .st.open { color: #1a9a55; }
+header { padding: max(18px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+header h1 { margin: 8px 0 0; font: 800 clamp(40px, 12vw, 64px)/.92 var(--display); letter-spacing: -.04em; }
+header .tag { margin: 8px 0 0; font-weight: 500; color: var(--soft); }
+header .st { display: inline-block; padding: 4px 10px; border-radius: 999px; background: #f3f3f3; font-size: 12.5px; font-weight: 700; color: var(--soft); }
+.marquee { overflow: hidden; padding: 22px 0 18px; }
+.track { display: flex; gap: 12px; width: max-content; animation: slide 40s linear infinite; }
+.track img { width: 118px; height: 118px; border-radius: 26px; object-fit: cover; transform: rotate(var(--r)); box-shadow: 0 8px 20px rgba(0,0,0,.12); }
+@keyframes slide { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .track { animation: none; } }
+header .st.open { background: #e5f6ec; color: #1a9a55; }
 .lang { min-width: 44px; height: 44px; border: 2px solid var(--ink); border-radius: 50%; background: none; font: 700 13px var(--body); cursor: pointer; }
 .bar { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 10px 0 0; border-bottom: 1px solid var(--line); }
 .cats { display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; padding: 0 max(16px, env(safe-area-inset-left)); }
@@ -35,7 +41,7 @@ main { padding: 0 max(16px, env(safe-area-inset-right)) 48px max(16px, env(safe-
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 10px; }
 @media (min-width: 700px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .tile { display: grid; gap: 6px; padding: 0; border: 0; background: none; text-align: left; color: inherit; cursor: pointer; min-width: 0; }
-.ph { position: relative; aspect-ratio: 1; border-radius: 14px; overflow: hidden; background: var(--tile); }
+.ph { position: relative; aspect-ratio: 1; border-radius: 22px; overflow: hidden; background: var(--tile); }
 .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ph .pr { position: absolute; left: 8px; bottom: 8px; padding: 4px 9px; border-radius: 8px; background: #fff; font: 700 14px var(--body); font-variant-numeric: tabular-nums; }
 .ph .tag { position: absolute; right: 8px; top: 8px; padding: 3px 8px; border-radius: 6px; background: var(--accent); color: #fff; font: 700 11px var(--body); text-transform: uppercase; letter-spacing: .04em; }
@@ -78,7 +84,8 @@ Menu.start({
     const s = Menu.section, info = Menu.info, st = Menu.status();
     document.title = info.name;
     $app.innerHTML = `
-      <header><div><h1>${esc(info.name)}</h1><span class="st${st.open ? " open" : ""}">${esc(st.text)}</span></div><button class="lang" data-lang-toggle data-lang-label></button></header>
+      <header><div><span class="st${st.open ? " open" : ""}">${esc(st.text)}</span><h1>${esc(info.name)}</h1>${Menu.desc(s) ? `<p class="tag">${esc(Menu.desc(s))}</p>` : ""}</div><button class="lang" data-lang-toggle data-lang-label></button></header>
+      <div class="marquee" aria-hidden="true"><div class="track">${[0, 1].map(() => Menu.photos(s, 8).map((i, k) => `<img src="${Menu.img(i.img)}" alt="" style="--r:${k % 2 ? 3 : -3}deg">`).join("")).join("")}</div></div>
       <i data-top></i>
       <div class="bar" data-sticky><div class="pills">${Menu.sectionsNav("pill")}</div><div class="cats">${Menu.catsNav()}</div></div>
       <main>

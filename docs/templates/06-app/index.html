@@ -33,10 +33,15 @@ header { padding-top: max(16px, env(safe-area-inset-top)); padding-bottom: 12px;
 .cats:empty { display: none; }
 .cats button { flex: none; padding: 7px 14px; border: 0; border-radius: 999px; background: var(--card); box-shadow: 0 1px 2px rgba(0,0,0,.06); font: 600 13px var(--font); color: var(--soft); cursor: pointer; }
 .cats button[aria-current="true"] { background: var(--ink); color: #fff; }
-.hero { width: calc(100% - 2 * max(16px, env(safe-area-inset-left))); border: 0; text-align: left; cursor: pointer; margin-top: 8px; padding: 18px; border-radius: 20px; background: var(--accent); color: #fff; display: flex; justify-content: space-between; align-items: center; gap: 12px; overflow: hidden; position: relative; }
-.hero b { display: block; font: 800 22px/1.1 var(--font); }
-.hero span { font-size: 13px; opacity: .85; }
-.hero img { width: 92px; height: 92px; border-radius: 50%; object-fit: cover; border: 4px solid rgba(255,255,255,.35); flex: none; }
+.hero { width: calc(100% - 2 * max(16px, env(safe-area-inset-left))); height: 210px; border: 0; text-align: left; cursor: pointer; margin-top: 10px; padding: 0; border-radius: 24px; background: var(--accent); color: #fff; display: flex; align-items: flex-end; overflow: hidden; position: relative; box-shadow: 0 12px 28px -14px rgba(15,157,118,.6); }
+.hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.75)); }
+.hero > span { position: relative; z-index: 1; display: grid; gap: 2px; width: 100%; padding: 16px 18px; }
+.hero .k { justify-self: start; padding: 3px 9px; border-radius: 999px; background: var(--accent); font: 700 11px var(--font); text-transform: uppercase; letter-spacing: .05em; }
+.hero b { display: block; font: 800 24px/1.1 var(--font); letter-spacing: -.02em; }
+.hero .pr { display: flex; justify-content: space-between; align-items: center; font: 700 16px var(--font); }
+.hero .pr i { font-style: normal; padding: 6px 12px; border-radius: 999px; background: #fff; color: var(--ink); font-size: 13px; }
+header { background: radial-gradient(90% 120% at 100% 0%, #d8f3ea, transparent 70%); }
 main { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
 .note { margin: 16px 0 0; padding: 16px; border-radius: 16px; background: var(--card); white-space: pre-line; font-size: 14px; }
 .cat { margin-top: 24px; scroll-margin-top: 120px; }
@@ -44,7 +49,7 @@ main { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
 .cat h2 span { font: 500 13px var(--font); color: var(--soft); text-transform: none; }
 .row { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 max(16px, env(safe-area-inset-left)); padding: 2px max(16px, env(safe-area-inset-left)) 8px; scrollbar-width: none; }
 .row::-webkit-scrollbar { display: none; }
-.card { flex: none; width: 164px; scroll-snap-align: start; padding: 0; border: 0; border-radius: 18px; background: var(--card); box-shadow: 0 1px 3px rgba(0,0,0,.07); text-align: left; color: inherit; cursor: pointer; overflow: hidden; display: flex; flex-direction: column; }
+.card { flex: none; width: 170px; scroll-snap-align: start; padding: 0; border: 0; border-radius: 18px; background: var(--card); box-shadow: 0 1px 3px rgba(0,0,0,.07); text-align: left; color: inherit; cursor: pointer; overflow: hidden; display: flex; flex-direction: column; }
 .card .ph { position: relative; height: 120px; background: var(--accent-soft); }
 .card .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .card .ph .ini { display: grid; place-items: center; height: 100%; font: 800 34px var(--font); color: var(--accent); }
@@ -99,7 +104,7 @@ function body() {
     return hits.length ? `<div class="results pad-box">${hits.map(({ section, item }) => `<button class="res" ${Menu.ref(item)}>${item.img ? `<img src="${Menu.img(item.img)}" alt="">` : `<span class="ini"></span>`}<span><span class="n">${esc(Menu.name(item))}</span><small>${esc(Menu.title(section))}</small></span><span class="p">${Menu.price(item.price)}</span></button>`).join("")}</div>` : `<p class="note pad-box">${Menu.t.none}</p>`;
   }
   const s = Menu.section, f = Menu.featured()[0];
-  return `${f ? `<button class="hero pad-box" ${Menu.ref(f)}><span><span>${Menu.t.recommended}</span><b>${esc(Menu.name(f))}</b><span>${Menu.price(f.price)}</span></span><img src="${Menu.img(f.img)}" alt=""></button>` : ""}
+  return `${f ? `<button class="hero pad-box" ${Menu.ref(f)}><img src="${Menu.img(f.img)}" alt=""><span><span class="k">${Menu.t.recommended}</span><b>${esc(Menu.name(f))}</b><span class="pr">${Menu.price(f.price)}<i>${Menu.lang === "pt" ? "Ver prato" : "View dish"} ›</i></span></span></button>` : ""}
     ${Menu.tx(s, "info") ? `<p class="note pad-box">${esc(Menu.tx(s, "info"))}</p>` : ""}
     ${Menu.categories().map((c) => `<section class="cat" id="${Menu.catId(c)}"><h2 class="pad">${esc(Menu.title(c))}<span>${c.items.length}</span></h2><div class="row">${c.items.map(card).join("")}</div></section>`).join("") || `<p class="note pad-box">${Menu.t.empty}</p>`}`;
 }
