@@ -15,7 +15,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 var(-
 h1 { margin: 0; font: 800 clamp(40px, 11vw, 72px)/.95 var(--display); letter-spacing: -.035em; }
 h1 em { font-style: normal; color: var(--accent); }
 .intro { margin: 12px 0 0; max-width: 56ch; color: var(--soft); }
-.list { display: grid; gap: 16px; margin-top: 28px; }
+.list { display: grid; gap: 16px; margin-top: 20px; }
+.group { margin: 36px 0 0; font: 800 26px var(--display); letter-spacing: -.02em; }
 @media (min-width: 860px) { .list { grid-template-columns: 1fr 1fr; } }
 .t { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; padding: 14px; border-radius: 20px; background: var(--card); box-shadow: 0 1px 0 var(--line); }
 .phone { position: relative; width: 150px; height: 325px; border-radius: 22px; overflow: hidden; background: #000; border: 4px solid #111; }
@@ -37,15 +38,19 @@ footer { margin-top: 36px; color: var(--soft); font-size: 14px; }
 <body>
 <div class="wrap">
   <h1>Menu <em>templates</em></h1>
-  <p class="intro">Ten designs for a restaurant's digital menu. Every one uses the same menu data, works in Portuguese and English, and is built for phones: the sections and categories stay pinned at the top, and tapping a category jumps to it. Tap a design to try it with the Sweet &amp; Salt menu.</p>
+  <p class="intro">Fifteen designs for a restaurant's digital menu. Every one uses the same menu data, works in Portuguese and English, and is built for phones: the sections and categories stay pinned at the top, and tapping a category jumps to it. Tap a design to try it with the Sweet &amp; Salt menu.</p>
+  <h2 class="group">With photos</h2>
   <div class="list" id="list"></div>
-  <footer>All ten read <code>templates/menu.json</code>, so changing that file updates every design.</footer>
+  <h2 class="group">No photos</h2>
+  <p class="intro">For restaurants without food photos. These use the logo, or the restaurant's initials when there is no logo, and colour and shapes instead of pictures.</p>
+  <div class="list" id="list2"></div>
+  <footer>All fifteen read <code>templates/menu.json</code>, so changing that file updates every design.</footer>
 </div>
 <script>
 const T = [
   ["01-bistro", "Bistro", "Refined and warm: full photo cover, elegant serif names, swipeable recommended dishes and soft photo cards.", "Restaurants with a classic or upmarket feel", ["#f4f2ea", "#1d3a2f", "#9c7a33"], "Cormorant Garamond + Jost"],
   ["02-grid", "Grid", "Bold header with a scrolling strip of dish photos, then a two-column photo grid with the price on each photo.", "Places with great food photos: brunch, burgers, poke", ["#ffffff", "#121212", "#ff5a36"], "Syne + DM Sans"],
-  ["03-stories", "Stories", "Opens on a photo collage and category list; then one dish per full screen, swiped up like Stories or TikTok.", "Showing off a short menu or signature dishes", ["#000000", "#ffffff", "#ffd23f"], "Anton + Manrope"],
+  ["03-stories", "Stories", "Opens on a photo collage with category tiles; each screen is one category with a big photo and all its dishes, swiped up like Stories.", "Showing off a short menu or signature dishes", ["#000000", "#ffffff", "#ffd23f"], "Anton + Manrope"],
   ["04-noir", "Noir", "Dark and elegant: charcoal with warm gold, a full-photo header, wide cards with the photo filling one side.", "Steakhouses, wine bars, evening dining", ["#111111", "#f4f1ea", "#d6aa5c"], "Sora + Figtree"],
   ["05-market", "Market", "Fresh and light: sage background, stacked round photos in the header, staggered two-column photo cards.", "Cafés, brunch spots, healthy food", ["#eef1e7", "#2f6b3a", "#e4572e"], "Urbanist + Albert Sans"],
   ["06-app", "App", "Feels like a delivery app: search, a big photo card for the top dish, swipeable rows, bottom tab bar.", "Big menus where guests browse a lot", ["#f4f5f7", "#14171f", "#0f9d76"], "Plus Jakarta Sans"],
@@ -54,7 +59,14 @@ const T = [
   ["09-swiss", "Swiss", "Bold bento grid: header made of tiles (name, photos, hours, phone), a big photo tile leading each category, one blue accent.", "Minimal, modern or design-led places", ["#ffffff", "#000000", "#1f3cff"], "IBM Plex Sans + Plex Mono"],
   ["10-sunset", "Sunset", "Sunset gradient header with the top dish as the sun, tall recommended cards and soft rounded dish cards.", "Beach bars and holiday spots", ["#fff7ee", "#ff6f61", "#2bb5b8"], "Lexend"],
 ];
-document.getElementById("list").innerHTML = T.map(([slug, name, what, forWho, sw, font], k) => `
+const T2 = [
+  ["11-poster", "Poster", "Bold and loud: huge type, and every category is a full-width colour band with the dishes printed on it.", "Burger joints, street food, young crowds", ["#ff5a36", "#2347d6", "#c6f432"], "Archivo + Archivo Narrow"],
+  ["12-pastel", "Pastel", "Soft and cute: logo in a round badge, each category a pastel card with its own colour and decorative shape.", "Cafés, bakeries, dessert and brunch spots", ["#ffe1ea", "#dcecff", "#e3f6dc"], "Gloock + Plus Jakarta Sans"],
+  ["13-index", "Index", "Dark and fast: a menu summary up top, every category a panel that opens and closes, lime accents.", "Bars and big menus where guests want to scan quickly", ["#0f1012", "#1a1b1f", "#d4ff3a"], "Unbounded + Inter Tight"],
+  ["14-riso", "Riso", "Retro print: grainy cream paper, overlapping fluorescent pink and blue shapes, sticker-style prices.", "Creative cafés, cocktail bars, anywhere with personality", ["#f4efe2", "#ff4fae", "#0a64c8"], "Rubik Mono One + Space Mono + Karla"],
+  ["15-blocks", "Blocks", "Colourful tiles: every dish is a coloured block and the first of each category is a big wide one.", "Family restaurants, healthy food, casual dining", ["#ffb38a", "#ffd76a", "#bfe0b5"], "DM Serif Display + Work Sans"],
+];
+const card = ([slug, name, what, forWho, sw, font], k) => `
   <article class="t">
     <div class="phone"><iframe src="${slug}/#menu" loading="lazy" title="${name} preview" tabindex="-1"></iframe><a href="${slug}/" aria-label="Open ${name}"></a></div>
     <div class="info">
@@ -66,7 +78,9 @@ document.getElementById("list").innerHTML = T.map(([slug, name, what, forWho, sw
       <span class="font">${font}</span>
       <a class="open" href="${slug}/">Open ${name}</a>
     </div>
-  </article>`).join("");
+  </article>`;
+document.getElementById("list").innerHTML = T.map((t, k) => card(t, k)).join("");
+document.getElementById("list2").innerHTML = T2.map((t, k) => card(t, k + T.length)).join("");
 </script>
 </body>
 </html>

@@ -61,6 +61,13 @@
       return [...pool.filter((i) => i.labels.includes("recommended")), ...pool.filter((i) => !i.labels.includes("recommended"))].slice(0, n);
     },
 
+    // The restaurant's logo, or its initials in a circle when there is none.
+    logo(cls = "") {
+      if (Menu.info.logo) return `<img class="${cls}" src="${Menu.img(Menu.info.logo)}" alt="${Menu.esc(Menu.info.name)}">`;
+      const ini = Menu.info.name.split(/[\s&]+/).filter(Boolean).map((w) => w[0]).join("").slice(0, 3).toUpperCase();
+      return `<span class="${cls}" role="img" aria-label="${Menu.esc(Menu.info.name)}">${Menu.esc(ini)}</span>`;
+    },
+
     // Navigation markup. Templates style the buttons; core handles taps and highlighting.
     catId: (c) => "cat-" + c.id,
     sectionsNav: (cls = "") => Menu.data.sections.map((x) => `<button class="${cls}" data-section="${x.id}" aria-current="${x === Menu.section}">${Menu.esc(Menu.title(x))}</button>`).join(""),

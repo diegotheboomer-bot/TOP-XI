@@ -23,6 +23,8 @@ for s in menu["sections"]:
 # Restaurant details shown by the templates. Hours: Sunday first, as on the original site.
 menu["info"] = {
     "name": "Sweet & Salt",
+    # Optional: templates show this logo, or the restaurant's initials when it is missing.
+    "logo": "img/logo.png" if (ROOT / "docs" / "img" / "logo.png").exists() else None,
     "address": "Avenida Miguel Bombarda 9, 8500-643 Portimão",
     "phone": "282 419 549",
     "instagram": "https://www.instagram.com/sweetsalt.pt/",
