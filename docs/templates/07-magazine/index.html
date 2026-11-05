@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Magazine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Libre+Franklin:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* 07 Magazine: editorial spread. Cover masthead, giant category numerals, a lead feature then alternating photo stories. */
+:root { --paper: #fff; --ink: #0d0d0d; --soft: #666; --rule: #0d0d0d; --red: #d1221b; --serif: "Playfair Display", Georgia, serif; --sans: "Libre Franklin", system-ui, sans-serif; }
+* { box-sizing: border-box; }
+button { font: inherit; color: inherit; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 15px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 720px; margin: 0 auto; padding: max(14px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) 56px max(18px, env(safe-area-inset-left)); }
+.strap { display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid var(--rule); font: 800 11px var(--sans); letter-spacing: .16em; text-transform: uppercase; }
+.strap button { border: 1px solid var(--ink); background: none; padding: 5px 9px; font: 800 11px var(--sans); letter-spacing: .12em; cursor: pointer; }
+.cover { padding: 14px 0 12px; border-bottom: 4px solid var(--rule); }
+.cover h1 { margin: 0; font: 900 clamp(54px, 17vw, 108px)/.88 var(--serif); letter-spacing: -.03em; }
+.cover h1 em { color: var(--red); font-style: italic; }
+.cover .issue { display: flex; justify-content: space-between; margin-top: 10px; font: 600 12px var(--sans); text-transform: uppercase; letter-spacing: .12em; }
+.cover .issue b { color: var(--red); }
+nav { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--rule); }
+nav::-webkit-scrollbar { display: none; }
+nav button { flex: none; padding: 12px 14px 10px 0; margin-right: 14px; border: 0; background: none; font: 800 12px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--soft); cursor: pointer; border-bottom: 3px solid transparent; }
+nav button[aria-current="true"] { color: var(--ink); border-color: var(--red); }
+.note { margin: 22px 0 0; font: 700 20px/1.35 var(--serif); white-space: pre-line; }
+.cat { margin-top: 40px; }
+.cat > header { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 14px; border-bottom: 1px solid var(--rule); padding-bottom: 8px; }
+.cat .num { font: 900 86px/.75 var(--serif); color: var(--red); }
+.cat h2 { margin: 0; font: 700 italic 32px/1 var(--serif); text-transform: capitalize; overflow-wrap: anywhere; }
+.cat h2 small { display: block; margin-bottom: 4px; font: 800 11px var(--sans); font-style: normal; letter-spacing: .16em; text-transform: uppercase; color: var(--soft); }
+.lead { display: block; width: 100%; margin-top: 18px; padding: 0; border: 0; background: none; text-align: left; cursor: pointer; }
+.lead img { display: block; width: 100%; aspect-ratio: 3/2; object-fit: cover; }
+.lead .t { display: block; margin-top: 12px; font: 900 30px/1.05 var(--serif); }
+.lead .d { display: block; margin-top: 8px; font-size: 16px; color: #333; }
+.byline { display: flex; gap: 12px; align-items: center; margin-top: 10px; font: 800 12px var(--sans); letter-spacing: .1em; text-transform: uppercase; }
+.byline .p { color: var(--red); font-size: 15px; letter-spacing: 0; }
+.story { display: grid; grid-template-columns: 42% minmax(0, 1fr); gap: 14px; align-items: start; width: 100%; padding: 16px 0; border: 0; border-top: 1px solid #ddd; background: none; text-align: left; cursor: pointer; }
+.story:nth-of-type(odd) { grid-template-columns: minmax(0, 1fr) 42%; }
+.story:nth-of-type(odd) img { order: 2; }
+.story img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; }
+.story .t { display: block; font: 700 21px/1.12 var(--serif); }
+.story .d { display: block; margin-top: 6px; font-size: 14px; color: #444; }
+.brief { display: flex; justify-content: space-between; gap: 12px; width: 100%; padding: 12px 0; border: 0; border-top: 1px solid #ddd; background: none; text-align: left; cursor: pointer; }
+.brief .t { font: 700 18px/1.2 var(--serif); }
+.brief .p { font-weight: 800; white-space: nowrap; }
+.sold .t { text-decoration: line-through; text-decoration-color: var(--red); }
+.sold img { filter: grayscale(1); }
+.kick { color: var(--red); }
+footer { margin-top: 48px; padding-top: 14px; border-top: 4px solid var(--rule); display: grid; gap: 4px; font-size: 13px; }
+footer b { font: 900 26px var(--serif); }
+footer a { color: var(--red); font-weight: 800; }
+#m-sheet { width: min(560px, 100%); max-height: 100vh; margin: auto; padding: 0; border: 0; background: var(--paper); color: var(--ink); }
+#m-sheet::backdrop { background: rgba(255,255,255,.85); }
+#m-sheet[open] { box-shadow: 0 0 0 1px var(--ink); }
+.m-photo { display: block; width: 100%; aspect-ratio: 3/2; object-fit: cover; }
+.m-body { padding: 16px 20px 24px; }
+.m-name { margin: 0; font: 900 34px/1.02 var(--serif); }
+.m-desc { margin: 10px 0 0; font-size: 16px; color: #333; }
+.m-meta { display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--ink); }
+.m-price { font: 900 24px var(--serif); color: var(--red); }
+.m-badge { font: 800 11px var(--sans); letter-spacing: .14em; text-transform: uppercase; }
+.m-close { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border: 0; background: var(--ink); color: #fff; font-size: 22px; cursor: pointer; }
+button:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script src="../core.js"></script>
+<script>
+const { esc } = Menu;
+const $app = document.getElementById("app");
+const kicker = (i) => Menu.badges(i).map((b) => `<span class="kick">${b.text}</span>`).join(" · ");
+Menu.start({
+  render() {
+    const s = Menu.section, info = Menu.info, st = Menu.status();
+    document.title = info.name;
+    const [a, ...b] = info.name.split(" & ");
+    const idx = Menu.data.sections.indexOf(s) + 1;
+    $app.innerHTML = `
+      <div class="strap"><span>${esc(st.text)}</span><button data-lang-toggle data-lang-label></button></div>
+      <header class="cover"><h1>${b.length ? `${esc(a)} <em>&amp;</em> ${esc(b.join(" & "))}` : esc(info.name)}</h1>
+        <div class="issue"><span>Nº ${String(idx).padStart(2, "0")} — <b>${esc(Menu.title(s))}</b></span><span>${esc(Menu.desc(s))}</span></div></header>
+      <nav>${Menu.data.sections.map((x) => `<button data-section="${x.id}" aria-current="${x === s}">${esc(Menu.title(x))}</button>`).join("")}</nav>
+      ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}
+      ${Menu.categories().map((c, k) => {
+        const withImg = c.items.filter((i) => i.img), lead = withImg[0];
+        const stories = withImg.slice(1), briefs = c.items.filter((i) => !i.img);
+        return `<section class="cat"><header><span class="num">${k + 1}</span><h2><small>${c.items.length} ${Menu.lang === "pt" ? "pratos" : "dishes"}</small>${esc(Menu.name(c).toLowerCase())}</h2></header>
+          ${lead ? `<button class="lead${lead.soldOut ? " sold" : ""}" ${Menu.ref(lead)}><img src="${Menu.img(lead.img)}" alt="" loading="lazy"><span class="t">${esc(Menu.name(lead))}</span>${Menu.desc(lead) ? `<span class="d">${esc(Menu.desc(lead))}</span>` : ""}<span class="byline"><span class="p">${Menu.price(lead.price)}</span>${kicker(lead)}</span></button>` : ""}
+          ${stories.map((i) => `<button class="story${i.soldOut ? " sold" : ""}" ${Menu.ref(i)}><img src="${Menu.img(i.img)}" alt="" loading="lazy"><span><span class="t">${esc(Menu.name(i))}</span>${Menu.desc(i) ? `<span class="d">${esc(Menu.desc(i))}</span>` : ""}<span class="byline"><span class="p">${Menu.price(i.price)}</span>${kicker(i)}</span></span></button>`).join("")}
+          ${briefs.map((i) => `<button class="brief${i.soldOut ? " sold" : ""}" ${Menu.ref(i)}><span class="t">${esc(Menu.name(i))}${i.volume ? ` <small>· ${esc(i.volume)}</small>` : ""}</span><span class="p">${Menu.price(i.price)}</span></button>`).join("")}
+        </section>`;
+      }).join("") || `<p class="note">${Menu.t.empty}</p>`}
+      <footer><b>${esc(info.name)}</b><span>${esc(info.address)}</span><span>${esc(info.phone)} · <a href="${info.maps}" target="_blank" rel="noopener">${Menu.t.map}</a></span></footer>`;
+  },
+  onRoute() { document.querySelector('nav [aria-current="true"]')?.scrollIntoView({ inline: "center", block: "nearest" }); },
+});
+</script>
+</body>
+</html>

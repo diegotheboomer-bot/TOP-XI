@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+/* 02 Grid: photo-first. Two-column square tiles, price stamped on the photo, text-only items as coloured tiles. */
+:root { --bg: #ffffff; --ink: #121212; --soft: #777; --line: #ececec; --accent: #ff5a36; --tile: #fff1ec; --display: "Syne", "Arial Black", sans-serif; --body: "DM Sans", system-ui, sans-serif; }
+* { box-sizing: border-box; }
+button { font: inherit; color: inherit; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--body); -webkit-font-smoothing: antialiased; }
+header { padding: max(18px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 4px max(16px, env(safe-area-inset-left)); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+header h1 { margin: 0; font: 800 26px/1 var(--display); letter-spacing: -.02em; }
+header .st { display: block; margin-top: 4px; font-size: 13px; color: var(--soft); }
+header .st.open { color: #1a9a55; }
+.lang { min-width: 44px; height: 44px; border: 2px solid var(--ink); border-radius: 50%; background: none; font: 700 13px var(--body); cursor: pointer; }
+.bar { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 10px 0 10px; border-bottom: 1px solid var(--line); }
+.pills { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 0 max(16px, env(safe-area-inset-left)); }
+.pills::-webkit-scrollbar { display: none; }
+.pill { flex: none; padding: 9px 16px; border: 0; border-radius: 10px; background: #f3f3f3; font: 700 14px var(--body); color: var(--ink); cursor: pointer; }
+.pill[aria-current="true"] { background: var(--accent); color: #fff; }
+main { padding: 0 max(16px, env(safe-area-inset-right)) 48px max(16px, env(safe-area-inset-left)); }
+.note { margin: 16px 0 0; padding: 16px; border-radius: 14px; background: var(--tile); white-space: pre-line; font-size: 14px; }
+.cat h2 { margin: 26px 0 12px; overflow-wrap: anywhere; font: 800 clamp(21px, 6.6vw, 28px)/1.05 var(--display); letter-spacing: -.02em; text-transform: lowercase; }
+.cat h2::first-letter { text-transform: uppercase; }
+.cat h2 span { font: 500 14px var(--body); color: var(--soft); margin-left: 6px; letter-spacing: 0; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 10px; }
+@media (min-width: 700px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.tile { display: grid; gap: 6px; padding: 0; border: 0; background: none; text-align: left; color: inherit; cursor: pointer; min-width: 0; }
+.ph { position: relative; aspect-ratio: 1; border-radius: 14px; overflow: hidden; background: var(--tile); }
+.ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ph .pr { position: absolute; left: 8px; bottom: 8px; padding: 4px 9px; border-radius: 8px; background: #fff; font: 700 14px var(--body); font-variant-numeric: tabular-nums; }
+.ph .tag { position: absolute; right: 8px; top: 8px; padding: 3px 8px; border-radius: 6px; background: var(--accent); color: #fff; font: 700 11px var(--body); text-transform: uppercase; letter-spacing: .04em; }
+.ph .tag.sold { background: var(--ink); }
+.ph .txt { position: absolute; inset: 0; display: grid; place-items: center; padding: 12px; font: 800 19px/1.05 var(--display); text-align: center; color: var(--accent); }
+.tile.sold img { filter: grayscale(1) opacity(.6); }
+.tile .n { font-weight: 700; font-size: 15px; line-height: 1.25; overflow-wrap: anywhere; }
+.tile .d { font-size: 13px; color: var(--soft); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+footer { padding: 28px max(16px, env(safe-area-inset-left)) calc(28px + env(safe-area-inset-bottom)); background: var(--ink); color: #ddd; font-size: 14px; display: grid; gap: 4px; }
+footer b { font: 800 22px var(--display); color: #fff; }
+footer a { color: var(--accent); }
+#m-sheet { margin: auto auto 0; width: 100%; max-width: 560px; max-height: 92vh; padding: 0 0 env(safe-area-inset-bottom); border: 0; border-radius: 22px 22px 0 0; background: #fff; color: var(--ink); }
+#m-sheet::backdrop { background: rgba(0, 0, 0, .5); }
+.m-photo { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+.m-body { padding: 18px 20px 26px; }
+.m-name { margin: 0; font: 800 28px/1.05 var(--display); letter-spacing: -.02em; }
+.m-desc { margin: 8px 0 0; color: var(--soft); }
+.m-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px; }
+.m-price { padding: 6px 12px; border-radius: 10px; background: var(--accent); color: #fff; font: 700 18px var(--body); }
+.m-badge { padding: 4px 10px; border-radius: 8px; background: #f3f3f3; font: 700 12px var(--body); text-transform: uppercase; }
+.m-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border: 0; border-radius: 50%; background: #fff; font-size: 24px; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,.2); }
+button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="../core.js"></script>
+<script>
+const { esc } = Menu;
+const $app = document.getElementById("app");
+const tile = (i) => {
+  const b = Menu.badges(i)[0];
+  return `<button class="tile${i.soldOut ? " sold" : ""}" ${Menu.ref(i)}>
+    <span class="ph">${i.img ? `<img src="${Menu.img(i.img)}" alt="" loading="lazy">` : `<span class="txt">${esc(Menu.name(i))}</span>`}
+      ${b ? `<span class="tag ${b.cls}">${b.text}</span>` : ""}<span class="pr">${Menu.price(i.price)}</span></span>
+    <span class="n">${esc(Menu.name(i))}</span>${Menu.desc(i) ? `<span class="d">${esc(Menu.desc(i))}</span>` : ""}</button>`;
+};
+Menu.start({
+  render() {
+    const s = Menu.section, info = Menu.info, st = Menu.status();
+    document.title = info.name;
+    $app.innerHTML = `
+      <header><div><h1>${esc(info.name)}</h1><span class="st${st.open ? " open" : ""}">${esc(st.text)}</span></div><button class="lang" data-lang-toggle data-lang-label></button></header>
+      <div class="bar"><div class="pills">${Menu.data.sections.map((x) => `<button class="pill" data-section="${x.id}" aria-current="${x === s}">${esc(Menu.title(x))}</button>`).join("")}</div></div>
+      <main>
+        ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}
+        ${Menu.categories().map((c) => `<section class="cat"><h2>${esc(Menu.name(c))}<span>${c.items.length}</span></h2><div class="grid">${c.items.map(tile).join("")}</div></section>`).join("") || `<p class="note">${Menu.t.empty}</p>`}
+      </main>
+      <footer><b>${esc(info.name)}</b><span>${esc(info.address)}</span><span>${esc(info.phone)} · <a href="${info.maps}" target="_blank" rel="noopener">${Menu.t.map}</a></span></footer>`;
+  },
+  onRoute() { document.querySelector('.pill[aria-current="true"]')?.scrollIntoView({ inline: "center", block: "nearest" }); },
+});
+</script>
+</body>
+</html>

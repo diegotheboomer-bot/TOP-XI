@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Swiss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* 09 Swiss: strict grid, black on white with one blue. Numbered index, a two-column price table, rows open in place. */
+:root { --paper: #ffffff; --ink: #000; --soft: #6f6f6f; --rule: #000; --hair: #d9d9d9; --blue: #1f3cff; --sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace; }
+* { box-sizing: border-box; }
+button { font: inherit; color: inherit; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 15px/1.45 var(--sans); -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 720px; margin: 0 auto; padding: max(18px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 60px max(16px, env(safe-area-inset-left)); }
+.head { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 12px; }
+.head h1 { margin: 0; font: 700 clamp(40px, 12.5vw, 76px)/.92 var(--sans); letter-spacing: -.045em; overflow-wrap: anywhere; }
+.head button { border: 1.5px solid var(--ink); background: none; padding: 6px 10px; font: 500 12px var(--mono); cursor: pointer; }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; border-top: 2px solid var(--rule); }
+.facts div { padding: 8px 8px 8px 0; border-right: 1px solid var(--hair); min-width: 0; }
+.facts div + div { padding-left: 8px; }
+.facts div:last-child { border-right: 0; }
+.facts small { display: block; font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--soft); }
+.facts span { display: block; font-weight: 500; font-size: 13px; overflow-wrap: anywhere; }
+.facts .open { color: var(--blue); }
+.secs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 22px; border-top: 2px solid var(--rule); }
+.secs button { display: flex; gap: 10px; align-items: baseline; padding: 10px 0; border: 0; border-bottom: 1px solid var(--hair); background: none; text-align: left; cursor: pointer; }
+.secs button:nth-child(odd) { padding-right: 8px; }
+.secs button i { font: 400 12px var(--mono); font-style: normal; color: var(--soft); }
+.secs button[aria-current="true"] { color: var(--blue); font-weight: 700; }
+.secs button[aria-current="true"] i { color: var(--blue); }
+.index { margin: 28px 0 0; padding: 0; list-style: none; columns: 2; column-gap: 16px; font-size: 13px; }
+.index a { display: flex; gap: 8px; padding: 3px 0; color: inherit; text-decoration: none; text-transform: capitalize; break-inside: avoid; }
+.index a span { font: 400 12px var(--mono); color: var(--soft); }
+.note { margin: 24px 0 0; padding-left: 12px; border-left: 3px solid var(--blue); white-space: pre-line; font-size: 14px; }
+.cat { margin-top: 40px; scroll-margin-top: 12px; }
+.cat h2 { display: grid; grid-template-columns: 40px 1fr auto; align-items: baseline; margin: 0; padding-bottom: 6px; border-bottom: 2px solid var(--rule); font: 700 22px var(--sans); letter-spacing: -.02em; text-transform: capitalize; }
+.cat h2 span { font: 400 13px var(--mono); color: var(--soft); }
+.row { display: block; width: 100%; padding: 0; border: 0; border-bottom: 1px solid var(--hair); background: none; text-align: left; cursor: pointer; }
+.row .top { display: grid; grid-template-columns: 40px 1fr auto; gap: 0; align-items: baseline; padding: 11px 0; }
+.row .k { font: 400 12px var(--mono); color: var(--soft); }
+.row .n { font-weight: 500; padding-right: 12px; }
+.row .n sup { margin-left: 6px; font: 500 10px var(--mono); color: var(--blue); text-transform: uppercase; vertical-align: 3px; }
+.row .p { font: 500 14px var(--mono); font-variant-numeric: tabular-nums; }
+.row .x { display: grid; grid-template-columns: 40px 1fr; padding-bottom: 14px; }
+.row .x .xi { display: grid; gap: 10px; }
+.row .x img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
+.row .x .xp { display: block; color: var(--soft); font-size: 14px; }
+.row .plus { display: inline-block; width: 10px; margin-left: 8px; font: 400 14px var(--mono); color: var(--blue); }
+.row.sold .n, .row.sold .p { color: var(--soft); text-decoration: line-through; }
+.row.open .top { color: var(--blue); }
+footer { margin-top: 52px; border-top: 2px solid var(--rule); display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 10px; font-size: 13px; }
+footer small { display: block; font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--soft); }
+footer a { color: var(--blue); }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script src="../core.js"></script>
+<script>
+const { esc } = Menu;
+const $app = document.getElementById("app");
+const pad = (n) => String(n).padStart(2, "0");
+const L = () => Menu.lang === "pt" ? { today: "Hoje", status: "Estado", phone: "Telefone", where: "Onde", contents: "Índice" } : { today: "Today", status: "Status", phone: "Phone", where: "Where", contents: "Contents" };
+Menu.start({
+  render() {
+    const s = Menu.section, info = Menu.info, st = Menu.status(), today = Menu.week().find((d) => d.today), l = L();
+    document.title = info.name;
+    const cats = Menu.categories();
+    $app.innerHTML = `
+      <header class="head"><h1>${esc(info.name)}</h1><button data-lang-toggle data-lang-label></button></header>
+      <div class="facts"><div><small>${l.status}</small><span class="${st.open ? "open" : ""}">${esc(st.text)}</span></div><div><small>${l.today}</small><span>${today.from}–${today.till}</span></div><div><small>${l.phone}</small><span>${esc(info.phone)}</span></div></div>
+      <nav class="secs">${Menu.data.sections.map((x, k) => `<button data-section="${x.id}" aria-current="${x === s}"><i>${pad(k + 1)}</i>${esc(Menu.title(x))}</button>`).join("")}</nav>
+      ${cats.length > 1 ? `<ol class="index">${cats.map((c, k) => `<li><a href="#${s.id}" data-jump="c${k}"><span>${pad(k + 1)}</span>${esc(Menu.name(c).toLowerCase())}</a></li>`).join("")}</ol>` : ""}
+      ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}
+      ${cats.map((c, k) => `<section class="cat" id="c${k}"><h2><span>${pad(k + 1)}</span>${esc(Menu.name(c).toLowerCase())}<span>${c.items.length}</span></h2>
+        ${c.items.map((i, j) => `<button class="row${i.soldOut ? " sold" : ""}" ${Menu.ref(i)}><span class="top"><span class="k">${pad(k + 1)}.${j + 1}</span>
+          <span class="n">${esc(Menu.name(i))}${Menu.badges(i).map((b) => `<sup>${b.text}</sup>`).join("")}${Menu.desc(i) || i.img ? '<span class="plus">+</span>' : ""}</span>
+          <span class="p">${Menu.price(i.price)}</span></span></button>`).join("")}</section>`).join("") || `<p class="note">${Menu.t.empty}</p>`}
+      <footer><div><small>${l.where}</small>${esc(info.address)}</div><div><small>${l.phone}</small>${esc(info.phone)}<br><a href="${info.maps}" target="_blank" rel="noopener">${Menu.t.map}</a></div></footer>`;
+  },
+  // Rows open in place to show the photo and description, instead of a popup.
+  onItem(item, el) {
+    const open = el.classList.toggle("open");
+    el.querySelector(".plus") && (el.querySelector(".plus").textContent = open ? "−" : "+");
+    if (open) {
+      const desc = Menu.desc(item);
+      el.insertAdjacentHTML("beforeend", `<span class="x"><span></span><span class="xi">${item.img ? `<img src="${Menu.img(item.img)}" alt="">` : ""}${desc ? `<span class="xp">${esc(desc)}</span>` : ""}${item.volume ? `<span class="xp">${esc(item.volume)}</span>` : ""}</span></span>`);
+    } else el.querySelector(".x")?.remove();
+  },
+});
+document.addEventListener("click", (e) => {
+  const a = e.target.closest("[data-jump]");
+  if (!a) return;
+  e.preventDefault();
+  document.getElementById(a.dataset.jump).scrollIntoView({ behavior: "smooth" });
+});
+</script>
+</body>
+</html>

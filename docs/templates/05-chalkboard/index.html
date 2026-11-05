@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chalkboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* 05 Chalkboard: café blackboard. Chalk handwriting, wooden frames per category, photos as tilted polaroids. */
+:root { --board: #1f2a25; --board-2: #26332d; --chalk: #f1efe6; --dim: #b9bdb2; --yellow: #f4d35e; --pink: #f6a6b2; --wood: #7a5232; --wood-2: #5b3b22; --hand: "Caveat", "Comic Sans MS", cursive; --body: "Kalam", "Comic Sans MS", cursive; }
+* { box-sizing: border-box; }
+button { font: inherit; color: inherit; }
+body { margin: 0; color: var(--chalk); font: 17px/1.4 var(--body); -webkit-font-smoothing: antialiased;
+  background: var(--wood-2) repeating-linear-gradient(90deg, rgba(0,0,0,.08) 0 2px, transparent 2px 9px); }
+.board { max-width: 640px; min-height: 100vh; margin: 0 auto; padding: max(22px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) 48px max(20px, env(safe-area-inset-left));
+  background: radial-gradient(120% 60% at 50% 0%, var(--board-2), var(--board) 70%); box-shadow: inset 0 0 60px rgba(0,0,0,.6); }
+.top { display: flex; justify-content: space-between; align-items: center; color: var(--dim); font-size: 15px; }
+.top button { border: 2px dashed var(--yellow); border-radius: 8px; background: none; color: var(--yellow); font: 700 18px var(--hand); padding: 2px 12px; cursor: pointer; transform: rotate(2deg); }
+h1 { margin: 18px 0 0; font: 700 clamp(58px, 18vw, 96px)/.9 var(--hand); text-align: center; transform: rotate(-2deg); }
+h1 em { font-style: normal; color: var(--pink); }
+.sub { margin: 6px 0 0; text-align: center; color: var(--yellow); font: 600 24px var(--hand); }
+.swirl { display: block; width: 160px; height: 18px; margin: 8px auto 0; }
+.secs { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 10px; margin-top: 18px; }
+.secs button { border: 0; background: none; color: var(--dim); font: 700 24px var(--hand); padding: 2px 6px; cursor: pointer; }
+.secs button[aria-current="true"] { color: var(--chalk); background: linear-gradient(transparent 62%, rgba(244,211,94,.45) 62% 88%, transparent 88%); }
+.note { margin: 20px 0 0; white-space: pre-line; color: var(--dim); font-size: 16px; text-align: center; }
+.frame { margin-top: 30px; padding: 6px; border-radius: 6px; background: linear-gradient(135deg, #8a5d38, var(--wood) 40%, #6b4529); box-shadow: 0 6px 18px rgba(0,0,0,.45); }
+.frame .in { padding: 14px 16px 10px; border-radius: 3px; background: radial-gradient(100% 80% at 30% 0%, var(--board-2), var(--board)); }
+.frame h2 { margin: 0 0 6px; font: 700 38px/1 var(--hand); color: var(--yellow); text-transform: capitalize; }
+.it { display: flex; align-items: flex-start; gap: 12px; width: 100%; padding: 10px 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; border-bottom: 1.5px dashed rgba(241,239,230,.22); }
+.it:last-child { border-bottom: 0; }
+.it .t { flex: 1; min-width: 0; }
+.it .n { display: block; font: 700 18px/1.25 var(--body); }
+.it .d { display: block; color: var(--dim); font-size: 14px; line-height: 1.35; }
+.it .x { display: inline-block; margin-left: 6px; font: 700 18px var(--hand); color: var(--pink); }
+.it .p { flex: none; min-width: 58px; height: 58px; display: grid; place-items: center; border: 2px solid var(--chalk); border-radius: 50%; font: 700 20px var(--hand); transform: rotate(-6deg); }
+.it.sold .n { text-decoration: line-through; color: var(--dim); }
+.it.sold .p { border-color: var(--dim); color: var(--dim); }
+footer { margin-top: 34px; text-align: center; color: var(--dim); font-size: 15px; display: grid; gap: 2px; }
+footer b { font: 700 30px var(--hand); color: var(--chalk); }
+footer a { color: var(--yellow); }
+#m-sheet { width: min(360px, calc(100% - 48px)); padding: 12px 12px 18px; border: 0; background: #fbfaf5; color: #2a2a2a; transform: rotate(-2deg); box-shadow: 0 18px 40px rgba(0,0,0,.5); overflow: visible; }
+#m-sheet::backdrop { background: rgba(0,0,0,.6); }
+.m-photo { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+.m-body { padding: 12px 4px 0; text-align: center; }
+.m-name { margin: 0; font: 700 32px/1 var(--hand); }
+.m-desc { margin: 6px 0 0; font: 400 15px/1.35 var(--body); color: #555; }
+.m-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 10px; align-items: center; }
+.m-price { font: 700 28px var(--hand); color: #c0392b; }
+.m-badge { font: 700 18px var(--hand); color: #555; }
+.m-close { position: absolute; top: -14px; right: -14px; width: 40px; height: 40px; border: 0; border-radius: 50%; background: var(--yellow); color: #2a2a2a; font: 700 24px var(--body); cursor: pointer; }
+button:focus-visible { outline: 2px dashed var(--yellow); outline-offset: 3px; }
+</style>
+</head>
+<body>
+<div class="board" id="app"></div>
+<script src="../core.js"></script>
+<script>
+const { esc } = Menu;
+const $app = document.getElementById("app");
+Menu.start({
+  render() {
+    const s = Menu.section, info = Menu.info, st = Menu.status();
+    document.title = info.name;
+    const [a, ...b] = info.name.split(" & ");
+    $app.innerHTML = `
+      <div class="top"><span>${esc(st.text)}</span><button data-lang-toggle data-lang-label></button></div>
+      <h1>${b.length ? `${esc(a)} <em>&amp;</em> ${esc(b.join(" & "))}` : esc(info.name)}</h1>
+      <p class="sub">${esc(Menu.desc(s) || Menu.title(s))}</p>
+      <svg class="swirl" viewBox="0 0 160 18" fill="none" stroke="#f1efe6" stroke-width="2" stroke-linecap="round" opacity=".7"><path d="M4 10c20-10 30 8 50 0s30-10 50 0 30 8 52-2"/></svg>
+      <nav class="secs">${Menu.data.sections.map((x) => `<button data-section="${x.id}" aria-current="${x === s}">${esc(Menu.title(x))}</button>`).join("")}</nav>
+      ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}
+      ${Menu.categories().map((c) => `<section class="frame"><div class="in"><h2>${esc(Menu.name(c).toLowerCase())}</h2>
+        ${c.items.map((i) => `<button class="it${i.soldOut ? " sold" : ""}" ${Menu.ref(i)}>
+          <span class="t"><span class="n">${esc(Menu.name(i))}${i.labels.includes("new") ? `<span class="x">${Menu.t.new}!</span>` : ""}${i.soldOut ? `<span class="x">${Menu.t.soldOut}</span>` : ""}</span>
+          ${Menu.desc(i) ? `<span class="d">${esc(Menu.desc(i))}</span>` : ""}</span>
+          <span class="p">${Menu.price(i.price).replace(/\s?€/, "€")}</span></button>`).join("")}</div></section>`).join("") || `<p class="note">${Menu.t.empty}</p>`}
+      <footer><b>${esc(info.name)}</b><span>${esc(info.address)}</span><span>${esc(info.phone)} · <a href="${info.maps}" target="_blank" rel="noopener">${Menu.t.map}</a></span></footer>`;
+  },
+});
+</script>
+</body>
+</html>

@@ -30,3 +30,13 @@ The live site at https://diegotheboomer-bot.github.io/TOP-XI/ is served from `do
 ```
 python3 sweet-salt/phone/build.py https://diegotheboomer-bot.github.io/TOP-XI/ --site docs
 ```
+
+## Menu templates
+
+Ten different menu designs live in `docs/templates/` and are previewed at
+https://diegotheboomer-bot.github.io/TOP-XI/templates/. They all read `docs/templates/menu.json`
+(written by `python3 sweet-salt/templates/make_data.py`) through the shared `docs/templates/core.js`,
+which handles Portuguese/English, sections, opening hours and the dish popup.
+
+For a new restaurant: copy `core.js`, the chosen template folder and a `menu.json` in the same shape
+(sections → categories → items, plus an `info` block with name, address, phone, maps link and hours).

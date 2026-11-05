@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+/* 06 App: delivery-app feel. Search on top, a swipeable card row per category, sections in a bottom tab bar. */
+:root { --bg: #f4f5f7; --card: #fff; --ink: #14171f; --soft: #6b7280; --line: #e5e7eb; --accent: #0f9d76; --accent-soft: #e0f4ee; --font: "Plus Jakarta Sans", system-ui, sans-serif; }
+* { box-sizing: border-box; }
+button { font: inherit; color: inherit; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--font); -webkit-font-smoothing: antialiased; }
+.pad { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
+header { padding-top: max(16px, env(safe-area-inset-top)); display: grid; gap: 14px; }
+.hello { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.hello small { display: block; font-size: 13px; color: var(--soft); }
+.hello h1 { margin: 2px 0 0; font: 800 24px/1.1 var(--font); letter-spacing: -.02em; }
+.hello .st { display: inline-flex; align-items: center; gap: 6px; }
+.hello .st::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--soft); }
+.hello .st.open::before { background: var(--accent); }
+.av { flex: none; width: 46px; height: 46px; border: 0; border-radius: 14px; background: var(--ink); color: #fff; font: 800 13px var(--font); cursor: pointer; }
+.search { position: relative; }
+.search input { width: 100%; height: 50px; padding: 0 16px 0 46px; border: 0; border-radius: 16px; background: var(--card); box-shadow: 0 1px 2px rgba(0,0,0,.06); font: 500 15px var(--font); color: inherit; outline: none; }
+.search input:focus { box-shadow: 0 0 0 2px var(--accent); }
+.search svg { position: absolute; left: 16px; top: 50%; width: 20px; height: 20px; transform: translateY(-50%); fill: none; stroke: var(--soft); stroke-width: 2; stroke-linecap: round; }
+/* Hero, notes and results sit inside the side padding; card rows run edge to edge. */
+.pad-box { margin-left: max(16px, env(safe-area-inset-left)); margin-right: max(16px, env(safe-area-inset-right)); }
+.hero { width: calc(100% - 2 * max(16px, env(safe-area-inset-left))); border: 0; text-align: left; cursor: pointer; margin-top: 16px; padding: 18px; border-radius: 20px; background: var(--accent); color: #fff; display: flex; justify-content: space-between; align-items: center; gap: 12px; overflow: hidden; position: relative; }
+.hero b { display: block; font: 800 22px/1.1 var(--font); }
+.hero span { font-size: 13px; opacity: .85; }
+.hero img { width: 92px; height: 92px; border-radius: 50%; object-fit: cover; border: 4px solid rgba(255,255,255,.35); flex: none; }
+main { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+.note { margin: 16px 0 0; padding: 16px; border-radius: 16px; background: var(--card); white-space: pre-line; font-size: 14px; }
+.cat { margin-top: 24px; }
+.cat h2 { display: flex; justify-content: space-between; align-items: baseline; margin: 0 0 10px; font: 800 19px var(--font); letter-spacing: -.01em; text-transform: capitalize; }
+.cat h2 span { font: 500 13px var(--font); color: var(--soft); text-transform: none; }
+.row { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 max(16px, env(safe-area-inset-left)); padding: 2px max(16px, env(safe-area-inset-left)) 8px; scrollbar-width: none; }
+.row::-webkit-scrollbar { display: none; }
+.card { flex: none; width: 164px; scroll-snap-align: start; padding: 0; border: 0; border-radius: 18px; background: var(--card); box-shadow: 0 1px 3px rgba(0,0,0,.07); text-align: left; color: inherit; cursor: pointer; overflow: hidden; display: flex; flex-direction: column; }
+.card .ph { position: relative; height: 120px; background: var(--accent-soft); }
+.card .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card .ph .ini { display: grid; place-items: center; height: 100%; font: 800 34px var(--font); color: var(--accent); }
+.card .ph .b { position: absolute; left: 8px; top: 8px; padding: 3px 8px; border-radius: 8px; background: #fff; font: 700 11px var(--font); }
+.card .ph .b.sold { background: var(--ink); color: #fff; }
+.card .tx { padding: 10px 12px 12px; display: grid; gap: 2px; flex: 1; }
+.card .n { font-weight: 700; font-size: 14px; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card .p { margin-top: auto; padding-top: 6px; display: flex; justify-content: space-between; align-items: center; font: 800 15px var(--font); font-variant-numeric: tabular-nums; }
+.card .p i { width: 28px; height: 28px; border-radius: 9px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-style: normal; font-size: 18px; }
+.card.sold img { filter: grayscale(1) opacity(.6); }
+.results { display: grid; gap: 10px; margin-top: 16px; }
+.res { display: flex; gap: 12px; align-items: center; padding: 10px; border: 0; border-radius: 16px; background: var(--card); text-align: left; color: inherit; cursor: pointer; }
+.res img, .res .ini { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; flex: none; background: var(--accent-soft); }
+.res .n { font-weight: 700; } .res small { display: block; color: var(--soft); }
+.res .p { margin-left: auto; font-weight: 800; white-space: nowrap; }
+.tabs { position: fixed; z-index: 10; left: 0; right: 0; bottom: 0; padding: 8px max(10px, env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left)); background: rgba(255,255,255,.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid var(--line); display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tabs button { flex: 1 0 auto; min-width: 64px; display: grid; justify-items: center; gap: 3px; padding: 6px 8px; border: 0; border-radius: 12px; background: none; font: 700 11px var(--font); color: var(--soft); cursor: pointer; }
+.tabs button i { width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; font: 800 14px var(--font); font-style: normal; background: var(--bg); }
+.tabs button[aria-current="true"] { color: var(--accent); }
+.tabs button[aria-current="true"] i { background: var(--accent); color: #fff; }
+#m-sheet { margin: auto auto 0; width: 100%; max-width: 560px; max-height: 92vh; padding: 0 0 env(safe-area-inset-bottom); border: 0; border-radius: 26px 26px 0 0; background: var(--card); color: var(--ink); }
+#m-sheet::backdrop { background: rgba(20,23,31,.5); }
+.m-photo { display: block; width: 100%; aspect-ratio: 16/11; object-fit: cover; }
+.m-body { padding: 18px 20px 24px; }
+.m-name { margin: 0; font: 800 24px/1.15 var(--font); letter-spacing: -.02em; }
+.m-desc { margin: 6px 0 0; color: var(--soft); }
+.m-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 16px; }
+.m-price { margin-right: auto; font: 800 24px var(--font); }
+.m-badge { padding: 5px 10px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); font: 700 12px var(--font); }
+.m-badge.sold { background: var(--ink); color: #fff; }
+.m-close { position: absolute; top: 12px; left: 12px; width: 40px; height: 40px; border: 0; border-radius: 12px; background: #fff; font-size: 22px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<nav class="tabs" id="tabs"></nav>
+<script src="../core.js"></script>
+<script>
+const { esc } = Menu;
+const $app = document.getElementById("app");
+let query = "";
+const ini = (i) => esc(Menu.name(i).charAt(0));
+const card = (i) => {
+  const b = Menu.badges(i)[0];
+  return `<button class="card${i.soldOut ? " sold" : ""}" ${Menu.ref(i)}>
+    <span class="ph">${i.img ? `<img src="${Menu.img(i.img)}" alt="" loading="lazy">` : `<span class="ini">${ini(i)}</span>`}${b ? `<span class="b ${b.cls}">${b.text}</span>` : ""}</span>
+    <span class="tx"><span class="n">${esc(Menu.name(i))}</span><span class="p">${Menu.price(i.price)}<i>›</i></span></span></button>`;
+};
+function body() {
+  if (query) {
+    const hits = Menu.search(query);
+    return hits.length ? `<div class="results pad-box">${hits.map(({ section, item }) => `<button class="res" ${Menu.ref(item)}>${item.img ? `<img src="${Menu.img(item.img)}" alt="">` : `<span class="ini"></span>`}<span><span class="n">${esc(Menu.name(item))}</span><small>${esc(Menu.title(section))}</small></span><span class="p">${Menu.price(item.price)}</span></button>`).join("")}</div>` : `<p class="note pad-box">${Menu.t.none}</p>`;
+  }
+  const s = Menu.section, f = Menu.featured()[0];
+  return `${f ? `<button class="hero pad-box" ${Menu.ref(f)}><span><span>${Menu.t.recommended}</span><b>${esc(Menu.name(f))}</b><span>${Menu.price(f.price)}</span></span><img src="${Menu.img(f.img)}" alt=""></button>` : ""}
+    ${Menu.tx(s, "info") ? `<p class="note pad-box">${esc(Menu.tx(s, "info"))}</p>` : ""}
+    ${Menu.categories().map((c) => `<section class="cat"><h2 class="pad">${esc(Menu.name(c).toLowerCase())}<span>${c.items.length}</span></h2><div class="row">${c.items.map(card).join("")}</div></section>`).join("") || `<p class="note pad-box">${Menu.t.empty}</p>`}`;
+}
+function renderBody() { document.getElementById("body").innerHTML = body(); }
+Menu.start({
+  render() {
+    const s = Menu.section, info = Menu.info, st = Menu.status();
+    document.title = info.name;
+    $app.innerHTML = `
+      <header class="pad"><div class="hello"><div><small class="st${st.open ? " open" : ""}">${esc(st.text)}</small><h1>${esc(info.name)}</h1></div><button class="av" data-lang-toggle data-lang-label></button></div>
+        <label class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="${Menu.t.search}" value="${esc(query)}" autocomplete="off"></label></header>
+      <main id="body"></main>`;
+    renderBody();
+    document.getElementById("tabs").innerHTML = Menu.data.sections.map((x) => `<button data-section="${x.id}" aria-current="${x === s}"><i>${esc(Menu.title(x).charAt(0))}</i>${esc(Menu.title(x))}</button>`).join("");
+    document.getElementById("q").addEventListener("input", (e) => { query = e.target.value; renderBody(); });
+  },
+  onRoute() { window.scrollTo({ top: 0 }); document.querySelector('.tabs [aria-current="true"]')?.scrollIntoView({ inline: "center", block: "nearest" }); },
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bistro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* 01 Bistro: a printed card. Centred masthead, double rules, dotted leaders, photos only on tap. */
+:root { --paper: #f4f2ea; --ink: #1d3a2f; --soft: #5f6f66; --brass: #9c7a33; --rule: #cfc8b4; --serif: "Cormorant Garamond", Georgia, serif; --sans: "Jost", system-ui, sans-serif; }
+* { box-sizing: border-box; }
+button { font: inherit; color: inherit; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
+.page { max-width: 620px; margin: 0 auto; padding: max(28px, env(safe-area-inset-top)) max(22px, env(safe-area-inset-right)) 60px max(22px, env(safe-area-inset-left)); }
+.top { display: flex; justify-content: space-between; font: 500 12px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--soft); }
+.top button { border: 0; background: none; font: inherit; letter-spacing: inherit; color: var(--brass); cursor: pointer; padding: 4px 0; }
+.mast { text-align: center; padding: 26px 0 18px; border-bottom: 3px double var(--rule); }
+.mast h1 { margin: 0; font: 600 clamp(44px, 13vw, 68px)/.95 var(--serif); letter-spacing: .01em; }
+.mast h1 i { color: var(--brass); font-weight: 500; }
+.mast p { margin: 12px 0 0; font: italic 500 17px var(--serif); color: var(--soft); }
+nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; padding: 16px 0; border-bottom: 1px solid var(--rule); font: 500 13px var(--sans); letter-spacing: .14em; text-transform: uppercase; }
+nav button { border: 0; background: none; font: inherit; letter-spacing: inherit; color: var(--soft); cursor: pointer; padding: 6px 2px; }
+nav button[aria-current="true"] { color: var(--ink); box-shadow: inset 0 -1.5px var(--brass); }
+.note { margin: 26px 0 0; font: italic 500 18px/1.45 var(--serif); text-align: center; white-space: pre-line; color: var(--soft); }
+.cat { margin-top: 38px; }
+.cat h2 { display: flex; align-items: center; gap: 14px; margin: 0 0 16px; font: 600 26px var(--serif); text-transform: capitalize; text-align: center; }
+.cat h2::before, .cat h2::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+.item { display: block; width: 100%; padding: 10px 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; }
+.line { display: flex; align-items: baseline; gap: 8px; }
+.line .n { font: 600 20px/1.2 var(--serif); }
+.line .n small { margin-left: 6px; font: 500 11px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--brass); }
+.line .dots { flex: 1; min-width: 16px; border-bottom: 1.5px dotted var(--rule); transform: translateY(-5px); }
+.line .p { font: 600 19px var(--serif); font-variant-numeric: tabular-nums; }
+.item .d { display: block; margin-top: 2px; padding-right: 64px; font: italic 500 16px/1.35 var(--serif); color: var(--soft); }
+.item.sold .n, .item.sold .p { color: var(--soft); text-decoration: line-through; text-decoration-color: var(--brass); }
+.cam { display: inline-block; width: 13px; height: 10px; margin-left: 6px; border: 1.3px solid var(--brass); border-radius: 2px; position: relative; vertical-align: 1px; }
+.cam::after { content: ""; position: absolute; inset: 2px 3.5px; border: 1.3px solid var(--brass); border-radius: 50%; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 3px double var(--rule); text-align: center; font-size: 14px; color: var(--soft); display: grid; gap: 6px; }
+footer b { font: 600 18px var(--serif); color: var(--ink); }
+footer a { color: var(--brass); }
+#m-sheet { width: min(460px, calc(100% - 32px)); padding: 0; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); }
+#m-sheet::backdrop { background: rgba(29, 58, 47, .45); }
+.m-photo { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.m-body { padding: 20px 24px 26px; text-align: center; }
+.m-name { margin: 0; font: 600 28px/1.1 var(--serif); }
+.m-desc { margin: 8px 0 0; font: italic 500 18px/1.4 var(--serif); color: var(--soft); }
+.m-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center; }
+.m-price { font: 600 22px var(--serif); }
+.m-badge { font: 500 11px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--brass); }
+.m-close { position: absolute; top: 8px; right: 8px; width: 36px; height: 36px; border: 0; border-radius: 50%; background: var(--paper); color: var(--ink); font-size: 22px; cursor: pointer; }
+button:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+</style>
+</head>
+<body>
+<div class="page" id="app"></div>
+<script src="../core.js"></script>
+<script>
+const { esc } = Menu;
+const $app = document.getElementById("app");
+Menu.start({
+  render() {
+    const s = Menu.section, info = Menu.info, st = Menu.status();
+    document.title = info.name;
+    const [first, ...rest] = info.name.split(" & ");
+    $app.innerHTML = `
+      <div class="top"><span>${esc(st.text)}</span><button data-lang-toggle data-lang-label></button></div>
+      <header class="mast"><h1>${rest.length ? `${esc(first)} <i>&amp;</i> ${esc(rest.join(" & "))}` : esc(info.name)}</h1><p>${esc(Menu.desc(s) || Menu.title(s))}</p></header>
+      <nav>${Menu.data.sections.map((x) => `<button data-section="${x.id}" aria-current="${x === s}">${esc(Menu.title(x))}</button>`).join("")}</nav>
+      ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}
+      ${Menu.categories().map((c) => `<section class="cat"><h2>${esc(Menu.name(c).toLowerCase())}</h2>
+        ${c.items.map((i) => `<button class="item${i.soldOut ? " sold" : ""}" ${Menu.ref(i)}>
+          <span class="line"><span class="n">${esc(Menu.name(i))}${i.img ? '<span class="cam" aria-label="foto"></span>' : ""}${i.labels.includes("new") ? `<small>${Menu.t.new}</small>` : ""}</span><span class="dots"></span><span class="p">${Menu.price(i.price)}</span></span>
+          ${Menu.desc(i) ? `<span class="d">${esc(Menu.desc(i))}</span>` : ""}</button>`).join("")}</section>`).join("") || `<p class="note">${Menu.t.empty}</p>`}
+      <footer><b>${esc(info.name)}</b><span>${esc(info.address)}</span><span>${esc(info.phone)} · <a href="${info.maps}" target="_blank" rel="noopener">${Menu.t.map}</a></span></footer>`;
+  },
+});
+</script>
+</body>
+</html>

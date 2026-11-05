@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Menu Templates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Gallery: one row per template with a live phone preview beside what it is for. */
+:root { --bg: #f2f1ee; --card: #fff; --ink: #111c26; --soft: #66707a; --line: #e2e0da; --accent: #e2456b; --display: "Bricolage Grotesque", Arial, sans-serif; --body: "Figtree", system-ui, sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 var(--body); -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 980px; margin: 0 auto; padding: max(28px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 60px max(16px, env(safe-area-inset-left)); }
+h1 { margin: 0; font: 800 clamp(40px, 11vw, 72px)/.95 var(--display); letter-spacing: -.035em; }
+h1 em { font-style: normal; color: var(--accent); }
+.intro { margin: 12px 0 0; max-width: 56ch; color: var(--soft); }
+.list { display: grid; gap: 16px; margin-top: 28px; }
+@media (min-width: 860px) { .list { grid-template-columns: 1fr 1fr; } }
+.t { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; padding: 14px; border-radius: 20px; background: var(--card); box-shadow: 0 1px 0 var(--line); }
+.phone { position: relative; width: 150px; height: 325px; border-radius: 22px; overflow: hidden; background: #000; border: 4px solid #111; }
+.phone iframe { position: absolute; top: 0; left: 0; width: 390px; height: 844px; border: 0; transform: scale(.3641); transform-origin: 0 0; pointer-events: none; }
+.phone a { position: absolute; inset: 0; }
+.info { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.num { font: 700 13px var(--body); color: var(--soft); letter-spacing: .1em; }
+.info h2 { margin: 0; font: 800 28px/1 var(--display); letter-spacing: -.02em; }
+.info p { margin: 0; font-size: 14px; color: var(--soft); }
+.for { font-size: 14px; } .for b { font-weight: 700; }
+.sw { display: flex; gap: 5px; }
+.sw i { width: 22px; height: 22px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
+.font { font-size: 13px; color: var(--soft); }
+.open { margin-top: auto; align-self: flex-start; padding: 10px 16px; border-radius: 12px; background: var(--ink); color: #fff; font: 700 14px var(--body); text-decoration: none; }
+.open:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+footer { margin-top: 36px; color: var(--soft); font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Menu <em>templates</em></h1>
+  <p class="intro">Ten designs for a restaurant's digital menu. Every one uses the same menu data, works in Portuguese and English, and is built for phones. Tap a design to try it with the Sweet &amp; Salt menu.</p>
+  <div class="list" id="list"></div>
+  <footer>All ten read <code>templates/menu.json</code>, so changing that file updates every design.</footer>
+</div>
+<script>
+const T = [
+  ["01-bistro", "Bistro", "A printed menu card: centred serif title, dotted lines to the price, photos only when you tap.", "Restaurants with a classic or upmarket feel", ["#f4f2ea", "#1d3a2f", "#9c7a33"], "Cormorant Garamond + Jost"],
+  ["02-grid", "Grid", "Photos first, in a two-column grid like Instagram, with the price on each photo.", "Places with great food photos: brunch, burgers, poke", ["#ffffff", "#121212", "#ff5a36"], "Syne + DM Sans"],
+  ["03-stories", "Stories", "One dish per screen with a full-screen photo. Guests swipe up like Stories or TikTok.", "Showing off a short menu or signature dishes", ["#000000", "#ffffff", "#ffd23f"], "Anton + Manrope"],
+  ["04-neon", "Neon", "Dark bar menu with pink and blue glow, numbered categories and typewriter prices.", "Cocktail bars, nightlife, late-night spots", ["#08070d", "#ff2bd6", "#22e4ff"], "Bebas Neue + JetBrains Mono"],
+  ["05-chalkboard", "Chalkboard", "A café blackboard: chalk handwriting, wooden frames, photos as tilted polaroids.", "Cafés, bakeries, coffee shops", ["#1f2a25", "#f1efe6", "#f4d35e"], "Caveat + Kalam"],
+  ["06-app", "App", "Feels like a delivery app: search bar, swipeable card rows, sections in a bottom tab bar.", "Big menus where guests browse a lot", ["#f4f5f7", "#14171f", "#0f9d76"], "Plus Jakarta Sans"],
+  ["07-magazine", "Magazine", "Editorial layout: cover-style title, huge category numbers, big photos alternating sides.", "Chef-led restaurants with a story to tell", ["#ffffff", "#0d0d0d", "#d1221b"], "Playfair Display + Libre Franklin"],
+  ["08-azulejo", "Azulejo", "Portuguese tile pattern in cobalt and white, sections as square tiles, tile-framed dishes.", "Portuguese and traditional cuisine", ["#fbfcfe", "#1d4c9c", "#e9b949"], "Marcellus + Outfit"],
+  ["09-swiss", "Swiss", "Strict black and white grid with one blue. Numbered index; dishes open in place.", "Minimal, modern or design-led places", ["#ffffff", "#000000", "#1f3cff"], "IBM Plex Sans + Plex Mono"],
+  ["10-sunset", "Sunset", "Sunset gradient with a wave, rounded type, blob-shaped photos and a floating language button.", "Beach bars and holiday spots", ["#fff7ee", "#ff6f61", "#2bb5b8"], "Fredoka + Nunito"],
+];
+document.getElementById("list").innerHTML = T.map(([slug, name, what, forWho, sw, font], k) => `
+  <article class="t">
+    <div class="phone"><iframe src="${slug}/#menu" loading="lazy" title="${name} preview" tabindex="-1"></iframe><a href="${slug}/" aria-label="Open ${name}"></a></div>
+    <div class="info">
+      <span class="num">${String(k + 1).padStart(2, "0")}</span>
+      <h2>${name}</h2>
+      <p>${what}</p>
+      <span class="for"><b>Best for:</b> ${forWho}</span>
+      <span class="sw">${sw.map((c) => `<i style="background:${c}"></i>`).join("")}</span>
+      <span class="font">${font}</span>
+      <a class="open" href="${slug}/">Open ${name}</a>
+    </div>
+  </article>`).join("");
+</script>
+</body>
+</html>
