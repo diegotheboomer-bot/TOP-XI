@@ -7,89 +7,104 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* 09 Swiss: strict grid, black on white with one blue. Numbered index, a two-column price table, rows open in place. */
-:root { --paper: #ffffff; --ink: #000; --soft: #6f6f6f; --rule: #000; --hair: #d9d9d9; --blue: #1f3cff; --sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace; }
+/* 09 Swiss: bento grid. Black on white with one blue, a big lead tile per category, square tiles after it. */
+:root { --paper: #f4f4f2; --tile: #ffffff; --ink: #0b0b0b; --soft: #6f6f6f; --hair: #dedede; --blue: #1f3cff; --sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace; }
 * { box-sizing: border-box; }
 button { font: inherit; color: inherit; }
 body { margin: 0; background: var(--paper); color: var(--ink); font: 15px/1.45 var(--sans); -webkit-font-smoothing: antialiased; }
-.wrap { max-width: 720px; margin: 0 auto; padding: max(18px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 60px max(16px, env(safe-area-inset-left)); }
-.head { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 12px; }
-.head h1 { margin: 0; font: 700 clamp(40px, 12.5vw, 76px)/.92 var(--sans); letter-spacing: -.045em; overflow-wrap: anywhere; }
-.head button { border: 1.5px solid var(--ink); background: none; padding: 6px 10px; font: 500 12px var(--mono); cursor: pointer; }
-.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; border-top: 2px solid var(--rule); }
-.facts div { padding: 8px 8px 8px 0; border-right: 1px solid var(--hair); min-width: 0; }
-.facts div + div { padding-left: 8px; }
-.facts div:last-child { border-right: 0; }
-.facts small { display: block; font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--soft); }
-.facts span { display: block; font-weight: 500; font-size: 13px; overflow-wrap: anywhere; }
+.pad { max-width: 720px; margin: 0 auto; padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+.head { padding-top: max(18px, env(safe-area-inset-top)); }
+.head .t { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.head h1 { margin: 0; font: 700 clamp(42px, 13vw, 76px)/.9 var(--sans); letter-spacing: -.05em; overflow-wrap: anywhere; }
+.head h1 span { color: var(--blue); }
+.lang { flex: none; min-width: 42px; height: 42px; border: 0; border-radius: 10px; background: var(--ink); color: #fff; font: 500 12px var(--mono); cursor: pointer; }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 16px; }
+.facts div { padding: 10px; border-radius: 12px; background: var(--tile); min-width: 0; }
+.facts small { display: block; font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--soft); }
+.facts span { display: block; margin-top: 2px; font-weight: 500; font-size: 13px; overflow-wrap: anywhere; }
 .facts .open { color: var(--blue); }
-.bar { position: sticky; top: 0; z-index: 5; margin: 22px calc(-1 * max(16px, env(safe-area-inset-left))) 0; padding: 0 max(16px, env(safe-area-inset-left)); background: var(--paper); border-top: 2px solid var(--rule); border-bottom: 1px solid var(--hair); }
-.nrow { display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; }
+.bar { position: sticky; top: 0; z-index: 5; margin-top: 16px; background: rgba(244,244,242,.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--hair); }
+.nrow { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
 .nrow::-webkit-scrollbar { display: none; }
-.nrow button { flex: none; display: flex; gap: 6px; align-items: baseline; padding: 11px 0; border: 0; background: none; cursor: pointer; }
-.nrow button i { font: 400 11px var(--mono); font-style: normal; color: var(--soft); }
-.nrow button[aria-current="true"], .nrow button[aria-current="true"] i { color: var(--blue); }
-.secs button { font-weight: 500; }
-.secs button[aria-current="true"] { font-weight: 700; }
-.cats { border-top: 1px solid var(--hair); }
-.cats button { padding: 8px 0; font-size: 13px; color: var(--soft); }
-.note { margin: 24px 0 0; padding-left: 12px; border-left: 3px solid var(--blue); white-space: pre-line; font-size: 14px; }
-.cat { margin-top: 40px; scroll-margin-top: 12px; }
-.cat h2 { display: grid; grid-template-columns: 40px 1fr auto; align-items: baseline; margin: 0; padding-bottom: 6px; border-bottom: 2px solid var(--rule); font: 700 22px var(--sans); letter-spacing: -.02em; }
-.cat h2 span { font: 400 13px var(--mono); color: var(--soft); }
-.row { display: block; width: 100%; padding: 0; border: 0; border-bottom: 1px solid var(--hair); background: none; text-align: left; cursor: pointer; }
-.row .top { display: grid; grid-template-columns: 40px 1fr auto; gap: 0; align-items: baseline; padding: 11px 0; }
-.row .k { font: 400 12px var(--mono); color: var(--soft); }
-.row .n { font-weight: 500; padding-right: 12px; }
-.row .n sup { margin-left: 6px; font: 500 10px var(--mono); color: var(--blue); text-transform: uppercase; vertical-align: 3px; }
-.row .p { font: 500 14px var(--mono); font-variant-numeric: tabular-nums; }
-.row .x { display: grid; grid-template-columns: 40px 1fr; padding-bottom: 14px; }
-.row .x .xi { display: grid; gap: 10px; }
-.row .x img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
-.row .x .xp { display: block; color: var(--soft); font-size: 14px; }
-.row .plus { display: inline-block; width: 10px; margin-left: 8px; font: 400 14px var(--mono); color: var(--blue); }
-.row.sold .n, .row.sold .p { color: var(--soft); text-decoration: line-through; }
-.row.open .top { color: var(--blue); }
-footer { margin-top: 52px; border-top: 2px solid var(--rule); display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 10px; font-size: 13px; }
-footer small { display: block; font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--soft); }
+.secs { padding: 10px 0 6px; }
+.secs button { flex: none; padding: 8px 14px; border: 0; border-radius: 10px; background: var(--tile); font-weight: 500; cursor: pointer; }
+.secs button[aria-current="true"] { background: var(--ink); color: #fff; }
+.cats { gap: 16px; }
+.cats:empty { display: none; }
+.cats button { flex: none; display: flex; gap: 5px; align-items: baseline; padding: 6px 0 10px; border: 0; background: none; font-size: 13.5px; color: var(--soft); cursor: pointer; }
+.cats button i { font: 400 10.5px var(--mono); font-style: normal; }
+.cats button[aria-current="true"] { color: var(--blue); font-weight: 700; }
+.note { margin: 16px 0 0; padding: 16px; border-radius: 14px; background: var(--tile); white-space: pre-line; font-size: 14px; }
+.cat { margin-top: 28px; }
+.cat h2 { display: flex; align-items: baseline; gap: 10px; margin: 0 0 10px; font: 700 26px var(--sans); letter-spacing: -.03em; }
+.cat h2 i { font: 400 12px var(--mono); font-style: normal; color: var(--blue); }
+.cat h2 small { margin-left: auto; font: 400 12px var(--mono); color: var(--soft); }
+.bento { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+@media (min-width: 620px) { .bento { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.tile { position: relative; display: flex; flex-direction: column; padding: 0; border: 0; border-radius: 16px; background: var(--tile); overflow: hidden; text-align: left; cursor: pointer; min-width: 0; }
+.tile img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+.tile .tx { display: grid; gap: 2px; padding: 10px 12px 12px; }
+.tile .n { font-weight: 700; font-size: 14px; line-height: 1.25; letter-spacing: -.01em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.tile .p { font: 500 13px var(--mono); color: var(--blue); }
+.tile .b { position: absolute; top: 8px; left: 8px; padding: 3px 7px; border-radius: 6px; background: var(--ink); color: #fff; font: 500 10px var(--mono); text-transform: uppercase; }
+.tile.lead { grid-column: span 2; }
+.tile.lead img { aspect-ratio: 16/10; }
+.tile.lead .tx { padding: 14px 16px 16px; }
+.tile.lead .n { font-size: 20px; letter-spacing: -.02em; }
+.tile.lead .d { display: block; font-size: 13px; color: var(--soft); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.tile.text { justify-content: space-between; min-height: 92px; }
+.tile.sold img { filter: grayscale(1); opacity: .55; }
+.tile.sold .n { color: var(--soft); }
+footer { margin-top: 36px; padding: 18px 0 calc(28px + env(safe-area-inset-bottom)); border-top: 2px solid var(--ink); display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 13px; }
+footer small { display: block; font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--soft); }
 footer a { color: var(--blue); }
-button:focus-visible, a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+#m-sheet { margin: auto auto 0; width: 100%; max-width: 560px; max-height: 92vh; padding: 0 0 env(safe-area-inset-bottom); border: 0; border-radius: 22px 22px 0 0; background: var(--tile); color: var(--ink); }
+#m-sheet::backdrop { background: rgba(0,0,0,.45); }
+.m-photo { display: block; width: 100%; aspect-ratio: 16/11; object-fit: cover; }
+.m-body { padding: 16px 20px 24px; }
+.m-name { margin: 0; font: 700 26px/1.1 var(--sans); letter-spacing: -.03em; }
+.m-desc { margin: 8px 0 0; color: var(--soft); }
+.m-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center; }
+.m-price { font: 500 20px var(--mono); color: var(--blue); }
+.m-badge { padding: 3px 8px; border-radius: 6px; background: var(--paper); font: 500 11px var(--mono); text-transform: uppercase; }
+.m-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border: 0; border-radius: 10px; background: var(--ink); color: #fff; font-size: 20px; cursor: pointer; }
+button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 </style>
 </head>
 <body>
-<div class="wrap" id="app"></div>
+<div id="app"></div>
 <script src="../core.js"></script>
 <script>
 const { esc } = Menu;
 const $app = document.getElementById("app");
 const pad = (n) => String(n).padStart(2, "0");
-const L = () => Menu.lang === "pt" ? { today: "Hoje", status: "Estado", phone: "Telefone", where: "Onde", contents: "Índice" } : { today: "Today", status: "Status", phone: "Phone", where: "Where", contents: "Contents" };
+const L = () => Menu.lang === "pt" ? { today: "Hoje", status: "Estado", phone: "Telefone", where: "Onde" } : { today: "Today", status: "Status", phone: "Phone", where: "Where" };
+const tile = (i, lead) => {
+  const b = Menu.badges(i)[0], desc = Menu.desc(i);
+  return `<button class="tile${lead ? " lead" : ""}${i.img ? "" : " text"}${i.soldOut ? " sold" : ""}" ${Menu.ref(i)}>
+    ${i.img ? `<img src="${Menu.img(i.img)}" alt="" loading="lazy">` : ""}${b ? `<span class="b">${b.text}</span>` : ""}
+    <span class="tx"><span class="n">${esc(Menu.name(i))}</span>${lead && desc ? `<span class="d">${esc(desc)}</span>` : ""}<span class="p">${Menu.price(i.price)}${i.volume ? ` · ${esc(i.volume)}` : ""}</span></span></button>`;
+};
 Menu.start({
   render() {
-    const s = Menu.section, info = Menu.info, st = Menu.status(), today = Menu.week().find((d) => d.today), l = L();
+    const s = Menu.section, info = Menu.info, st = Menu.status(), today = Menu.week().find((d) => d.today), l = L(), cats = Menu.categories();
     document.title = info.name;
-    const cats = Menu.categories();
+    const [a, ...b] = info.name.split(" & ");
     $app.innerHTML = `
-      <header class="head"><h1>${esc(info.name)}</h1><button data-lang-toggle data-lang-label></button></header>
-      <div class="facts"><div><small>${l.status}</small><span class="${st.open ? "open" : ""}">${esc(st.text)}</span></div><div><small>${l.today}</small><span>${today.from}–${today.till}</span></div><div><small>${l.phone}</small><span>${esc(info.phone)}</span></div></div>
+      <header class="pad head"><div class="t"><h1>${b.length ? `${esc(a)} <span>&amp;</span> ${esc(b.join(" & "))}` : esc(info.name)}</h1><button class="lang" data-lang-toggle data-lang-label></button></div>
+        <div class="facts"><div><small>${l.status}</small><span class="${st.open ? "open" : ""}">${esc(st.text)}</span></div><div><small>${l.today}</small><span>${today.from}–${today.till}</span></div><div><small>${l.phone}</small><span>${esc(info.phone)}</span></div></div></header>
       <i data-top></i>
-      <div class="bar" data-sticky><nav class="nrow secs">${Menu.data.sections.map((x, k) => `<button data-section="${x.id}" aria-current="${x === s}"><i>${pad(k + 1)}</i>${esc(Menu.title(x))}</button>`).join("")}</nav>
-        ${cats.length > 1 ? `<nav class="nrow cats">${cats.map((c, k) => `<button data-cat="${Menu.catId(c)}"><i>${pad(k + 1)}</i>${esc(Menu.title(c))}</button>`).join("")}</nav>` : ""}</div>
-      ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}
-      ${cats.map((c, k) => `<section class="cat" id="${Menu.catId(c)}"><h2><span>${pad(k + 1)}</span>${esc(Menu.title(c))}<span>${c.items.length}</span></h2>
-        ${c.items.map((i, j) => `<button class="row${i.soldOut ? " sold" : ""}" ${Menu.ref(i)}><span class="top"><span class="k">${pad(k + 1)}.${j + 1}</span>
-          <span class="n">${esc(Menu.name(i))}${Menu.badges(i).map((b) => `<sup>${b.text}</sup>`).join("")}${Menu.desc(i) || i.img ? '<span class="plus">+</span>' : ""}</span>
-          <span class="p">${Menu.price(i.price)}</span></span></button>`).join("")}</section>`).join("") || `<p class="note">${Menu.t.empty}</p>`}
-      <footer><div><small>${l.where}</small>${esc(info.address)}</div><div><small>${l.phone}</small>${esc(info.phone)}<br><a href="${info.maps}" target="_blank" rel="noopener">${Menu.t.map}</a></div></footer>`;
-  },
-  // Rows open in place to show the photo and description, instead of a popup.
-  onItem(item, el) {
-    const open = el.classList.toggle("open");
-    el.querySelector(".plus") && (el.querySelector(".plus").textContent = open ? "−" : "+");
-    if (open) {
-      const desc = Menu.desc(item);
-      el.insertAdjacentHTML("beforeend", `<span class="x"><span></span><span class="xi">${item.img ? `<img src="${Menu.img(item.img)}" alt="">` : ""}${desc ? `<span class="xp">${esc(desc)}</span>` : ""}${item.volume ? `<span class="xp">${esc(item.volume)}</span>` : ""}</span></span>`);
-    } else el.querySelector(".x")?.remove();
+      <div class="bar" data-sticky><div class="pad"><nav class="nrow secs">${Menu.sectionsNav()}</nav>
+        ${cats.length > 1 ? `<nav class="nrow cats">${cats.map((c, k) => `<button data-cat="${Menu.catId(c)}"><i>${pad(k + 1)}</i>${esc(Menu.title(c))}</button>`).join("")}</nav>` : ""}</div></div>
+      <main class="pad">
+        ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}
+        ${cats.map((c, k) => {
+          const lead = c.items.find((i) => i.img && !i.soldOut);
+          return `<section class="cat" id="${Menu.catId(c)}"><h2><i>${pad(k + 1)}</i>${esc(Menu.title(c))}<small>${c.items.length}</small></h2>
+            <div class="bento">${lead ? tile(lead, true) : ""}${c.items.filter((i) => i !== lead).map((i) => tile(i, false)).join("")}</div></section>`;
+        }).join("") || `<p class="note">${Menu.t.empty}</p>`}
+        <footer><div><small>${l.where}</small>${esc(info.address)}</div><div><small>${l.phone}</small>${esc(info.phone)}<br><a href="${info.maps}" target="_blank" rel="noopener">${Menu.t.map}</a></div></footer>
+      </main>`;
   },
 });
 </script>
