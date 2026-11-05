@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-/* 03 Stories: one dish per screen, full-bleed photo, vertical snap scrolling like a stories feed. */
-:root { --bg: #000; --ink: #fff; --soft: rgba(255,255,255,.75); --accent: #ffd23f; --display: "Anton", Impact, sans-serif; --body: "Manrope", system-ui, sans-serif; }
+/* 03 Stories: one dish per screen, full-bleed photo, vertical snap scrolling. Sections and categories pinned on top. */
+:root { --bg: #000; --ink: #fff; --soft: rgba(255,255,255,.78); --accent: #ffd23f; --display: "Anton", Impact, sans-serif; --body: "Manrope", system-ui, sans-serif; }
 * { box-sizing: border-box; }
 button { font: inherit; color: inherit; }
 html, body { height: 100%; }
@@ -17,82 +17,85 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 var(
 .feed::-webkit-scrollbar { display: none; }
 .slide { position: relative; height: 100%; scroll-snap-align: start; scroll-snap-stop: always; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
 .slide > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 45%, rgba(0,0,0,.88) 100%); }
-.slide.plain { background: radial-gradient(120% 80% at 20% 10%, #3a2a00 0%, #000 70%); }
+.slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0) 50%, rgba(0,0,0,.85) 100%); }
+.slide.plain { background: #141414; }
 .slide.sold > img { filter: grayscale(1); }
-.cap { position: relative; z-index: 1; padding: 0 max(20px, env(safe-area-inset-right)) calc(34px + env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left)); display: grid; gap: 8px; }
-.kicker { font: 800 12px var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
-.cap h2 { margin: 0; font: 400 clamp(40px, 12vw, 64px)/.95 var(--display); text-transform: uppercase; overflow-wrap: anywhere; }
-.cap p { margin: 0; color: var(--soft); font-size: 16px; max-width: 34ch; }
+.cap { position: relative; z-index: 1; padding: 0 max(20px, env(safe-area-inset-right)) calc(30px + env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left)); display: grid; gap: 8px; }
+.kicker { font: 800 12px var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.cap h2 { margin: 0; font: 400 clamp(32px, 9vw, 48px)/1 var(--display); text-transform: uppercase; letter-spacing: .01em; overflow-wrap: anywhere; }
+.cap p { margin: 0; color: var(--soft); font-size: 15px; max-width: 36ch; }
 .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 4px; }
-.price { padding: 6px 14px; border-radius: 999px; background: var(--accent); color: #000; font: 800 18px var(--body); font-variant-numeric: tabular-nums; }
-.chip { padding: 5px 10px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,.6); font: 800 11px var(--body); letter-spacing: .08em; text-transform: uppercase; }
-.intro { justify-content: center; text-align: center; background: #000; }
+.price { padding: 5px 13px; border-radius: 999px; background: var(--accent); color: #000; font: 800 17px var(--body); font-variant-numeric: tabular-nums; }
+.chip { padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.16); font: 800 11px var(--body); letter-spacing: .06em; text-transform: uppercase; }
+.intro { justify-content: center; background: #000; }
 .intro::after { display: none; }
-.intro h1 { margin: 0; font: 400 clamp(64px, 22vw, 120px)/.85 var(--display); text-transform: uppercase; }
+.intro .cap { padding-bottom: 0; }
+.intro h1 { margin: 0; font: 400 clamp(56px, 18vw, 96px)/.9 var(--display); text-transform: uppercase; }
 .intro h1 em { font-style: normal; color: var(--accent); }
-.intro .cap { padding-bottom: 0; justify-items: center; }
-.swipe { margin-top: 26px; font: 800 12px var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--soft); animation: bob 1.6s ease-in-out infinite; }
-@keyframes bob { 50% { transform: translateY(6px); } }
-@media (prefers-reduced-motion: reduce) { .swipe { animation: none; } }
-.note { white-space: pre-line; color: var(--soft); font-size: 15px; text-align: left; max-width: 40ch; }
-.top { position: fixed; z-index: 10; top: 0; left: 0; right: 0; padding: max(12px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) 0 max(14px, env(safe-area-inset-left)); display: grid; gap: 10px; }
-.bars { display: flex; gap: 4px; }
-.bars i { flex: 1; height: 3px; border-radius: 2px; background: rgba(255,255,255,.3); }
-.bars i.on { background: #fff; }
-.nav { display: flex; gap: 6px; align-items: center; }
-.nav .secs { flex: 1; min-width: 0; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
-.nav .secs::-webkit-scrollbar { display: none; }
-.nav button { flex: none; height: 34px; padding: 0 12px; border: 0; border-radius: 999px; background: rgba(0,0,0,.45); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; font: 800 12px var(--body); letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
-.nav button[aria-current="true"] { background: #fff; color: #000; }
-.nav .lang { background: var(--accent); color: #000; }
+.intro .list { display: grid; gap: 2px; margin-top: 18px; }
+.intro .list button { display: flex; justify-content: space-between; padding: 12px 0; border: 0; border-top: 1px solid rgba(255,255,255,.15); background: none; text-align: left; font: 800 16px var(--body); cursor: pointer; }
+.intro .list button span { color: var(--soft); font-weight: 600; }
+.note { white-space: pre-line; color: var(--soft); font-size: 14px; max-width: 42ch; }
+.top { position: fixed; z-index: 10; top: 0; left: 0; right: 0; padding: max(10px, env(safe-area-inset-top)) 0 10px; background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,0)); display: grid; gap: 8px; }
+.top .scroll { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 0 max(14px, env(safe-area-inset-left)); }
+.top .scroll::-webkit-scrollbar { display: none; }
+.secs { align-items: center; }
+.secs button { flex: none; height: 34px; padding: 0 13px; border: 0; border-radius: 999px; background: rgba(255,255,255,.14); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); font: 800 12px var(--body); letter-spacing: .04em; cursor: pointer; }
+.secs button[aria-current="true"] { background: #fff; color: #000; }
+.secs .lang { background: var(--accent); color: #000; }
+.cats button { flex: none; padding: 2px 0; margin-right: 12px; border: 0; border-bottom: 2px solid transparent; background: none; font: 600 13px var(--body); color: var(--soft); cursor: pointer; }
+.cats button[aria-current="true"] { color: #fff; border-color: var(--accent); }
+.cats:empty { display: none; }
 button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 </style>
 </head>
 <body>
-<div class="top"><div class="bars" id="bars"></div><div class="nav"><div class="secs" id="secs"></div><button class="lang" data-lang-toggle data-lang-label></button></div></div>
+<div class="top"><div class="scroll secs" id="secs"></div><div class="scroll cats" id="cats"></div></div>
 <div class="feed" id="feed"></div>
 <script src="../core.js"></script>
 <script>
 const { esc } = Menu;
 const feed = document.getElementById("feed");
 let observer;
+const go = (k) => feed.children[k]?.scrollIntoView({ behavior: "smooth" });
 Menu.start({
   render() {
-    const s = Menu.section, info = Menu.info, st = Menu.status();
+    const s = Menu.section, info = Menu.info, st = Menu.status(), cats = Menu.categories();
     document.title = info.name;
     const [a, ...b] = info.name.split(" & ");
-    document.getElementById("secs").innerHTML = Menu.data.sections.map((x) => `<button data-section="${x.id}" aria-current="${x === s}">${esc(Menu.title(x))}</button>`).join("");
-    const slides = Menu.categories().flatMap((c) => c.items.map((i) => `
-      <section class="slide${i.img ? "" : " plain"}${i.soldOut ? " sold" : ""}">
-        ${i.img ? `<img src="${Menu.img(i.img)}" alt="" loading="lazy">` : ""}
-        <div class="cap"><span class="kicker">${esc(Menu.name(c))}</span><h2>${esc(Menu.name(i))}</h2>
-          ${Menu.desc(i) ? `<p>${esc(Menu.desc(i))}</p>` : ""}
-          <div class="row"><span class="price">${Menu.price(i.price)}</span>${i.volume ? `<span class="chip">${esc(i.volume)}</span>` : ""}${Menu.badges(i).map((x) => `<span class="chip">${x.text}</span>`).join("")}</div></div>
-      </section>`));
+    document.getElementById("secs").innerHTML = `<button class="lang" data-lang-toggle data-lang-label></button>` + Menu.sectionsNav();
+    // Slide 0 is the intro; each category's first dish is where its chip jumps to.
+    let k = 1;
+    const starts = cats.map((c) => { const at = k; k += c.items.length; return at; });
+    document.getElementById("cats").innerHTML = cats.length > 1 ? cats.map((c, j) => `<button data-slide="${starts[j]}" data-c="${j}">${esc(Menu.title(c))}</button>`).join("") : "";
     feed.innerHTML = `
-      <section class="slide intro"><div class="cap">
+      <section class="slide intro" data-c="-1"><div class="cap">
         <span class="kicker">${esc(st.text)}</span>
-        <h1>${b.length ? `${esc(a)}<br><em>&amp;</em> ${esc(b.join(" & "))}` : esc(info.name)}</h1>
-        <span class="kicker" style="color:#fff">${esc(Menu.title(s))}${Menu.desc(s) ? " · " + esc(Menu.desc(s)) : ""}</span>
+        <h1>${b.length ? `${esc(a)} <em>&amp;</em> ${esc(b.join(" & "))}` : esc(info.name)}</h1>
         ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}
-        ${slides.length ? `<span class="swipe">↑ ${Menu.lang === "pt" ? "deslize" : "swipe"}</span>` : `<p class="note">${Menu.t.empty}</p>`}
-      </div></section>${slides.join("")}`;
+        ${cats.length ? `<div class="list">${cats.map((c, j) => `<button data-slide="${starts[j]}">${esc(Menu.title(c))}<span>${c.items.length}</span></button>`).join("")}</div>` : `<p class="note">${Menu.t.empty}</p>`}
+      </div></section>
+      ${cats.map((c, j) => c.items.map((i) => `
+        <section class="slide${i.img ? "" : " plain"}${i.soldOut ? " sold" : ""}" data-c="${j}">
+          ${i.img ? `<img src="${Menu.img(i.img)}" alt="" loading="lazy">` : ""}
+          <div class="cap"><span class="kicker">${esc(Menu.title(c))}</span><h2>${esc(Menu.name(i))}</h2>
+            ${Menu.desc(i) ? `<p>${esc(Menu.desc(i))}</p>` : ""}
+            <div class="row"><span class="price">${Menu.price(i.price)}</span>${i.volume ? `<span class="chip">${esc(i.volume)}</span>` : ""}${Menu.badges(i).map((x) => `<span class="chip">${x.text}</span>`).join("")}</div></div>
+        </section>`).join("")).join("")}`;
     feed.scrollTop = 0;
-    // Progress bars follow the slide in view (capped so long sections stay readable).
-    const all = [...feed.querySelectorAll(".slide")], n = Math.min(all.length, 24);
-    const bars = document.getElementById("bars");
-    bars.innerHTML = "<i></i>".repeat(n);
     observer?.disconnect();
+    const chips = [...document.querySelectorAll("#cats button")];
     observer = new IntersectionObserver((es) => es.forEach((e) => {
       if (!e.isIntersecting) return;
-      const k = Math.round((all.indexOf(e.target) / Math.max(1, all.length - 1)) * (n - 1));
-      [...bars.children].forEach((b, j) => b.classList.toggle("on", j <= k));
+      const c = e.target.dataset.c;
+      chips.forEach((x) => x.setAttribute("aria-current", x.dataset.c === c));
+      const on = chips.find((x) => x.dataset.c === c);
+      if (on) on.parentElement.scrollTo({ left: on.offsetLeft - 40, behavior: "smooth" });
     }), { root: feed, threshold: .6 });
-    all.forEach((x) => observer.observe(x));
+    [...feed.children].forEach((x) => observer.observe(x));
   },
-  onRoute() { document.querySelector('.secs [aria-current="true"]')?.scrollIntoView({ inline: "center", block: "nearest" }); },
 });
+document.addEventListener("click", (e) => { const b = e.target.closest("[data-slide]"); if (b) go(+b.dataset.slide); });
 </script>
 </body>
 </html>

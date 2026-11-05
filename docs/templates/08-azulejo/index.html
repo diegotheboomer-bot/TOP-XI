@@ -7,55 +7,60 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* 08 Azulejo: Portuguese tiles. Cobalt-on-white tile band, sections as square tiles, dishes in tile-bordered cards. */
-:root { --white: #fbfcfe; --cobalt: #1d4c9c; --deep: #102e63; --sky: #dbe6f6; --soft: #5b6b85; --yellow: #e9b949;
+/* 08 Azulejo: Portuguese tiles. A cobalt tile strip on top, calm white cards, tile motif on category headings. */
+:root { --white: #fbfcfe; --cobalt: #1d4c9c; --deep: #13305f; --sky: #e3ebf7; --soft: #5b6b85; --yellow: #e9b949;
   --tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' fill='%23fbfcfe'/%3E%3Cg fill='none' stroke='%231d4c9c' stroke-width='2.2'%3E%3Ccircle cx='30' cy='30' r='11'/%3E%3Cpath d='M0 15A15 15 0 0 0 15 0M45 0A15 15 0 0 0 60 15M60 45A15 15 0 0 0 45 60M15 60A15 15 0 0 0 0 45'/%3E%3Cpath d='M30 8l5 11-5 0-5 0zM30 52l5-11-5 0-5 0zM8 30l11-5 0 5 0 5zM52 30l-11-5 0 5 0 5z' fill='%231d4c9c' stroke='none'/%3E%3C/g%3E%3Ccircle cx='30' cy='30' r='4' fill='%23e9b949'/%3E%3C/svg%3E");
   --display: "Marcellus", Georgia, serif; --body: "Outfit", system-ui, sans-serif; }
 * { box-sizing: border-box; }
 button { font: inherit; color: inherit; }
 body { margin: 0; background: var(--white); color: var(--deep); font: 16px/1.5 var(--body); -webkit-font-smoothing: antialiased; }
-.band { height: calc(108px + env(safe-area-inset-top)); background: var(--tile) center/60px; border-bottom: 6px solid var(--cobalt); }
-.wrap { max-width: 680px; margin: 0 auto; padding: 0 max(18px, env(safe-area-inset-right)) 56px max(18px, env(safe-area-inset-left)); }
-.plaque { position: relative; margin: -46px auto 0; max-width: 360px; padding: 18px 20px 16px; background: var(--white); border: 3px solid var(--cobalt); box-shadow: 0 0 0 5px var(--white), 0 0 0 7px var(--cobalt); text-align: center; }
-.plaque h1 { margin: 0; font: 400 clamp(34px, 10vw, 46px)/1 var(--display); color: var(--cobalt); }
-.plaque p { margin: 6px 0 0; font-size: 14px; color: var(--soft); }
-.plaque .st::before { content: "◆ "; color: var(--soft); }
-.plaque .st.open::before { color: #2a8a52; }
-.lang { position: absolute; top: calc(10px + env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); width: 44px; height: 44px; border: 3px solid var(--cobalt); background: var(--white); color: var(--cobalt); font: 600 14px var(--body); cursor: pointer; }
-.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 28px; }
-.tiles button { aspect-ratio: 1.35; display: grid; place-items: center; padding: 6px; border: 2px solid var(--cobalt); background: var(--white); color: var(--cobalt); font: 400 16px/1.1 var(--display); text-align: center; cursor: pointer; overflow-wrap: anywhere; }
-.tiles button[aria-current="true"] { background: var(--cobalt); color: var(--white); box-shadow: inset 0 0 0 3px var(--white); }
-.note { margin: 22px 0 0; padding: 16px 18px; background: var(--sky); white-space: pre-line; font-size: 15px; }
-.cat { margin-top: 34px; }
-.cat h2 { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; font: 400 28px/1.1 var(--display); color: var(--cobalt); text-transform: capitalize; }
-.cat h2::before { content: ""; flex: none; width: 26px; height: 26px; background: var(--tile) center/26px; border: 2px solid var(--cobalt); }
-.list { display: grid; gap: 12px; }
+.pad { max-width: 680px; margin: 0 auto; padding-left: max(18px, env(safe-area-inset-left)); padding-right: max(18px, env(safe-area-inset-right)); }
+.strip { height: calc(40px + env(safe-area-inset-top)); background: var(--tile) center bottom/40px; border-bottom: 3px solid var(--cobalt); }
+.hero { padding-top: 22px; padding-bottom: 18px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.hero h1 { margin: 0; font: 400 clamp(34px, 10vw, 48px)/1.05 var(--display); color: var(--cobalt); }
+.hero p { margin: 6px 0 0; font-size: 14px; color: var(--soft); }
+.hero .open { color: #2a7a4b; }
+.lang { flex: none; min-width: 44px; height: 44px; border: 1.5px solid var(--cobalt); border-radius: 4px; background: var(--white); color: var(--cobalt); font: 600 14px var(--body); cursor: pointer; }
+.bar { position: sticky; top: 0; z-index: 5; background: var(--white); border-bottom: 1px solid var(--sky); }
+.row { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.row::-webkit-scrollbar { display: none; }
+.secs { padding: 10px 0 8px; }
+.secs button { flex: none; padding: 8px 14px; border: 1.5px solid var(--cobalt); border-radius: 3px; background: var(--white); color: var(--cobalt); font: 400 15px var(--display); cursor: pointer; }
+.secs button[aria-current="true"] { background: var(--cobalt); color: var(--white); }
+.cats { gap: 18px; }
+.cats:empty { display: none; }
+.cats button { flex: none; padding: 6px 0 9px; border: 0; border-bottom: 2px solid transparent; background: none; font: 500 14px var(--body); color: var(--soft); cursor: pointer; }
+.cats button[aria-current="true"] { color: var(--cobalt); border-color: var(--yellow); }
+.note { margin: 20px 0 0; padding: 16px 18px; border-left: 3px solid var(--cobalt); background: var(--sky); white-space: pre-line; font-size: 15px; }
+.cat { margin-top: 30px; }
+.cat h2 { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; font: 400 26px/1.1 var(--display); color: var(--cobalt); }
+.cat h2::before { content: ""; flex: none; width: 24px; height: 24px; background: var(--tile) center/24px; border: 1.5px solid var(--cobalt); }
+.list { display: grid; gap: 10px; }
 @media (min-width: 620px) { .list { grid-template-columns: 1fr 1fr; } }
-.dish { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 14px; align-items: center; padding: 12px; border: 2px solid var(--sky); background: var(--white); text-align: left; cursor: pointer; position: relative; }
-.dish::after { content: ""; position: absolute; inset: 4px; border: 1px solid var(--sky); pointer-events: none; }
-.dish img, .dish .ph { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 3px solid var(--cobalt); }
-.dish .ph { background: var(--tile) center/38px; }
-.dish .n { display: block; font: 400 19px/1.2 var(--display); color: var(--deep); }
+.dish { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; align-items: center; padding: 12px; border: 1px solid var(--sky); border-radius: 4px; background: #fff; text-align: left; cursor: pointer; }
+.dish img, .dish .ph { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; }
+.dish .ph { background: var(--tile) center/36px; border: 1.5px solid var(--sky); }
+.dish .n { display: block; font: 400 18px/1.2 var(--display); }
 .dish .d { display: block; margin-top: 2px; font-size: 13.5px; color: var(--soft); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.dish .meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; }
-.dish .p { padding: 2px 10px; background: var(--cobalt); color: var(--white); font-weight: 600; font-variant-numeric: tabular-nums; }
-.dish .b { font-size: 12px; font-weight: 600; color: var(--cobalt); text-transform: uppercase; letter-spacing: .06em; }
+.dish .meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 6px; }
+.dish .p { font-weight: 600; color: var(--cobalt); font-variant-numeric: tabular-nums; }
+.dish .b { font-size: 11px; font-weight: 600; color: var(--soft); text-transform: uppercase; letter-spacing: .06em; }
 .dish .b.sold { color: #b23b3b; }
-.dish.sold img { filter: grayscale(1); }
-footer { margin-top: 44px; padding: 20px; border: 3px solid var(--cobalt); text-align: center; display: grid; gap: 4px; font-size: 14px; }
-footer b { font: 400 26px var(--display); color: var(--cobalt); }
+.dish.sold img { filter: grayscale(1); opacity: .6; }
+footer { margin-top: 40px; padding: 20px 0 16px; border-top: 1px solid var(--sky); text-align: center; display: grid; gap: 4px; font-size: 14px; color: var(--soft); }
+footer b { font: 400 24px var(--display); color: var(--cobalt); }
 footer a { color: var(--cobalt); font-weight: 600; }
-.foot-band { height: 48px; background: var(--tile) center/48px; border-top: 6px solid var(--cobalt); }
-#m-sheet { width: min(440px, calc(100% - 32px)); padding: 10px; border: 3px solid var(--cobalt); background: var(--white); color: var(--deep); box-shadow: 0 0 0 5px var(--white), 0 0 0 7px var(--cobalt); }
-#m-sheet::backdrop { background: rgba(16, 46, 99, .55); }
-.m-photo { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
-.m-body { padding: 14px 8px 8px; text-align: center; }
+.foot-strip { height: calc(32px + env(safe-area-inset-bottom)); background: var(--tile) center top/40px; border-top: 3px solid var(--cobalt); }
+#m-sheet { margin: auto auto 0; width: 100%; max-width: 560px; max-height: 92vh; padding: 0 0 env(safe-area-inset-bottom); border: 0; border-top: 3px solid var(--cobalt); border-radius: 0; background: var(--white); color: var(--deep); }
+#m-sheet::backdrop { background: rgba(19, 48, 95, .5); }
+.m-photo { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.m-body { padding: 16px 20px 24px; }
 .m-name { margin: 0; font: 400 28px/1.15 var(--display); color: var(--cobalt); }
 .m-desc { margin: 6px 0 0; color: var(--soft); }
-.m-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center; }
-.m-price { padding: 4px 14px; background: var(--cobalt); color: var(--white); font-weight: 600; font-size: 18px; }
-.m-badge { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--cobalt); }
-.m-close { position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; border: 2px solid var(--cobalt); background: var(--white); color: var(--cobalt); font-size: 22px; cursor: pointer; }
+.m-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; align-items: center; }
+.m-price { font-weight: 600; font-size: 20px; color: var(--cobalt); }
+.m-badge { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--soft); }
+.m-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border: 1.5px solid var(--cobalt); border-radius: 4px; background: var(--white); color: var(--cobalt); font-size: 22px; cursor: pointer; }
 button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
 </style>
 </head>
@@ -70,19 +75,21 @@ Menu.start({
     const s = Menu.section, info = Menu.info, st = Menu.status();
     document.title = info.name;
     $app.innerHTML = `
-      <div class="band"></div><button class="lang" data-lang-toggle data-lang-label></button>
-      <div class="wrap">
-        <header class="plaque"><h1>${esc(info.name)}</h1><p class="st${st.open ? " open" : ""}">${esc(st.text)}</p></header>
-        <nav class="tiles">${Menu.data.sections.map((x) => `<button data-section="${x.id}" aria-current="${x === s}">${esc(Menu.title(x))}</button>`).join("")}</nav>
+      <div class="strip"></div>
+      <header class="pad hero"><div><h1>${esc(info.name)}</h1><p class="${st.open ? "open" : ""}">${esc(st.text)}${Menu.desc(s) ? ` · ${esc(Menu.desc(s))}` : ""}</p></div><button class="lang" data-lang-toggle data-lang-label></button></header>
+      <i data-top></i>
+      <div class="bar" data-sticky><div class="pad"><nav class="row secs">${Menu.sectionsNav()}</nav><nav class="row cats">${Menu.catsNav()}</nav></div></div>
+      <main class="pad">
         ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}
-        ${Menu.categories().map((c) => `<section class="cat"><h2>${esc(Menu.name(c).toLowerCase())}</h2><div class="list">
+        ${Menu.categories().map((c) => `<section class="cat" id="${Menu.catId(c)}"><h2>${esc(Menu.title(c))}</h2><div class="list">
           ${c.items.map((i) => `<button class="dish${i.soldOut ? " sold" : ""}" ${Menu.ref(i)}>
             ${i.img ? `<img src="${Menu.img(i.img)}" alt="" loading="lazy">` : `<span class="ph"></span>`}
             <span><span class="n">${esc(Menu.name(i))}</span>${Menu.desc(i) ? `<span class="d">${esc(Menu.desc(i))}</span>` : ""}
               <span class="meta"><span class="p">${Menu.price(i.price)}</span>${i.volume ? `<span class="b">${esc(i.volume)}</span>` : ""}${Menu.badges(i).map((b) => `<span class="b ${b.cls}">${b.text}</span>`).join("")}</span></span></button>`).join("")}
         </div></section>`).join("") || `<p class="note">${Menu.t.empty}</p>`}
         <footer><b>${esc(info.name)}</b><span>${esc(info.address)}</span><span>${esc(info.phone)} · <a href="${info.maps}" target="_blank" rel="noopener">${Menu.t.map}</a></span></footer>
-      </div><div class="foot-band"></div>`;
+      </main>
+      <div class="foot-strip"></div>`;
   },
 });
 </script>

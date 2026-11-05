@@ -37,22 +37,22 @@ footer { margin-top: 36px; color: var(--soft); font-size: 14px; }
 <body>
 <div class="wrap">
   <h1>Menu <em>templates</em></h1>
-  <p class="intro">Ten designs for a restaurant's digital menu. Every one uses the same menu data, works in Portuguese and English, and is built for phones. Tap a design to try it with the Sweet &amp; Salt menu.</p>
+  <p class="intro">Ten designs for a restaurant's digital menu. Every one uses the same menu data, works in Portuguese and English, and is built for phones: the sections and categories stay pinned at the top, and tapping a category jumps to it. Tap a design to try it with the Sweet &amp; Salt menu.</p>
   <div class="list" id="list"></div>
   <footer>All ten read <code>templates/menu.json</code>, so changing that file updates every design.</footer>
 </div>
 <script>
 const T = [
-  ["01-bistro", "Bistro", "A printed menu card: centred serif title, dotted lines to the price, photos only when you tap.", "Restaurants with a classic or upmarket feel", ["#f4f2ea", "#1d3a2f", "#9c7a33"], "Cormorant Garamond + Jost"],
+  ["01-bistro", "Bistro", "Like a printed menu card: centred serif title, dotted lines to the price, small round photos.", "Restaurants with a classic or upmarket feel", ["#f4f2ea", "#1d3a2f", "#9c7a33"], "Cormorant Garamond + Jost"],
   ["02-grid", "Grid", "Photos first, in a two-column grid like Instagram, with the price on each photo.", "Places with great food photos: brunch, burgers, poke", ["#ffffff", "#121212", "#ff5a36"], "Syne + DM Sans"],
   ["03-stories", "Stories", "One dish per screen with a full-screen photo. Guests swipe up like Stories or TikTok.", "Showing off a short menu or signature dishes", ["#000000", "#ffffff", "#ffd23f"], "Anton + Manrope"],
-  ["04-neon", "Neon", "Dark bar menu with pink and blue glow, numbered categories and typewriter prices.", "Cocktail bars, nightlife, late-night spots", ["#08070d", "#ff2bd6", "#22e4ff"], "Bebas Neue + JetBrains Mono"],
-  ["05-chalkboard", "Chalkboard", "A café blackboard: chalk handwriting, wooden frames, photos as tilted polaroids.", "Cafés, bakeries, coffee shops", ["#1f2a25", "#f1efe6", "#f4d35e"], "Caveat + Kalam"],
+  ["04-neon", "Neon", "Dark bar menu with a pink glow on the name, numbered categories and clean monospace prices.", "Cocktail bars, nightlife, late-night spots", ["#08070d", "#ff2bd6", "#22e4ff"], "Bebas Neue + JetBrains Mono"],
+  ["05-chalkboard", "Chalkboard", "A café blackboard: chalk lettering for headings and prices, plain easy-to-read text for dishes.", "Cafés, bakeries, coffee shops", ["#1f2a25", "#f1efe6", "#f4d35e"], "Caveat + Kalam"],
   ["06-app", "App", "Feels like a delivery app: search bar, swipeable card rows, sections in a bottom tab bar.", "Big menus where guests browse a lot", ["#f4f5f7", "#14171f", "#0f9d76"], "Plus Jakarta Sans"],
   ["07-magazine", "Magazine", "Editorial layout: cover-style title, huge category numbers, big photos alternating sides.", "Chef-led restaurants with a story to tell", ["#ffffff", "#0d0d0d", "#d1221b"], "Playfair Display + Libre Franklin"],
-  ["08-azulejo", "Azulejo", "Portuguese tile pattern in cobalt and white, sections as square tiles, tile-framed dishes.", "Portuguese and traditional cuisine", ["#fbfcfe", "#1d4c9c", "#e9b949"], "Marcellus + Outfit"],
-  ["09-swiss", "Swiss", "Strict black and white grid with one blue. Numbered index; dishes open in place.", "Minimal, modern or design-led places", ["#ffffff", "#000000", "#1f3cff"], "IBM Plex Sans + Plex Mono"],
-  ["10-sunset", "Sunset", "Sunset gradient with a wave, rounded type, blob-shaped photos and a floating language button.", "Beach bars and holiday spots", ["#fff7ee", "#ff6f61", "#2bb5b8"], "Fredoka + Nunito"],
+  ["08-azulejo", "Azulejo", "Cobalt and white Portuguese tile strip, calm white cards with round photos, tile motif on headings.", "Portuguese and traditional cuisine", ["#fbfcfe", "#1d4c9c", "#e9b949"], "Marcellus + Outfit"],
+  ["09-swiss", "Swiss", "Strict black and white grid with one blue. Numbered price list; dishes open in place to show the photo.", "Minimal, modern or design-led places", ["#ffffff", "#000000", "#1f3cff"], "IBM Plex Sans + Plex Mono"],
+  ["10-sunset", "Sunset", "Warm sunset header with a wave edge, sand background and soft rounded cards.", "Beach bars and holiday spots", ["#fff7ee", "#ff6f61", "#2bb5b8"], "Fredoka + Nunito"],
 ];
 document.getElementById("list").innerHTML = T.map(([slug, name, what, forWho, sw, font], k) => `
   <article class="t">

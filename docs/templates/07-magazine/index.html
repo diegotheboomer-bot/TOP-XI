@@ -20,15 +20,20 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 15px/1.55 v
 .cover h1 em { color: var(--red); font-style: italic; }
 .cover .issue { display: flex; justify-content: space-between; margin-top: 10px; font: 600 12px var(--sans); text-transform: uppercase; letter-spacing: .12em; }
 .cover .issue b { color: var(--red); }
-nav { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--rule); }
+.bar { position: sticky; top: 0; z-index: 5; margin: 0 calc(-1 * max(18px, env(safe-area-inset-left))); padding: 0 max(18px, env(safe-area-inset-left)); background: var(--paper); border-bottom: 1px solid var(--rule); }
+nav { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
 nav::-webkit-scrollbar { display: none; }
-nav button { flex: none; padding: 12px 14px 10px 0; margin-right: 14px; border: 0; background: none; font: 800 12px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--soft); cursor: pointer; border-bottom: 3px solid transparent; }
-nav button[aria-current="true"] { color: var(--ink); border-color: var(--red); }
+.cats { border-top: 1px solid #ddd; gap: 16px; }
+.cats:empty { display: none; }
+.cats button { flex: none; padding: 9px 0; border: 0; background: none; font: 700 italic 16px var(--serif); color: var(--soft); cursor: pointer; }
+.cats button[aria-current="true"] { color: var(--red); }
+.secs button { flex: none; padding: 12px 14px 10px 0; margin-right: 14px; border: 0; background: none; font: 800 12px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--soft); cursor: pointer; border-bottom: 3px solid transparent; }
+.secs button[aria-current="true"] { color: var(--ink); border-color: var(--red); }
 .note { margin: 22px 0 0; font: 700 20px/1.35 var(--serif); white-space: pre-line; }
 .cat { margin-top: 40px; }
 .cat > header { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 14px; border-bottom: 1px solid var(--rule); padding-bottom: 8px; }
 .cat .num { font: 900 86px/.75 var(--serif); color: var(--red); }
-.cat h2 { margin: 0; font: 700 italic 32px/1 var(--serif); text-transform: capitalize; overflow-wrap: anywhere; }
+.cat h2 { margin: 0; font: 700 italic 32px/1 var(--serif); overflow-wrap: anywhere; }
 .cat h2 small { display: block; margin-bottom: 4px; font: 800 11px var(--sans); font-style: normal; letter-spacing: .16em; text-transform: uppercase; color: var(--soft); }
 .lead { display: block; width: 100%; margin-top: 18px; padding: 0; border: 0; background: none; text-align: left; cursor: pointer; }
 .lead img { display: block; width: 100%; aspect-ratio: 3/2; object-fit: cover; }
@@ -82,12 +87,13 @@ Menu.start({
       <div class="strap"><span>${esc(st.text)}</span><button data-lang-toggle data-lang-label></button></div>
       <header class="cover"><h1>${b.length ? `${esc(a)} <em>&amp;</em> ${esc(b.join(" & "))}` : esc(info.name)}</h1>
         <div class="issue"><span>Nº ${String(idx).padStart(2, "0")} — <b>${esc(Menu.title(s))}</b></span><span>${esc(Menu.desc(s))}</span></div></header>
-      <nav>${Menu.data.sections.map((x) => `<button data-section="${x.id}" aria-current="${x === s}">${esc(Menu.title(x))}</button>`).join("")}</nav>
+      <i data-top></i>
+      <div class="bar" data-sticky><nav class="secs">${Menu.sectionsNav()}</nav><nav class="cats">${Menu.catsNav()}</nav></div>
       ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}
       ${Menu.categories().map((c, k) => {
         const withImg = c.items.filter((i) => i.img), lead = withImg[0];
         const stories = withImg.slice(1), briefs = c.items.filter((i) => !i.img);
-        return `<section class="cat"><header><span class="num">${k + 1}</span><h2><small>${c.items.length} ${Menu.lang === "pt" ? "pratos" : "dishes"}</small>${esc(Menu.name(c).toLowerCase())}</h2></header>
+        return `<section class="cat" id="${Menu.catId(c)}"><header><span class="num">${k + 1}</span><h2><small>${c.items.length} ${Menu.lang === "pt" ? "pratos" : "dishes"}</small>${esc(Menu.title(c))}</h2></header>
           ${lead ? `<button class="lead${lead.soldOut ? " sold" : ""}" ${Menu.ref(lead)}><img src="${Menu.img(lead.img)}" alt="" loading="lazy"><span class="t">${esc(Menu.name(lead))}</span>${Menu.desc(lead) ? `<span class="d">${esc(Menu.desc(lead))}</span>` : ""}<span class="byline"><span class="p">${Menu.price(lead.price)}</span>${kicker(lead)}</span></button>` : ""}
           ${stories.map((i) => `<button class="story${i.soldOut ? " sold" : ""}" ${Menu.ref(i)}><img src="${Menu.img(i.img)}" alt="" loading="lazy"><span><span class="t">${esc(Menu.name(i))}</span>${Menu.desc(i) ? `<span class="d">${esc(Menu.desc(i))}</span>` : ""}<span class="byline"><span class="p">${Menu.price(i.price)}</span>${kicker(i)}</span></span></button>`).join("")}
           ${briefs.map((i) => `<button class="brief${i.soldOut ? " sold" : ""}" ${Menu.ref(i)}><span class="t">${esc(Menu.name(i))}${i.volume ? ` <small>· ${esc(i.volume)}</small>` : ""}</span><span class="p">${Menu.price(i.price)}</span></button>`).join("")}
@@ -95,7 +101,6 @@ Menu.start({
       }).join("") || `<p class="note">${Menu.t.empty}</p>`}
       <footer><b>${esc(info.name)}</b><span>${esc(info.address)}</span><span>${esc(info.phone)} · <a href="${info.maps}" target="_blank" rel="noopener">${Menu.t.map}</a></span></footer>`;
   },
-  onRoute() { document.querySelector('nav [aria-current="true"]')?.scrollIntoView({ inline: "center", block: "nearest" }); },
 });
 </script>
 </body>

@@ -5,59 +5,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sunset</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* 10 Sunset: beach bar. Sunset gradient with a sun, wave edge, blob-shaped photos, round friendly type. */
-:root { --sand: #fff7ee; --ink: #3a1f3d; --soft: #8a6f86; --sun: #ffb340; --coral: #ff6f61; --berry: #c2417a; --sea: #2bb5b8; --card: #fff; --display: "Fredoka", "Trebuchet MS", sans-serif; --body: "Nunito", system-ui, sans-serif; }
+/* 10 Sunset: beach bar. Warm gradient header with a wave edge, sand background, soft rounded cards. */
+:root { --sand: #fff8f1; --card: #ffffff; --ink: #3a2438; --soft: #8a7386; --line: #f1e3d6; --coral: #ff7a5c; --berry: #c8487e; --sea: #1fa6a9; --sun: #ffc35a; --display: "Fredoka", "Trebuchet MS", sans-serif; --body: "Nunito", system-ui, sans-serif; }
 * { box-sizing: border-box; }
 button { font: inherit; color: inherit; }
-body { margin: 0; background: var(--sand); color: var(--ink); font: 16px/1.45 var(--body); -webkit-font-smoothing: antialiased; }
-.sky { position: relative; padding: calc(30px + env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) 70px max(20px, env(safe-area-inset-left)); background: linear-gradient(180deg, #ff9a5a 0%, var(--coral) 45%, var(--berry) 100%); color: #fff; overflow: hidden; text-align: center; }
-.sky::before { content: ""; position: absolute; left: 50%; bottom: 18px; width: 220px; height: 220px; margin-left: -110px; border-radius: 50%; background: radial-gradient(circle, #ffe08a 0%, var(--sun) 60%, rgba(255,179,64,0) 72%); }
-.sky > * { position: relative; }
-.sky .st { display: inline-block; padding: 6px 14px; border-radius: 999px; background: rgba(255,255,255,.22); font: 700 13px var(--body); }
-.sky h1 { margin: 14px 0 0; font: 700 clamp(46px, 14vw, 78px)/.95 var(--display); text-shadow: 0 3px 0 rgba(58,31,61,.25); }
-.sky p { margin: 8px 0 0; font: 600 18px var(--display); opacity: .95; }
-.wave { display: block; width: 100%; height: 40px; margin-top: -39px; position: relative; }
-.secs { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding: 6px max(20px, env(safe-area-inset-left)) 10px; position: sticky; top: 0; z-index: 5; background: var(--sand); }
-.secs::-webkit-scrollbar { display: none; }
-.secs button { flex: none; padding: 10px 18px; border: 0; border-radius: 999px; background: var(--card); box-shadow: 0 3px 0 #f1dccb; font: 600 16px var(--display); color: var(--ink); cursor: pointer; }
-.secs button[aria-current="true"] { background: var(--sea); color: #fff; box-shadow: 0 3px 0 #1d8a8c; }
-main { max-width: 680px; margin: 0 auto; padding: 0 max(20px, env(safe-area-inset-right)) calc(90px + env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left)); }
-.note { margin: 18px 0 0; padding: 18px; border-radius: 24px; background: #ffe9d6; white-space: pre-line; font-size: 15px; }
-.cat h2 { margin: 30px 0 14px; font: 700 30px/1 var(--display); color: var(--berry); text-transform: capitalize; }
-.cat h2::after { content: ""; display: block; width: 54px; height: 6px; margin-top: 8px; border-radius: 3px; background: linear-gradient(90deg, var(--sun), var(--coral)); }
-.list { display: grid; gap: 16px; }
-.c { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 16px; align-items: center; padding: 14px; border: 0; border-radius: 28px; background: var(--card); box-shadow: 0 6px 0 #f6e2d1; text-align: left; cursor: pointer; }
-.c:nth-child(even) .blob { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; }
-.blob { width: 104px; height: 104px; object-fit: cover; border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%; background: linear-gradient(135deg, var(--sun), var(--coral)); display: grid; place-items: center; font: 700 34px var(--display); color: #fff; }
-.c .n { display: block; font: 600 19px/1.15 var(--display); }
-.c .d { display: block; margin-top: 3px; font-size: 14px; color: var(--soft); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.c .meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 8px; }
-.c .p { padding: 4px 12px; border-radius: 999px; background: var(--sun); font: 700 16px var(--display); font-variant-numeric: tabular-nums; }
-.c .b { padding: 3px 9px; border-radius: 999px; background: #e3f6f6; color: #1d8a8c; font: 800 11px var(--body); text-transform: uppercase; letter-spacing: .04em; }
-.c .b.sold { background: #f3e3ec; color: var(--berry); }
-.c.sold .blob { filter: grayscale(1); opacity: .6; }
-.float { position: fixed; z-index: 10; right: max(18px, env(safe-area-inset-right)); bottom: calc(18px + env(safe-area-inset-bottom)); width: 60px; height: 60px; border: 0; border-radius: 50%; background: var(--sea); color: #fff; font: 700 17px var(--display); box-shadow: 0 6px 0 #1d8a8c, 0 10px 24px rgba(0,0,0,.2); cursor: pointer; }
-footer { margin-top: 40px; padding: 22px; border-radius: 28px; background: var(--ink); color: #f2e6f0; display: grid; gap: 4px; text-align: center; font-size: 14px; }
-footer b { font: 700 24px var(--display); color: #fff; }
-footer a { color: var(--sun); font-weight: 800; }
-#m-sheet { margin: auto auto 0; width: 100%; max-width: 560px; max-height: 92vh; padding: 0 0 env(safe-area-inset-bottom); border: 0; border-radius: 34px 34px 0 0; background: var(--sand); color: var(--ink); overflow-x: hidden; }
-#m-sheet::backdrop { background: rgba(58,31,61,.5); }
-.m-photo { display: block; width: calc(100% - 32px); margin: 16px auto 0; aspect-ratio: 1; object-fit: cover; border-radius: 48% 52% 45% 55% / 52% 46% 54% 48%; }
-.m-body { padding: 14px 22px 28px; text-align: center; }
-.m-name { margin: 0; font: 700 30px/1.05 var(--display); color: var(--berry); }
-.m-desc { margin: 8px 0 0; color: var(--soft); }
-.m-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center; }
-.m-price { padding: 6px 16px; border-radius: 999px; background: var(--sun); font: 700 20px var(--display); }
-.m-badge { padding: 4px 10px; border-radius: 999px; background: #e3f6f6; color: #1d8a8c; font: 800 12px var(--body); text-transform: uppercase; }
-.m-close { position: absolute; top: 24px; right: 24px; z-index: 1; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #fff; color: var(--ink); font-size: 24px; cursor: pointer; box-shadow: 0 4px 0 #f1dccb; }
+body { margin: 0; background: var(--sand); color: var(--ink); font: 15px/1.5 var(--body); -webkit-font-smoothing: antialiased; }
+.pad { max-width: 680px; margin: 0 auto; padding-left: max(18px, env(safe-area-inset-left)); padding-right: max(18px, env(safe-area-inset-right)); }
+.sky { padding-top: max(16px, env(safe-area-inset-top)); padding-bottom: 46px; background: linear-gradient(160deg, var(--sun) 0%, var(--coral) 50%, var(--berry) 100%); color: #fff; }
+.sky .top { display: flex; justify-content: space-between; align-items: center; }
+.sky .st { padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,.22); font: 700 13px var(--body); }
+.sky .lang { min-width: 44px; height: 44px; border: 0; border-radius: 50%; background: #fff; color: var(--berry); font: 600 14px var(--display); cursor: pointer; }
+.sky h1 { margin: 18px 0 0; font: 600 clamp(42px, 12vw, 64px)/1 var(--display); }
+.sky p { margin: 4px 0 0; font: 500 18px var(--display); opacity: .92; }
+.wave { display: block; width: 100%; height: 28px; margin-top: -27px; }
+.bar { position: sticky; top: 0; z-index: 5; background: var(--sand); padding: 6px 0 8px; border-bottom: 1px solid var(--line); }
+.row { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.row::-webkit-scrollbar { display: none; }
+.secs button { flex: none; padding: 8px 16px; border: 0; border-radius: 999px; background: var(--card); box-shadow: 0 1px 3px rgba(58,36,56,.08); font: 600 15px var(--display); cursor: pointer; }
+.secs button[aria-current="true"] { background: var(--sea); color: #fff; }
+.cats { gap: 16px; margin-top: 6px; }
+.cats:empty { display: none; }
+.cats button { flex: none; padding: 4px 0; border: 0; border-bottom: 2px solid transparent; background: none; font: 700 13px var(--body); color: var(--soft); cursor: pointer; }
+.cats button[aria-current="true"] { color: var(--berry); border-color: var(--coral); }
+.note { margin: 18px 0 0; padding: 16px 18px; border-radius: 18px; background: #ffeede; white-space: pre-line; font-size: 14px; }
+.cat { margin-top: 28px; }
+.cat h2 { margin: 0 0 12px; font: 600 26px/1.1 var(--display); color: var(--berry); }
+.list { display: grid; gap: 12px; }
+.c { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 14px; align-items: center; padding: 10px; border: 0; border-radius: 20px; background: var(--card); box-shadow: 0 1px 3px rgba(58,36,56,.07); text-align: left; cursor: pointer; }
+.c .ph { width: 88px; height: 88px; border-radius: 16px; object-fit: cover; background: linear-gradient(135deg, var(--sun), var(--coral)); display: grid; place-items: center; font: 600 30px var(--display); color: #fff; }
+.c .n { display: block; font: 600 17px/1.2 var(--display); }
+.c .d { display: block; margin-top: 2px; font-size: 13.5px; color: var(--soft); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.c .meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; }
+.c .p { font: 600 16px var(--display); color: var(--berry); font-variant-numeric: tabular-nums; }
+.c .b { padding: 2px 8px; border-radius: 999px; background: #e1f4f4; color: #17807f; font: 800 10.5px var(--body); text-transform: uppercase; letter-spacing: .04em; }
+.c .b.sold { background: #f6e4ec; color: var(--berry); }
+.c.sold .ph { filter: grayscale(1); opacity: .6; }
+footer { margin: 36px 0 0; padding: 22px 0 calc(28px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); text-align: center; display: grid; gap: 4px; color: var(--soft); font-size: 14px; }
+footer b { font: 600 22px var(--display); color: var(--ink); }
+footer a { color: var(--berry); font-weight: 800; }
+#m-sheet { margin: auto auto 0; width: 100%; max-width: 560px; max-height: 92vh; padding: 0 0 env(safe-area-inset-bottom); border: 0; border-radius: 26px 26px 0 0; background: var(--sand); color: var(--ink); }
+#m-sheet::backdrop { background: rgba(58,36,56,.45); }
+.m-photo { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.m-body { padding: 16px 20px 26px; }
+.m-name { margin: 0; font: 600 26px/1.1 var(--display); color: var(--berry); }
+.m-desc { margin: 6px 0 0; color: var(--soft); }
+.m-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center; }
+.m-price { font: 600 22px var(--display); }
+.m-badge { padding: 3px 9px; border-radius: 999px; background: #e1f4f4; color: #17807f; font: 800 11px var(--body); text-transform: uppercase; }
+.m-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border: 0; border-radius: 50%; background: #fff; color: var(--ink); font-size: 22px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
 button:focus-visible { outline: 3px solid var(--sea); outline-offset: 3px; }
 </style>
 </head>
 <body>
 <div id="app"></div>
-<button class="float" data-lang-toggle data-lang-label></button>
 <script src="../core.js"></script>
 <script>
 const { esc } = Menu;
@@ -67,21 +69,22 @@ Menu.start({
     const s = Menu.section, info = Menu.info, st = Menu.status();
     document.title = info.name;
     $app.innerHTML = `
-      <header class="sky"><span class="st">${esc(st.text)}</span><h1>${esc(info.name)}</h1><p>${esc(Menu.desc(s) || Menu.title(s))}</p></header>
-      <svg class="wave" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20 C 60 0, 120 40, 200 20 S 340 0, 400 20 V40 H0 Z" fill="#fff7ee"/></svg>
-      <nav class="secs">${Menu.data.sections.map((x) => `<button data-section="${x.id}" aria-current="${x === s}">${esc(Menu.title(x))}</button>`).join("")}</nav>
-      <main>
+      <header class="sky"><div class="pad"><div class="top"><span class="st">${esc(st.text)}</span><button class="lang" data-lang-toggle data-lang-label></button></div>
+        <h1>${esc(info.name)}</h1>${Menu.desc(s) ? `<p>${esc(Menu.desc(s))}</p>` : ""}</div></header>
+      <svg class="wave" viewBox="0 0 400 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 14 C 70 0, 130 28, 200 14 S 330 0, 400 14 V28 H0 Z" fill="#fff8f1"/></svg>
+      <i data-top></i>
+      <div class="bar" data-sticky><div class="pad"><nav class="row secs">${Menu.sectionsNav()}</nav><nav class="row cats">${Menu.catsNav()}</nav></div></div>
+      <main class="pad">
         ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}
-        ${Menu.categories().map((c) => `<section class="cat"><h2>${esc(Menu.name(c).toLowerCase())}</h2><div class="list">
+        ${Menu.categories().map((c) => `<section class="cat" id="${Menu.catId(c)}"><h2>${esc(Menu.title(c))}</h2><div class="list">
           ${c.items.map((i) => `<button class="c${i.soldOut ? " sold" : ""}" ${Menu.ref(i)}>
-            ${i.img ? `<img class="blob" src="${Menu.img(i.img)}" alt="" loading="lazy">` : `<span class="blob">${esc(Menu.name(i).charAt(0))}</span>`}
+            ${i.img ? `<img class="ph" src="${Menu.img(i.img)}" alt="" loading="lazy">` : `<span class="ph">${esc(Menu.name(i).charAt(0))}</span>`}
             <span><span class="n">${esc(Menu.name(i))}</span>${Menu.desc(i) ? `<span class="d">${esc(Menu.desc(i))}</span>` : ""}
               <span class="meta"><span class="p">${Menu.price(i.price)}</span>${i.volume ? `<span class="b">${esc(i.volume)}</span>` : ""}${Menu.badges(i).map((b) => `<span class="b ${b.cls}">${b.text}</span>`).join("")}</span></span></button>`).join("")}
         </div></section>`).join("") || `<p class="note">${Menu.t.empty}</p>`}
         <footer><b>${esc(info.name)}</b><span>${esc(info.address)}</span><span>${esc(info.phone)} · <a href="${info.maps}" target="_blank" rel="noopener">${Menu.t.map}</a></span></footer>
       </main>`;
   },
-  onRoute() { document.querySelector('.secs [aria-current="true"]')?.scrollIntoView({ inline: "center", block: "nearest" }); },
 });
 </script>
 </body>

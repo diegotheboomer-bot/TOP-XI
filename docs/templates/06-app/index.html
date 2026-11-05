@@ -13,7 +13,7 @@
 button { font: inherit; color: inherit; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--font); -webkit-font-smoothing: antialiased; }
 .pad { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
-header { padding-top: max(16px, env(safe-area-inset-top)); display: grid; gap: 14px; }
+header { padding-top: max(16px, env(safe-area-inset-top)); padding-bottom: 12px; }
 .hello { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .hello small { display: block; font-size: 13px; color: var(--soft); }
 .hello h1 { margin: 2px 0 0; font: 800 24px/1.1 var(--font); letter-spacing: -.02em; }
@@ -21,19 +21,25 @@ header { padding-top: max(16px, env(safe-area-inset-top)); display: grid; gap: 1
 .hello .st::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--soft); }
 .hello .st.open::before { background: var(--accent); }
 .av { flex: none; width: 46px; height: 46px; border: 0; border-radius: 14px; background: var(--ink); color: #fff; font: 800 13px var(--font); cursor: pointer; }
-.search { position: relative; }
+.sticky { position: sticky; top: 0; z-index: 6; background: var(--bg); padding-top: 4px; }
+.search { position: relative; display: block; }
 .search input { width: 100%; height: 50px; padding: 0 16px 0 46px; border: 0; border-radius: 16px; background: var(--card); box-shadow: 0 1px 2px rgba(0,0,0,.06); font: 500 15px var(--font); color: inherit; outline: none; }
 .search input:focus { box-shadow: 0 0 0 2px var(--accent); }
-.search svg { position: absolute; left: 16px; top: 50%; width: 20px; height: 20px; transform: translateY(-50%); fill: none; stroke: var(--soft); stroke-width: 2; stroke-linecap: round; }
+.search svg { position: absolute; left: calc(max(16px, env(safe-area-inset-left)) + 16px); top: 50%; width: 20px; height: 20px; transform: translateY(-50%); fill: none; stroke: var(--soft); stroke-width: 2; stroke-linecap: round; }
 /* Hero, notes and results sit inside the side padding; card rows run edge to edge. */
 .pad-box { margin-left: max(16px, env(safe-area-inset-left)); margin-right: max(16px, env(safe-area-inset-right)); }
-.hero { width: calc(100% - 2 * max(16px, env(safe-area-inset-left))); border: 0; text-align: left; cursor: pointer; margin-top: 16px; padding: 18px; border-radius: 20px; background: var(--accent); color: #fff; display: flex; justify-content: space-between; align-items: center; gap: 12px; overflow: hidden; position: relative; }
+.cats { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 10px max(16px, env(safe-area-inset-left)); }
+.cats::-webkit-scrollbar { display: none; }
+.cats:empty { display: none; }
+.cats button { flex: none; padding: 7px 14px; border: 0; border-radius: 999px; background: var(--card); box-shadow: 0 1px 2px rgba(0,0,0,.06); font: 600 13px var(--font); color: var(--soft); cursor: pointer; }
+.cats button[aria-current="true"] { background: var(--ink); color: #fff; }
+.hero { width: calc(100% - 2 * max(16px, env(safe-area-inset-left))); border: 0; text-align: left; cursor: pointer; margin-top: 8px; padding: 18px; border-radius: 20px; background: var(--accent); color: #fff; display: flex; justify-content: space-between; align-items: center; gap: 12px; overflow: hidden; position: relative; }
 .hero b { display: block; font: 800 22px/1.1 var(--font); }
 .hero span { font-size: 13px; opacity: .85; }
 .hero img { width: 92px; height: 92px; border-radius: 50%; object-fit: cover; border: 4px solid rgba(255,255,255,.35); flex: none; }
 main { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
 .note { margin: 16px 0 0; padding: 16px; border-radius: 16px; background: var(--card); white-space: pre-line; font-size: 14px; }
-.cat { margin-top: 24px; }
+.cat { margin-top: 24px; scroll-margin-top: 120px; }
 .cat h2 { display: flex; justify-content: space-between; align-items: baseline; margin: 0 0 10px; font: 800 19px var(--font); letter-spacing: -.01em; text-transform: capitalize; }
 .cat h2 span { font: 500 13px var(--font); color: var(--soft); text-transform: none; }
 .row { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 max(16px, env(safe-area-inset-left)); padding: 2px max(16px, env(safe-area-inset-left)) 8px; scrollbar-width: none; }
@@ -56,10 +62,8 @@ main { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
 .res .p { margin-left: auto; font-weight: 800; white-space: nowrap; }
 .tabs { position: fixed; z-index: 10; left: 0; right: 0; bottom: 0; padding: 8px max(10px, env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left)); background: rgba(255,255,255,.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid var(--line); display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
 .tabs::-webkit-scrollbar { display: none; }
-.tabs button { flex: 1 0 auto; min-width: 64px; display: grid; justify-items: center; gap: 3px; padding: 6px 8px; border: 0; border-radius: 12px; background: none; font: 700 11px var(--font); color: var(--soft); cursor: pointer; }
-.tabs button i { width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; font: 800 14px var(--font); font-style: normal; background: var(--bg); }
-.tabs button[aria-current="true"] { color: var(--accent); }
-.tabs button[aria-current="true"] i { background: var(--accent); color: #fff; }
+.tabs button { flex: none; padding: 10px 14px; border: 0; border-radius: 12px; background: none; font: 700 13px var(--font); color: var(--soft); cursor: pointer; }
+.tabs button[aria-current="true"] { background: var(--accent-soft); color: var(--accent); }
 #m-sheet { margin: auto auto 0; width: 100%; max-width: 560px; max-height: 92vh; padding: 0 0 env(safe-area-inset-bottom); border: 0; border-radius: 26px 26px 0 0; background: var(--card); color: var(--ink); }
 #m-sheet::backdrop { background: rgba(20,23,31,.5); }
 .m-photo { display: block; width: 100%; aspect-ratio: 16/11; object-fit: cover; }
@@ -97,7 +101,7 @@ function body() {
   const s = Menu.section, f = Menu.featured()[0];
   return `${f ? `<button class="hero pad-box" ${Menu.ref(f)}><span><span>${Menu.t.recommended}</span><b>${esc(Menu.name(f))}</b><span>${Menu.price(f.price)}</span></span><img src="${Menu.img(f.img)}" alt=""></button>` : ""}
     ${Menu.tx(s, "info") ? `<p class="note pad-box">${esc(Menu.tx(s, "info"))}</p>` : ""}
-    ${Menu.categories().map((c) => `<section class="cat"><h2 class="pad">${esc(Menu.name(c).toLowerCase())}<span>${c.items.length}</span></h2><div class="row">${c.items.map(card).join("")}</div></section>`).join("") || `<p class="note pad-box">${Menu.t.empty}</p>`}`;
+    ${Menu.categories().map((c) => `<section class="cat" id="${Menu.catId(c)}"><h2 class="pad">${esc(Menu.title(c))}<span>${c.items.length}</span></h2><div class="row">${c.items.map(card).join("")}</div></section>`).join("") || `<p class="note pad-box">${Menu.t.empty}</p>`}`;
 }
 function renderBody() { document.getElementById("body").innerHTML = body(); }
 Menu.start({
@@ -105,14 +109,19 @@ Menu.start({
     const s = Menu.section, info = Menu.info, st = Menu.status();
     document.title = info.name;
     $app.innerHTML = `
-      <header class="pad"><div class="hello"><div><small class="st${st.open ? " open" : ""}">${esc(st.text)}</small><h1>${esc(info.name)}</h1></div><button class="av" data-lang-toggle data-lang-label></button></div>
-        <label class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="${Menu.t.search}" value="${esc(query)}" autocomplete="off"></label></header>
+      <header class="pad"><div class="hello"><div><small class="st${st.open ? " open" : ""}">${esc(st.text)}</small><h1>${esc(info.name)}</h1></div><button class="av" data-lang-toggle data-lang-label></button></div></header>
+      <i data-top></i>
+      <div class="sticky" data-sticky><label class="search pad"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="${Menu.t.search}" value="${esc(query)}" autocomplete="off"></label><nav class="cats" id="cats">${query ? "" : Menu.catsNav()}</nav></div>
       <main id="body"></main>`;
     renderBody();
-    document.getElementById("tabs").innerHTML = Menu.data.sections.map((x) => `<button data-section="${x.id}" aria-current="${x === s}"><i>${esc(Menu.title(x).charAt(0))}</i>${esc(Menu.title(x))}</button>`).join("");
-    document.getElementById("q").addEventListener("input", (e) => { query = e.target.value; renderBody(); });
+    document.getElementById("tabs").innerHTML = Menu.sectionsNav();
+    document.getElementById("q").addEventListener("input", (e) => {
+      query = e.target.value;
+      renderBody();
+      document.getElementById("cats").innerHTML = query ? "" : Menu.catsNav();
+      Menu.spy();
+    });
   },
-  onRoute() { window.scrollTo({ top: 0 }); document.querySelector('.tabs [aria-current="true"]')?.scrollIntoView({ inline: "center", block: "nearest" }); },
 });
 </script>
 </body>

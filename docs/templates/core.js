@@ -1,7 +1,11 @@
-// Shared engine for the menu templates: data, language, sections, opening hours and the dish sheet.
+// Shared engine for the menu templates: data, language, sections, category jumps, opening hours and the dish sheet.
 // A template calls Menu.start({ render, onItem? }) and builds its own markup from the helpers below.
 (() => {
   const ROOT = new URL("../", document.currentScript.src);
+
+  // On a computer, show the menu inside a phone-sized frame instead of stretching it across the screen.
+  // Inside the frame (or any iframe) the template renders normally.
+  const FRAMED = window.top === window && window.matchMedia("(min-width: 700px)").matches && !new URLSearchParams(location.search).has("full");
 
   const STRINGS = {
     pt: {
@@ -27,6 +31,7 @@
 
   const registry = [];
   let opts = {};
+  let firstRoute = true;
 
   const Menu = {
     data: null, info: null, section: null, lang: "pt", t: STRINGS.pt,
@@ -39,7 +44,7 @@
     tx: (o, key) => (Menu.lang === "en" && o.en && o.en[key]) || o[key] || "",
     name: (o) => Menu.tx(o, "name"),
     desc: (o) => Menu.tx(o, "desc"),
-    title: (s) => { const n = Menu.tx(s, "name"); return n.charAt(0) + n.slice(1).toLowerCase(); },
+    title: (s) => { const n = Menu.tx(s, "name").trim(); return n.charAt(0) + n.slice(1).toLowerCase(); },
 
     categories: (s = Menu.section) => s.categories.filter((c) => c.items.length),
     badges(item) {
@@ -48,6 +53,14 @@
       return out;
     },
     featured: (s = Menu.section) => s.categories.flatMap((c) => c.items).filter((i) => i.labels.includes("recommended") && i.img && !i.soldOut),
+
+    // Navigation markup. Templates style the buttons; core handles taps and highlighting.
+    catId: (c) => "cat-" + c.id,
+    sectionsNav: (cls = "") => Menu.data.sections.map((x) => `<button class="${cls}" data-section="${x.id}" aria-current="${x === Menu.section}">${Menu.esc(Menu.title(x))}</button>`).join(""),
+    catsNav: (cls = "") => {
+      const cats = Menu.categories();
+      return cats.length > 1 ? cats.map((c) => `<button class="${cls}" data-cat="${Menu.catId(c)}">${Menu.esc(Menu.title(c))}</button>`).join("") : "";
+    },
 
     // Every item rendered through ref() gets a data-item id, so taps open it.
     ref(item) { registry.push(item); return `data-item="${registry.length - 1}"`; },
@@ -103,13 +116,53 @@
       d.showModal();
     },
 
+    // Height covered by the sticky bar, so jumps land just below it.
+    // Measured as the bar's stuck height, since before scrolling it still sits lower on the page.
+    offset() { const s = document.querySelector("[data-sticky]"); return s ? (parseFloat(getComputedStyle(s).top) || 0) + s.offsetHeight : 0; },
+    jump(id) {
+      const el = document.getElementById(id);
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - Menu.offset() - 8, behavior: "smooth" });
+    },
+    // Highlight the category chip for the section under the sticky bar.
+    spy() {
+      const chips = [...document.querySelectorAll("[data-cat]")];
+      if (!chips.length) return;
+      const line = Menu.offset() + 24;
+      let active = chips[0];
+      for (const c of chips) { const t = document.getElementById(c.dataset.cat); if (t && t.getBoundingClientRect().top <= line) active = c; }
+      if (active.getAttribute("aria-current") === "true") return;
+      chips.forEach((c) => c.setAttribute("aria-current", c === active));
+      const row = active.parentElement;
+      row.scrollTo({ left: active.offsetLeft - (row.clientWidth - active.offsetWidth) / 2, behavior: "smooth" });
+    },
+
     render() {
       registry.length = 0;
       opts.render();
       document.querySelectorAll("[data-lang-label]").forEach((el) => (el.textContent = Menu.t.lang));
+      Menu.spy();
+    },
+
+    frame() {
+      const style = document.createElement("style");
+      style.textContent = `
+        html.m-desktop, html.m-desktop body { margin: 0 !important; padding: 0 !important; height: 100% !important; overflow: hidden !important; background: #e8e6e1 !important; }
+        html.m-desktop body > :not(.m-device-wrap) { display: none !important; }
+        .m-device-wrap { position: fixed; inset: 0; display: grid; place-items: center; gap: 14px; align-content: center; font: 500 14px system-ui, sans-serif; color: #444; }
+        .m-device { width: 390px; height: min(844px, calc(100vh - 90px)); border: 12px solid #111; border-radius: 48px; overflow: hidden; background: #fff; box-shadow: 0 30px 80px rgba(0,0,0,.25); }
+        .m-device iframe { width: 100%; height: 100%; border: 0; display: block; }
+        .m-device-wrap a { color: #444; }`;
+      document.head.append(style);
+      document.documentElement.classList.add("m-desktop");
+      const wrap = document.createElement("div");
+      wrap.className = "m-device-wrap";
+      const full = new URL(location.href); full.searchParams.set("full", "");
+      wrap.innerHTML = `<div class="m-device"><iframe src="${Menu.esc(location.href)}" title="Menu"></iframe></div><span><a href="../">← Templates</a> · <a href="${Menu.esc(full.href)}">Open full width</a></span>`;
+      document.body.append(wrap);
     },
 
     async start(o) {
+      if (FRAMED) return Menu.frame();
       opts = o;
       Menu.data = await (await fetch(new URL("templates/menu.json", ROOT))).json();
       Menu.info = Menu.data.info;
@@ -120,6 +173,11 @@
       const route = () => {
         Menu.section = Menu.data.sections.find((s) => s.id === location.hash.slice(1)) || Menu.data.sections[0];
         Menu.render();
+        // Switching section keeps the navigation in view instead of jumping back to the top of the page.
+        const top = document.querySelector("[data-top]");
+        if (!firstRoute && top && window.scrollY > top.offsetTop) window.scrollTo(0, top.offsetTop);
+        firstRoute = false;
+        document.querySelectorAll('[data-section][aria-current="true"]').forEach((b) => { const row = b.parentElement; row.scrollTo?.({ left: b.offsetLeft - (row.clientWidth - b.offsetWidth) / 2 }); });
         o.onRoute?.();
       };
       document.addEventListener("click", (e) => {
@@ -131,7 +189,10 @@
         if (e.target.closest("[data-lang-toggle]")) Menu.toggleLang();
         const sec = e.target.closest("[data-section]");
         if (sec) Menu.go(sec.dataset.section);
+        const cat = e.target.closest("[data-cat]");
+        if (cat) Menu.jump(cat.dataset.cat);
       });
+      window.addEventListener("scroll", () => requestAnimationFrame(Menu.spy), { passive: true });
       window.addEventListener("hashchange", route);
       route();
     },
