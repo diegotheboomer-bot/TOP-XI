@@ -5,72 +5,85 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Azulejo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* 08 Azulejo: Portuguese tiles. A cobalt tile strip on top, calm white cards, tile motif on category headings. */
-:root { --white: #fbfcfe; --cobalt: #1d4c9c; --deep: #13305f; --sky: #e3ebf7; --soft: #5b6b85; --yellow: #e9b949;
-  --tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' fill='%23fbfcfe'/%3E%3Cg fill='none' stroke='%231d4c9c' stroke-width='2.2'%3E%3Ccircle cx='30' cy='30' r='11'/%3E%3Cpath d='M0 15A15 15 0 0 0 15 0M45 0A15 15 0 0 0 60 15M60 45A15 15 0 0 0 45 60M15 60A15 15 0 0 0 0 45'/%3E%3Cpath d='M30 8l5 11-5 0-5 0zM30 52l5-11-5 0-5 0zM8 30l11-5 0 5 0 5zM52 30l-11-5 0 5 0 5z' fill='%231d4c9c' stroke='none'/%3E%3C/g%3E%3Ccircle cx='30' cy='30' r='4' fill='%23e9b949'/%3E%3C/svg%3E");
-  --display: "Marcellus", Georgia, serif; --body: "Outfit", system-ui, sans-serif; }
+/* 08 Azulejo: Portuguese tiles, made cute. Tile-pattern header, arched "window" photos, tile-bordered dish cards. */
+:root { --white: #ffffff; --bg: #f5f8fd; --cobalt: #1f4fa0; --deep: #14326a; --sky: #dfe9f7; --soft: #5d6c88; --butter: #f6cf55;
+  --tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' fill='%23ffffff'/%3E%3Cg fill='none' stroke='%231f4fa0' stroke-width='2.2'%3E%3Ccircle cx='30' cy='30' r='11'/%3E%3Cpath d='M0 15A15 15 0 0 0 15 0M45 0A15 15 0 0 0 60 15M60 45A15 15 0 0 0 45 60M15 60A15 15 0 0 0 0 45'/%3E%3Cpath d='M30 8l5 11-5 0-5 0zM30 52l5-11-5 0-5 0zM8 30l11-5 0 5 0 5zM52 30l-11-5 0 5 0 5z' fill='%231f4fa0' stroke='none'/%3E%3C/g%3E%3Ccircle cx='30' cy='30' r='4' fill='%23f6cf55'/%3E%3C/svg%3E");
+  --display: "Young Serif", Georgia, serif; --body: "Outfit", system-ui, sans-serif; }
 * { box-sizing: border-box; }
 button { font: inherit; color: inherit; }
-body { margin: 0; background: var(--white); color: var(--deep); font: 16px/1.5 var(--body); -webkit-font-smoothing: antialiased; }
-.pad { max-width: 680px; margin: 0 auto; padding-left: max(18px, env(safe-area-inset-left)); padding-right: max(18px, env(safe-area-inset-right)); }
-.strip { height: calc(40px + env(safe-area-inset-top)); background: var(--tile) center bottom/40px; border-bottom: 3px solid var(--cobalt); }
-.hero { padding-top: 22px; padding-bottom: 18px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-.hero h1 { margin: 0; font: 400 clamp(34px, 10vw, 48px)/1.05 var(--display); color: var(--cobalt); }
-.hero p { margin: 6px 0 0; font-size: 14px; color: var(--soft); }
-.hero .open { color: #2a7a4b; }
-.lang { flex: none; min-width: 44px; height: 44px; border: 1.5px solid var(--cobalt); border-radius: 4px; background: var(--white); color: var(--cobalt); font: 600 14px var(--body); cursor: pointer; }
-.frame { display: block; width: 100%; margin: 0 0 18px; padding: 10px; border: 0; border-radius: 6px; background: var(--tile) center/34px; cursor: pointer; text-align: left; }
-.frame img { display: block; width: 100%; aspect-ratio: 16/10; object-fit: cover; border: 3px solid var(--white); border-radius: 3px; }
-.frame span { display: inline-block; margin-top: 8px; padding: 4px 12px; background: var(--cobalt); color: var(--white); font: 400 15px var(--display); }
-.rail { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x mandatory; margin: 0 calc(-1 * max(18px, env(safe-area-inset-left))); padding: 0 max(18px, env(safe-area-inset-left)) 4px; scroll-padding: 0 max(18px, env(safe-area-inset-left)); }
-.rail::-webkit-scrollbar { display: none; }
-.pick { flex: none; width: 58%; max-width: 230px; scroll-snap-align: start; padding: 6px; border: 1.5px solid var(--cobalt); border-radius: 6px; background: #fff; text-align: left; cursor: pointer; }
-.pick img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 3px; }
-.pick span { display: block; padding: 8px 4px 2px; color: var(--cobalt); font-weight: 600; }
-.pick b { display: block; font: 400 17px/1.2 var(--display); color: var(--deep); }
-.bar { position: sticky; top: 0; z-index: 5; background: var(--white); border-bottom: 1px solid var(--sky); }
-.row { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+body { margin: 0; background: var(--bg); color: var(--deep); font: 15px/1.5 var(--body); -webkit-font-smoothing: antialiased; }
+.pad { max-width: 680px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
+
+/* Header: tile wall, plaque, three arched windows. */
+.wall { position: relative; padding: calc(16px + env(safe-area-inset-top)) 0 0; background: var(--tile) center/56px; }
+.wall::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 120px; background: linear-gradient(180deg, rgba(245,248,253,0), var(--bg)); }
+.wall .top { position: relative; z-index: 2; display: flex; justify-content: flex-end; }
+.lang { min-width: 44px; height: 44px; border: 2px solid var(--cobalt); border-radius: 50%; background: var(--white); color: var(--cobalt); font: 600 13px var(--body); cursor: pointer; }
+.plaque { position: relative; z-index: 2; margin: 6px auto 0; max-width: 340px; padding: 20px 22px 18px; border-radius: 26px; background: var(--white); box-shadow: 0 0 0 4px var(--white), 0 0 0 6px var(--cobalt), 0 14px 30px -12px rgba(20,50,106,.35); text-align: center; }
+.plaque h1 { margin: 0; font: 400 clamp(34px, 10vw, 46px)/1.05 var(--display); color: var(--cobalt); }
+.plaque p { margin: 8px 0 0; font-size: 13.5px; color: var(--soft); }
+.plaque .st { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; padding: 4px 12px; border-radius: 999px; background: var(--sky); font-size: 12.5px; font-weight: 600; color: var(--cobalt); }
+.plaque .st::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--soft); }
+.plaque .st.open::before { background: #34a465; }
+.windows { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1.25fr 1fr; align-items: end; gap: 10px; margin-top: 22px; padding-bottom: 8px; }
+.windows button { padding: 5px; border: 0; border-radius: 999px 999px 18px 18px; background: var(--white); box-shadow: 0 0 0 2px var(--cobalt); cursor: pointer; }
+.windows img { display: block; width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 999px 999px 14px 14px; }
+.windows button:nth-child(2) img { aspect-ratio: 3/4.4; }
+
+/* Navigation: tile chips for sections, dotted text for categories. */
+.bar { position: sticky; top: 0; z-index: 5; background: rgba(245,248,253,.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 2px solid var(--sky); }
+.row { display: flex; overflow-x: auto; scrollbar-width: none; }
 .row::-webkit-scrollbar { display: none; }
-.secs { padding: 10px 0 8px; }
-.secs button { flex: none; padding: 8px 14px; border: 1.5px solid var(--cobalt); border-radius: 3px; background: var(--white); color: var(--cobalt); font: 400 15px var(--display); cursor: pointer; }
+.secs { gap: 8px; padding: 12px 0 8px; }
+.secs button { flex: none; padding: 9px 14px; border: 2px solid var(--cobalt); border-radius: 12px; background: var(--white); font: 400 15px var(--display); color: var(--cobalt); cursor: pointer; }
 .secs button[aria-current="true"] { background: var(--cobalt); color: var(--white); }
-.cats { gap: 18px; }
+.cats { gap: 18px; padding-bottom: 10px; }
 .cats:empty { display: none; }
-.cats button { flex: none; padding: 6px 0 9px; border: 0; border-bottom: 2px solid transparent; background: none; font: 500 14px var(--body); color: var(--soft); cursor: pointer; }
-.cats button[aria-current="true"] { color: var(--cobalt); border-color: var(--yellow); }
-.note { margin: 20px 0 0; padding: 16px 18px; border-left: 3px solid var(--cobalt); background: var(--sky); white-space: pre-line; font-size: 15px; }
-.cat { margin-top: 30px; }
-.cat h2 { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; font: 400 26px/1.1 var(--display); color: var(--cobalt); }
-.cat h2::before { content: ""; flex: none; width: 24px; height: 24px; background: var(--tile) center/24px; border: 1.5px solid var(--cobalt); }
-.list { display: grid; gap: 10px; }
-@media (min-width: 620px) { .list { grid-template-columns: 1fr 1fr; } }
-.dish { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; align-items: center; padding: 12px; border: 1px solid var(--sky); border-radius: 4px; background: #fff; text-align: left; cursor: pointer; }
-.dish img, .dish .ph { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; }
-.dish .ph { background: var(--tile) center/36px; border: 1.5px solid var(--sky); }
-.dish .n { display: block; font: 400 18px/1.2 var(--display); }
-.dish .d { display: block; margin-top: 2px; font-size: 13.5px; color: var(--soft); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.dish .meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 6px; }
-.dish .p { font-weight: 600; color: var(--cobalt); font-variant-numeric: tabular-nums; }
-.dish .b { font-size: 11px; font-weight: 600; color: var(--soft); text-transform: uppercase; letter-spacing: .06em; }
-.dish .b.sold { color: #b23b3b; }
-.dish.sold img { filter: grayscale(1); opacity: .6; }
-footer { margin-top: 40px; padding: 20px 0 16px; border-top: 1px solid var(--sky); text-align: center; display: grid; gap: 4px; font-size: 14px; color: var(--soft); }
-footer b { font: 400 24px var(--display); color: var(--cobalt); }
+.cats button { flex: none; display: flex; align-items: center; gap: 6px; padding: 2px 0; border: 0; background: none; font-size: 14px; font-weight: 500; color: var(--soft); cursor: pointer; }
+.cats button::before { content: ""; width: 6px; height: 6px; transform: rotate(45deg); background: var(--sky); }
+.cats button[aria-current="true"] { color: var(--cobalt); font-weight: 600; }
+.cats button[aria-current="true"]::before { background: var(--butter); }
+
+main { padding-bottom: 8px; }
+.note { margin: 18px 0 0; padding: 16px 18px; border-radius: 18px; background: var(--white); box-shadow: 0 0 0 2px var(--sky); white-space: pre-line; }
+.head2 { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 30px 0 14px; font: 400 26px/1.1 var(--display); color: var(--cobalt); text-align: center; }
+.head2::before, .head2::after { content: ""; flex: none; width: 26px; height: 26px; border-radius: 6px; background: var(--tile) center/26px; box-shadow: 0 0 0 1.5px var(--cobalt); }
+.rail { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x mandatory; margin: 0 calc(-1 * max(16px, env(safe-area-inset-left))); padding: 2px max(16px, env(safe-area-inset-left)) 6px; scroll-padding: 0 max(16px, env(safe-area-inset-left)); }
+.rail::-webkit-scrollbar { display: none; }
+.pick { flex: none; width: 46%; max-width: 200px; scroll-snap-align: start; padding: 6px 6px 10px; border: 0; border-radius: 999px 999px 20px 20px; background: var(--white); box-shadow: 0 0 0 2px var(--cobalt); text-align: center; cursor: pointer; }
+.pick img { display: block; width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 999px 999px 14px 14px; }
+.pick b { display: block; margin-top: 8px; font: 400 15px/1.2 var(--display); }
+.pick em { display: inline-block; margin-top: 6px; padding: 2px 10px; border-radius: 999px; background: var(--butter); font-style: normal; font-weight: 600; font-size: 13px; color: var(--deep); }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (min-width: 620px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.dish { display: flex; flex-direction: column; padding: 6px; border: 0; border-radius: 22px; background: var(--white); box-shadow: 0 0 0 2px var(--sky); text-align: left; cursor: pointer; min-width: 0; }
+.dish img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 60px 60px 14px 14px; }
+.dish .tx { display: flex; flex-direction: column; gap: 4px; flex: 1; padding: 10px 6px 4px; }
+.dish .n { font: 400 15px/1.2 var(--display); }
+.dish .d { font-size: 12.5px; color: var(--soft); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.dish .meta { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; margin-top: auto; padding-top: 4px; }
+.dish .p { padding: 2px 9px; border-radius: 999px; background: var(--butter); font-weight: 600; font-size: 13px; color: var(--deep); font-variant-numeric: tabular-nums; }
+.dish .b { font-size: 10.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--cobalt); }
+.dish.noimg { justify-content: space-between; }
+.dish.noimg::before { content: ""; display: block; height: 34px; margin: 4px 4px 0; border-radius: 12px; background: var(--tile) center/34px; opacity: .9; }
+footer { margin-top: 40px; text-align: center; }
+footer .card { display: grid; gap: 4px; margin: 0 auto -28px; max-width: 340px; position: relative; z-index: 1; padding: 18px; border-radius: 22px; background: var(--white); box-shadow: 0 0 0 2px var(--cobalt); font-size: 14px; color: var(--soft); }
+footer b { font: 400 22px var(--display); color: var(--cobalt); }
 footer a { color: var(--cobalt); font-weight: 600; }
-.foot-strip { height: calc(32px + env(safe-area-inset-bottom)); background: var(--tile) center top/40px; border-top: 3px solid var(--cobalt); }
-#m-sheet { margin: auto auto 0; width: 100%; max-width: 560px; max-height: 92vh; padding: 0 0 env(safe-area-inset-bottom); border: 0; border-top: 3px solid var(--cobalt); border-radius: 0; background: var(--white); color: var(--deep); }
-#m-sheet::backdrop { background: rgba(19, 48, 95, .5); }
-.m-photo { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; }
-.m-body { padding: 16px 20px 24px; }
-.m-name { margin: 0; font: 400 28px/1.15 var(--display); color: var(--cobalt); }
+footer .band { height: calc(90px + env(safe-area-inset-bottom)); background: var(--tile) center/56px; border-top: 3px solid var(--cobalt); }
+#m-sheet { margin: auto auto 0; width: 100%; max-width: 560px; max-height: 92vh; padding: 10px 10px env(safe-area-inset-bottom); border: 0; border-radius: 28px 28px 0 0; background: var(--white); color: var(--deep); }
+#m-sheet::backdrop { background: rgba(20, 50, 106, .5); }
+.m-photo { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 200px 200px 18px 18px; }
+.m-body { padding: 16px 12px 22px; text-align: center; }
+.m-name { margin: 0; font: 400 26px/1.15 var(--display); color: var(--cobalt); }
 .m-desc { margin: 6px 0 0; color: var(--soft); }
-.m-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; align-items: center; }
-.m-price { font-weight: 600; font-size: 20px; color: var(--cobalt); }
-.m-badge { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--soft); }
-.m-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border: 1.5px solid var(--cobalt); border-radius: 4px; background: var(--white); color: var(--cobalt); font-size: 22px; cursor: pointer; }
-button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+.m-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center; }
+.m-price { padding: 3px 14px; border-radius: 999px; background: var(--butter); font-weight: 600; font-size: 18px; }
+.m-badge { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--cobalt); }
+.m-close { position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; border: 2px solid var(--cobalt); border-radius: 50%; background: var(--white); color: var(--cobalt); font-size: 22px; cursor: pointer; }
+button:focus-visible { outline: 3px solid var(--butter); outline-offset: 2px; }
 </style>
 </head>
 <body>
@@ -79,28 +92,28 @@ button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
 <script>
 const { esc } = Menu;
 const $app = document.getElementById("app");
+const dish = (i) => `<button class="dish${i.img ? "" : " noimg"}" ${Menu.ref(i)}>
+  ${i.img ? `<img src="${Menu.img(i.img)}" alt="" loading="lazy">` : ""}
+  <span class="tx"><span class="n">${esc(Menu.name(i))}</span>${Menu.desc(i) ? `<span class="d">${esc(Menu.desc(i))}</span>` : ""}
+    <span class="meta"><span class="p">${Menu.price(i.price)}</span>${i.volume ? `<span class="b">${esc(i.volume)}</span>` : ""}${Menu.badges(i).map((b) => `<span class="b">${b.text}</span>`).join("")}</span></span></button>`;
 Menu.start({
   render() {
-    const s = Menu.section, info = Menu.info, st = Menu.status();
+    const s = Menu.section, info = Menu.info, st = Menu.status(), win = Menu.photos(s, 3), picks = Menu.featured(s);
     document.title = info.name;
     $app.innerHTML = `
-      <div class="strip"></div>
-      <header class="pad hero"><div><h1>${esc(info.name)}</h1><p class="${st.open ? "open" : ""}">${esc(st.text)}${Menu.desc(s) ? ` · ${esc(Menu.desc(s))}` : ""}</p></div><button class="lang" data-lang-toggle data-lang-label></button></header>
-      ${Menu.photos(s, 1).map((i) => `<div class="pad"><button class="frame" ${Menu.ref(i)}><img src="${Menu.img(i.img)}" alt=""><span>${esc(Menu.name(i))} · ${Menu.price(i.price)}</span></button></div>`).join("")}
+      <header class="wall"><div class="pad">
+        <div class="top"><button class="lang" data-lang-toggle data-lang-label></button></div>
+        <div class="plaque"><h1>${esc(info.name)}</h1>${Menu.desc(s) ? `<p>${esc(Menu.desc(s))}</p>` : ""}<span class="st${st.open ? " open" : ""}">${esc(st.text)}</span></div>
+        ${win.length === 3 ? `<div class="windows">${win.map((i) => `<button ${Menu.ref(i)} aria-label="${esc(Menu.name(i))}"><img src="${Menu.img(i.img)}" alt=""></button>`).join("")}</div>` : ""}
+      </div></header>
       <i data-top></i>
       <div class="bar" data-sticky><div class="pad"><nav class="row secs">${Menu.sectionsNav()}</nav><nav class="row cats">${Menu.catsNav()}</nav></div></div>
       <main class="pad">
         ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}
-        ${Menu.featured(s).length > 2 ? `<section class="cat"><h2>${Menu.t.recommended}</h2><div class="rail">${Menu.featured(s).slice(1).map((i) => `<button class="pick" ${Menu.ref(i)}><img src="${Menu.img(i.img)}" alt="" loading="lazy"><span><b>${esc(Menu.name(i))}</b>${Menu.price(i.price)}</span></button>`).join("")}</div></section>` : ""}
-        ${Menu.categories().map((c) => `<section class="cat" id="${Menu.catId(c)}"><h2>${esc(Menu.title(c))}</h2><div class="list">
-          ${c.items.map((i) => `<button class="dish${i.soldOut ? " sold" : ""}" ${Menu.ref(i)}>
-            ${i.img ? `<img src="${Menu.img(i.img)}" alt="" loading="lazy">` : `<span class="ph"></span>`}
-            <span><span class="n">${esc(Menu.name(i))}</span>${Menu.desc(i) ? `<span class="d">${esc(Menu.desc(i))}</span>` : ""}
-              <span class="meta"><span class="p">${Menu.price(i.price)}</span>${i.volume ? `<span class="b">${esc(i.volume)}</span>` : ""}${Menu.badges(i).map((b) => `<span class="b ${b.cls}">${b.text}</span>`).join("")}</span></span></button>`).join("")}
-        </div></section>`).join("") || `<p class="note">${Menu.t.empty}</p>`}
-        <footer><b>${esc(info.name)}</b><span>${esc(info.address)}</span><span>${esc(info.phone)} · <a href="${info.maps}" target="_blank" rel="noopener">${Menu.t.map}</a></span></footer>
+        ${picks.length > 1 ? `<h2 class="head2">${Menu.t.recommended}</h2><div class="rail">${picks.map((i) => `<button class="pick" ${Menu.ref(i)}><img src="${Menu.img(i.img)}" alt="" loading="lazy"><b>${esc(Menu.name(i))}</b><em>${Menu.price(i.price)}</em></button>`).join("")}</div>` : ""}
+        ${Menu.categories().map((c) => `<section id="${Menu.catId(c)}"><h2 class="head2">${esc(Menu.title(c))}</h2><div class="grid">${c.items.map(dish).join("")}</div></section>`).join("") || `<p class="note">${Menu.t.empty}</p>`}
       </main>
-      <div class="foot-strip"></div>`;
+      <footer><div class="card"><b>${esc(info.name)}</b><span>${esc(info.address)}</span><span>${esc(info.phone)} · <a href="${info.maps}" target="_blank" rel="noopener">${Menu.t.map}</a></span></div><div class="band"></div></footer>`;
   },
 });
 </script>

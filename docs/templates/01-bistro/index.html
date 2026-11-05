@@ -27,12 +27,12 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 15px/1.5 va
 .bar { position: sticky; top: 0; z-index: 5; background: rgba(245,242,234,.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
 .row { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
 .row::-webkit-scrollbar { display: none; }
-.secs { padding: 12px 0 8px; }
-.secs button { flex: none; padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); font: 500 14px var(--sans); cursor: pointer; }
-.secs button[aria-current="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
-.cats { gap: 20px; }
+.navline { display: flex; align-items: center; gap: 16px; padding-top: 10px; padding-bottom: 10px; }
+.secbtn { flex: none; padding: 7px 16px 8px; border: 0; border-radius: 999px; background: var(--ink); color: #fff; font: italic 600 18px var(--serif); cursor: pointer; }
+.secbtn span { font: 500 11px var(--sans); color: #e2c27d; }
+.cats { flex: 1; min-width: 0; gap: 18px; padding-left: 16px; border-left: 1px solid var(--line); }
 .cats:empty { display: none; }
-.cats button { flex: none; padding: 6px 0 10px; border: 0; border-bottom: 2px solid transparent; background: none; font: italic 600 17px var(--serif); color: var(--soft); cursor: pointer; }
+.cats button { flex: none; padding: 4px 0; border: 0; border-bottom: 2px solid transparent; background: none; font: italic 600 17px var(--serif); color: var(--soft); cursor: pointer; }
 .cats button[aria-current="true"] { color: var(--ink); border-color: var(--brass); }
 .note { margin: 18px 0 0; padding: 18px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); font: italic 500 17px/1.45 var(--serif); white-space: pre-line; }
 .picks { margin-top: 24px; }
@@ -69,6 +69,12 @@ footer a { color: var(--brass); }
 .m-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; align-items: center; }
 .m-price { font: 600 24px var(--serif); color: var(--brass); }
 .m-badge { font: 500 11px var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--soft); }
+.m-picker { display: grid; gap: 8px; padding: 64px 20px 26px; }
+.m-picker button { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--paper); cursor: pointer; text-align: left; }
+.m-picker b { font: 600 24px var(--serif); }
+.m-picker span { font-size: 13px; color: var(--soft); }
+.m-picker [aria-current="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.m-picker [aria-current="true"] span { color: #e2c27d; }
 .m-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border: 0; border-radius: 50%; background: rgba(255,255,255,.92); color: var(--ink); font-size: 22px; cursor: pointer; }
 button:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
 </style>
@@ -90,7 +96,7 @@ Menu.start({
         <div class="top"><span class="chip${st.open ? " open" : ""}">${esc(st.text)}</span><button class="lang" data-lang-toggle data-lang-label></button></div>
         <div class="pad in"><h1>${nameHtml(info.name)}</h1>${Menu.desc(s) ? `<p>${esc(Menu.desc(s))}</p>` : ""}</div></header>
       <i data-top></i>
-      <div class="bar" data-sticky><div class="pad"><nav class="row secs">${Menu.sectionsNav()}</nav><nav class="row cats">${Menu.catsNav()}</nav></div></div>
+      <div class="bar" data-sticky><div class="pad navline">${Menu.sectionPicker("secbtn")}<nav class="row cats">${Menu.catsNav()}</nav></div></div>
       <main class="pad">
         ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}
         ${picks.length > 1 ? `<section class="picks"><h3>${Menu.t.recommended}</h3><div class="rail">${picks.map((i) => `<button class="pick" ${Menu.ref(i)}><img src="${Menu.img(i.img)}" alt="" loading="lazy"><span><b>${esc(Menu.name(i))}</b><em>${Menu.price(i.price)}</em></span></button>`).join("")}</div></section>` : ""}

@@ -13,25 +13,35 @@
 button { font: inherit; color: inherit; }
 body { margin: 0; background: var(--paper); color: var(--ink); font: 15px/1.45 var(--sans); -webkit-font-smoothing: antialiased; }
 .pad { max-width: 720px; margin: 0 auto; padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
-.head { padding-top: max(18px, env(safe-area-inset-top)); }
-.head .t { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-.head h1 { margin: 0; font: 700 clamp(42px, 13vw, 76px)/.9 var(--sans); letter-spacing: -.05em; overflow-wrap: anywhere; }
-.head h1 span { color: var(--blue); }
-.lang { flex: none; min-width: 42px; height: 42px; border: 0; border-radius: 10px; background: var(--ink); color: #fff; font: 500 12px var(--mono); cursor: pointer; }
-.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 16px; }
-.facts div { padding: 10px; border-radius: 12px; background: var(--tile); min-width: 0; }
-.facts small { display: block; font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--soft); }
-.facts span { display: block; margin-top: 2px; font-weight: 500; font-size: 13px; overflow-wrap: anywhere; }
-.facts .open { color: var(--blue); }
+/* Header bento: name tile, two photo tiles, and fact tiles. */
+.head { padding-top: max(14px, env(safe-area-inset-top)); }
+.hb { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "name name" "ph st" "ph hr" "tel ph2"; gap: 8px; }
+@media (min-width: 620px) { .hb { grid-template-columns: 2fr 1fr 1fr; grid-template-areas: "name ph st" "name ph hr" "tel ph ph2"; } }
+.ht { position: relative; min-width: 0; border-radius: 18px; background: var(--tile); overflow: hidden; }
+.ht.name { grid-area: name; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; padding: 16px 16px 18px; background: var(--ink); color: #fff; }
+.ht.name .top { display: flex; justify-content: space-between; align-items: center; font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: #9a9a9a; }
+.head h1 { margin: 0; font: 700 clamp(44px, 14vw, 78px)/.88 var(--sans); letter-spacing: -.05em; overflow-wrap: anywhere; }
+.head h1 span { color: #6f84ff; }
+.lang { flex: none; min-width: 40px; height: 40px; border: 0; border-radius: 10px; background: #fff; color: var(--ink); font: 500 12px var(--mono); cursor: pointer; }
+.ht.ph { grid-area: ph; min-height: 190px; padding: 0; border: 0; cursor: pointer; }
+.ht.ph2 { grid-area: ph2; min-height: 96px; padding: 0; border: 0; cursor: pointer; }
+.ht.ph img, .ht.ph2 img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ht.st { grid-area: st; } .ht.hr { grid-area: hr; }
+.ht.tel { grid-area: tel; background: var(--blue); color: #fff; }
+.ht.st, .ht.hr, .ht.tel { padding: 12px; display: flex; flex-direction: column; justify-content: space-between; gap: 6px; }
+.ht small { font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--soft); }
+.ht.tel small { color: rgba(255,255,255,.7); }
+.ht b { font: 700 16px/1.15 var(--sans); letter-spacing: -.01em; overflow-wrap: anywhere; }
+.ht.st.open b { color: var(--blue); }
 .bar { position: sticky; top: 0; z-index: 5; margin-top: 16px; background: rgba(244,244,242,.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--hair); }
 .nrow { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
 .nrow::-webkit-scrollbar { display: none; }
-.secs { padding: 10px 0 6px; }
-.secs button { flex: none; padding: 8px 14px; border: 0; border-radius: 10px; background: var(--tile); font-weight: 500; cursor: pointer; }
-.secs button[aria-current="true"] { background: var(--ink); color: #fff; }
-.cats { gap: 16px; }
+.navline { display: flex; align-items: center; gap: 14px; padding-top: 10px; padding-bottom: 10px; }
+.secbtn { flex: none; padding: 8px 12px; border: 0; border-radius: 10px; background: var(--ink); color: #fff; font: 700 14px var(--sans); cursor: pointer; }
+.secbtn span { color: #6f84ff; }
+.cats { flex: 1; min-width: 0; gap: 16px; padding-left: 2px; }
 .cats:empty { display: none; }
-.cats button { flex: none; display: flex; gap: 5px; align-items: baseline; padding: 6px 0 10px; border: 0; background: none; font-size: 13.5px; color: var(--soft); cursor: pointer; }
+.cats button { flex: none; display: flex; gap: 5px; align-items: baseline; padding: 4px 0; border: 0; background: none; font-size: 13.5px; color: var(--soft); cursor: pointer; }
 .cats button i { font: 400 10.5px var(--mono); font-style: normal; }
 .cats button[aria-current="true"] { color: var(--blue); font-weight: 700; }
 .note { margin: 16px 0 0; padding: 16px; border-radius: 14px; background: var(--tile); white-space: pre-line; font-size: 14px; }
@@ -67,6 +77,12 @@ footer a { color: var(--blue); }
 .m-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center; }
 .m-price { font: 500 20px var(--mono); color: var(--blue); }
 .m-badge { padding: 3px 8px; border-radius: 6px; background: var(--paper); font: 500 11px var(--mono); text-transform: uppercase; }
+.m-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 64px 16px 24px; }
+.m-picker button { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; padding: 14px; border: 0; border-radius: 16px; background: var(--paper); cursor: pointer; text-align: left; }
+.m-picker b { font: 700 19px var(--sans); letter-spacing: -.02em; }
+.m-picker span { font: 400 12px var(--mono); color: var(--soft); }
+.m-picker [aria-current="true"] { background: var(--ink); color: #fff; }
+.m-picker [aria-current="true"] span { color: #6f84ff; }
 .m-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border: 0; border-radius: 10px; background: var(--ink); color: #fff; font-size: 20px; cursor: pointer; }
 button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 </style>
@@ -88,13 +104,19 @@ const tile = (i, lead) => {
 Menu.start({
   render() {
     const s = Menu.section, info = Menu.info, st = Menu.status(), today = Menu.week().find((d) => d.today), l = L(), cats = Menu.categories();
+    const [ph1, ph2] = Menu.photos(s, 2);
     document.title = info.name;
     const [a, ...b] = info.name.split(" & ");
     $app.innerHTML = `
-      <header class="pad head"><div class="t"><h1>${b.length ? `${esc(a)} <span>&amp;</span> ${esc(b.join(" & "))}` : esc(info.name)}</h1><button class="lang" data-lang-toggle data-lang-label></button></div>
-        <div class="facts"><div><small>${l.status}</small><span class="${st.open ? "open" : ""}">${esc(st.text)}</span></div><div><small>${l.today}</small><span>${today.from}–${today.till}</span></div><div><small>${l.phone}</small><span>${esc(info.phone)}</span></div></div></header>
+      <header class="pad head"><div class="hb">
+        <div class="ht name"><div class="top"><span>${esc(Menu.desc(s) || Menu.title(s))}</span><button class="lang" data-lang-toggle data-lang-label></button></div><h1>${b.length ? `${esc(a)} <span>&amp;</span> ${esc(b.join(" & "))}` : esc(info.name)}</h1></div>
+        ${[ph1, ph2].map((i, k) => i ? `<button class="ht ${k ? "ph2" : "ph"}" ${Menu.ref(i)} aria-label="${esc(Menu.name(i))}"><img src="${Menu.img(i.img)}" alt=""></button>` : `<div class="ht ${k ? "ph2" : "ph"}"></div>`).join("")}
+        <div class="ht st${st.open ? " open" : ""}"><small>${l.status}</small><b>${esc(st.text)}</b></div>
+        <div class="ht hr"><small>${l.today}</small><b>${today.from}–${today.till}</b></div>
+        <div class="ht tel"><small>${l.phone}</small><b>${esc(info.phone)}</b></div>
+      </div></header>
       <i data-top></i>
-      <div class="bar" data-sticky><div class="pad"><nav class="nrow secs">${Menu.sectionsNav()}</nav>
+      <div class="bar" data-sticky><div class="pad navline">${Menu.sectionPicker("secbtn")}
         ${cats.length > 1 ? `<nav class="nrow cats">${cats.map((c, k) => `<button data-cat="${Menu.catId(c)}"><i>${pad(k + 1)}</i>${esc(Menu.title(c))}</button>`).join("")}</nav>` : ""}</div></div>
       <main class="pad">
         ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}

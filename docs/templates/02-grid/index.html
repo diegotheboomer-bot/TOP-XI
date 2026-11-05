@@ -27,13 +27,13 @@ header .st.open { background: #e5f6ec; color: #1a9a55; }
 .cats { display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; padding: 0 max(16px, env(safe-area-inset-left)); }
 .cats::-webkit-scrollbar { display: none; }
 .cats:empty { display: none; }
-.cats button { flex: none; padding: 10px 0 9px; border: 0; border-bottom: 2px solid transparent; background: none; font: 500 14px var(--body); color: var(--soft); cursor: pointer; }
-.cats button[aria-current="true"] { color: var(--ink); border-color: var(--ink); font-weight: 700; }
-.pills { padding-bottom: 2px; }
-.pills { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 0 max(16px, env(safe-area-inset-left)); }
+.cats { gap: 6px; padding-top: 2px; padding-bottom: 10px; }
+.cats button { flex: none; padding: 5px 11px; border: 0; border-radius: 8px; background: none; font: 500 13.5px var(--body); color: var(--soft); cursor: pointer; }
+.cats button[aria-current="true"] { background: var(--tile); color: var(--accent); font-weight: 700; }
+.pills { display: flex; gap: 22px; overflow-x: auto; scrollbar-width: none; padding: 0 max(16px, env(safe-area-inset-left)); }
 .pills::-webkit-scrollbar { display: none; }
-.pill { flex: none; padding: 9px 16px; border: 0; border-radius: 10px; background: #f3f3f3; font: 700 14px var(--body); color: var(--ink); cursor: pointer; }
-.pill[aria-current="true"] { background: var(--accent); color: #fff; }
+.pill { flex: none; padding: 4px 0 6px; border: 0; background: none; font: 800 21px var(--display); letter-spacing: -.02em; color: #c4c4c4; cursor: pointer; box-shadow: inset 0 -4px 0 transparent; }
+.pill[aria-current="true"] { color: var(--ink); box-shadow: inset 0 -4px 0 var(--accent); }
 main { padding: 0 max(16px, env(safe-area-inset-right)) 48px max(16px, env(safe-area-inset-left)); }
 .note { margin: 16px 0 0; padding: 16px; border-radius: 14px; background: var(--tile); white-space: pre-line; font-size: 14px; }
 .cat h2 { margin: 26px 0 12px; overflow-wrap: anywhere; font: 800 clamp(21px, 6.6vw, 28px)/1.05 var(--display); letter-spacing: -.02em; }

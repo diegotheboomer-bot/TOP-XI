@@ -64,6 +64,11 @@
     // Navigation markup. Templates style the buttons; core handles taps and highlighting.
     catId: (c) => "cat-" + c.id,
     sectionsNav: (cls = "") => Menu.data.sections.map((x) => `<button class="${cls}" data-section="${x.id}" aria-current="${x === Menu.section}">${Menu.esc(Menu.title(x))}</button>`).join(""),
+    // A single button showing the current section; tapping it opens a picker with all sections.
+    sectionPicker: (cls = "") => `<button class="${cls}" data-section-picker aria-haspopup="dialog">${Menu.esc(Menu.title(Menu.section))}<span aria-hidden="true"> ▾</span></button>`,
+    openSectionPicker() {
+      Menu.sheet(`<div class="m-picker">${Menu.data.sections.map((x) => `<button data-section="${x.id}" aria-current="${x === Menu.section}"><b>${Menu.esc(Menu.title(x))}</b><span>${x.categories.reduce((n, c) => n + c.items.length, 0)}</span></button>`).join("")}</div>`);
+    },
     catsNav: (cls = "") => {
       const cats = Menu.categories();
       return cats.length > 1 ? cats.map((c) => `<button class="${cls}" data-cat="${Menu.catId(c)}">${Menu.esc(Menu.title(c))}</button>`).join("") : "";
@@ -199,7 +204,8 @@
         }
         if (e.target.closest("[data-lang-toggle]")) Menu.toggleLang();
         const sec = e.target.closest("[data-section]");
-        if (sec) Menu.go(sec.dataset.section);
+        if (sec) { Menu.go(sec.dataset.section); if (sec.closest("#m-sheet")) document.getElementById("m-sheet").close(); }
+        if (e.target.closest("[data-section-picker]")) Menu.openSectionPicker();
         const cat = e.target.closest("[data-cat]");
         if (cat) Menu.jump(cat.dataset.cat);
       });
