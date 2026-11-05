@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Garden</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+<style>
+/* 14 Garden (no photos): calm sage. One rounded card per category with a tidy list inside; a small leaf marks each heading. */
+:root { --bg: #eef2ea; --card: #ffffff; --ink: #24312a; --soft: #6c786f; --line: #e6ebe3; --sage: #5f7f64; --sage-soft: #dfe9dc; --display: "Lora", Georgia, serif; --body: "Nunito Sans", system-ui, sans-serif; }
+* { box-sizing: border-box; }
+button { font: inherit; color: inherit; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--body); -webkit-font-smoothing: antialiased; }
+.pad { max-width: 620px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
+.head { padding-top: max(18px, env(safe-area-inset-top)); padding-bottom: 14px; text-align: center; }
+.head .top { display: flex; justify-content: flex-end; }
+.lang { min-width: 40px; height: 40px; border: 0; border-radius: 50%; background: var(--card); font: 700 12px var(--body); cursor: pointer; }
+.ring { display: inline-grid; place-items: center; width: 92px; height: 92px; margin-top: -6px; border-radius: 50%; background: var(--card); box-shadow: 0 0 0 1.5px var(--sage-soft); }
+.logo { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; display: grid; place-items: center; background: var(--sage-soft); color: var(--sage); font: 600 22px var(--display); }
+.head h1 { margin: 12px 0 0; font: 600 clamp(30px, 9vw, 40px)/1.1 var(--display); }
+.head p { margin: 4px 0 0; font-size: 13.5px; color: var(--soft); }
+.head .open { color: var(--sage); font-weight: 700; }
+.bar { position: sticky; top: 0; z-index: 5; background: rgba(238,242,234,.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.row { display: flex; overflow-x: auto; scrollbar-width: none; }
+.row::-webkit-scrollbar { display: none; }
+.secs { gap: 4px; padding: 10px 0 6px; }
+.secs button { flex: none; padding: 8px 14px; border: 0; border-radius: 999px; background: none; font: 700 14px var(--body); color: var(--soft); cursor: pointer; }
+.secs button[aria-current="true"] { background: var(--sage); color: #fff; }
+.cats { gap: 6px; padding-bottom: 10px; }
+.cats:empty { display: none; }
+.cats button { flex: none; padding: 5px 12px; border: 0; border-radius: 999px; background: var(--card); font: 600 13px var(--body); color: var(--soft); cursor: pointer; }
+.cats button[aria-current="true"] { background: var(--sage-soft); color: var(--sage); }
+.note { margin: 12px 0 0; padding: 16px; border-radius: 20px; background: var(--card); white-space: pre-line; font-size: 14px; }
+.cat { margin-top: 18px; scroll-margin-top: 100px; }
+.cat h2 { display: flex; align-items: center; gap: 8px; margin: 0 0 8px 6px; font: 600 21px var(--display); }
+.cat h2 svg { width: 18px; height: 18px; flex: none; }
+.cat h2 small { margin-left: auto; margin-right: 6px; font: 600 12px var(--body); color: var(--soft); }
+.box { border-radius: 22px; background: var(--card); overflow: hidden; }
+.item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; width: 100%; padding: 12px 16px; border: 0; background: none; text-align: left; cursor: pointer; }
+.item + .item { box-shadow: inset 0 1px 0 var(--line); }
+.item .n { display: block; font-weight: 700; font-size: 15px; line-height: 1.3; }
+.item .d { display: block; margin-top: 1px; font-size: 12.5px; color: var(--soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.item .t { display: inline-block; margin-left: 6px; padding: 0 7px; border-radius: 999px; background: var(--sage-soft); color: var(--sage); font-size: 10.5px; font-weight: 700; vertical-align: 2px; }
+.item .p { font: 600 15px var(--display); white-space: nowrap; font-variant-numeric: tabular-nums; }
+footer { margin-top: 26px; padding-block: 18px calc(30px + env(safe-area-inset-bottom)); text-align: center; color: var(--soft); font-size: 13.5px; }
+footer b { display: block; font: 600 19px var(--display); color: var(--ink); }
+footer a { color: var(--sage); font-weight: 700; }
+#m-sheet { margin: auto auto 0; width: 100%; max-width: 560px; padding: 0 0 env(safe-area-inset-bottom); border: 0; border-radius: 26px 26px 0 0; background: var(--card); color: var(--ink); }
+#m-sheet::backdrop { background: rgba(36,49,42,.35); }
+.m-body { padding: 54px 22px 28px; text-align: center; }
+.m-name { margin: 0; font: 600 26px/1.15 var(--display); }
+.m-desc { margin: 8px 0 0; color: var(--soft); }
+.m-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center; }
+.m-price { padding: 4px 14px; border-radius: 999px; background: var(--sage); color: #fff; font: 600 17px var(--display); }
+.m-badge { padding: 2px 10px; border-radius: 999px; background: var(--sage-soft); color: var(--sage); font-size: 12px; font-weight: 700; }
+.m-close { position: absolute; top: 12px; right: 12px; width: 38px; height: 38px; border: 0; border-radius: 50%; background: var(--bg); font-size: 20px; cursor: pointer; }
+button:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="../core.js"></script>
+<script>
+const { esc } = Menu;
+const $app = document.getElementById("app");
+const LEAF = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#5f7f64" d="M20 4C10 4 4 9 4 16c0 1.4.3 2.6.8 3.6C6 13 10 10 15 8c-4 3-7 6.5-8.6 11.2.9.5 2 .8 3.4.8C17 20 20 13 20 4z"/></svg>';
+Menu.start({
+  render() {
+    const s = Menu.section, info = Menu.info, st = Menu.status(), cats = Menu.categories();
+    document.title = info.name;
+    $app.innerHTML = `
+      <header class="pad head"><div class="top"><button class="lang" data-lang-toggle data-lang-label></button></div>
+        <span class="ring">${Menu.logo("logo")}</span><h1>${esc(info.name)}</h1><p><span class="${st.open ? "open" : ""}">${esc(st.text)}</span>${Menu.desc(s) ? ` · ${esc(Menu.desc(s))}` : ""}</p></header>
+      <i data-top></i>
+      <div class="bar" data-sticky><div class="pad"><nav class="row secs">${Menu.sectionsNav()}</nav><nav class="row cats">${Menu.catsNav()}</nav></div></div>
+      <main class="pad">
+        ${Menu.tx(s, "info") ? `<p class="note">${esc(Menu.tx(s, "info"))}</p>` : ""}
+        ${cats.map((c) => `<section class="cat" id="${Menu.catId(c)}"><h2>${LEAF}${esc(Menu.title(c))}<small>${c.items.length}</small></h2><div class="box">
+          ${c.items.map((i) => `<button class="item" ${Menu.ref(i)}><span><span class="n">${esc(Menu.name(i))}${i.volume ? `<span class="t">${esc(i.volume)}</span>` : ""}${Menu.badges(i).map((b) => `<span class="t">${b.text}</span>`).join("")}</span>
+            ${Menu.desc(i) ? `<span class="d">${esc(Menu.desc(i))}</span>` : ""}</span><span class="p">${Menu.price(i.price)}</span></button>`).join("")}</div></section>`).join("") || `<p class="note">${Menu.t.empty}</p>`}
+        <footer><b>${esc(info.name)}</b>${esc(info.address)}<br>${esc(info.phone)} · <a href="${info.maps}" target="_blank" rel="noopener">${Menu.t.map}</a></footer>
+      </main>`;
+  },
+  onItem(item) { Menu.sheet(Menu.detail({ ...item, img: null })); },
+});
+</script>
+</body>
+</html>

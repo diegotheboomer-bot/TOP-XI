@@ -13,15 +13,15 @@
 button { font: inherit; color: inherit; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(--body); -webkit-font-smoothing: antialiased; }
 .pad { max-width: 640px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
-.head { position: relative; padding-top: max(16px, env(safe-area-inset-top)); padding-bottom: 24px; text-align: center; overflow: hidden; }
+.head { position: relative; padding-top: max(12px, env(safe-area-inset-top)); padding-bottom: 16px; text-align: center; overflow: hidden; }
 .head::before, .head::after { content: ""; position: absolute; z-index: -1; border-radius: 50%; }
-.head::before { width: 220px; height: 220px; left: -70px; top: -60px; background: #ffd9e4; }
-.head::after { width: 160px; height: 160px; right: -40px; top: 60px; background: #d8ecff; }
+.head::before { width: 200px; height: 200px; left: -80px; top: -70px; background: #f6e3e6; }
+.head::after { width: 140px; height: 140px; right: -50px; top: 50px; background: #e2edf6; }
 .head .top { display: flex; justify-content: flex-end; }
 .lang { min-width: 42px; height: 42px; border: 0; border-radius: 50%; background: #fff; box-shadow: 0 2px 10px rgba(43,36,51,.1); font: 700 13px var(--body); cursor: pointer; }
-.badge { display: inline-grid; place-items: center; margin-top: 4px; padding: 8px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 6px #fff1c9, 0 10px 26px -10px rgba(43,36,51,.3); }
-.logo { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; display: grid; place-items: center; background: #fff1c9; font: 400 30px var(--display); }
-.head h1 { margin: 18px 0 0; font: 400 clamp(40px, 12vw, 60px)/1 var(--display); }
+.badge { display: inline-grid; place-items: center; margin-top: 4px; padding: 8px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 5px #f6efdc, 0 10px 26px -10px rgba(43,36,51,.3); }
+.logo { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; display: grid; place-items: center; background: #fff1c9; font: 400 30px var(--display); }
+.head h1 { margin: 12px 0 0; font: 400 clamp(34px, 10vw, 48px)/1 var(--display); }
 .head p { margin: 6px 0 0; color: var(--soft); }
 .st { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 6px 14px; border-radius: 999px; background: #fff; box-shadow: 0 1px 4px rgba(43,36,51,.08); font-size: 13px; font-weight: 600; }
 .st::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #c7c0cc; }
@@ -36,15 +36,15 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(-
 .cats:empty { display: none; }
 .cats button { flex: none; padding: 6px 13px; border: 0; border-radius: 999px; background: var(--c); font: 600 13px var(--body); cursor: pointer; opacity: .75; }
 .cats button[aria-current="true"] { opacity: 1; box-shadow: inset 0 0 0 2px var(--ink); }
-.note { margin: 14px 0 0; padding: 18px; border-radius: 24px; background: #fff1c9; white-space: pre-line; }
-.card { position: relative; margin-top: 16px; padding: 22px 18px 10px; border-radius: 30px; background: var(--c); overflow: hidden; scroll-margin-top: 110px; }
+.note { margin: 14px 0 0; padding: 16px; border-radius: 22px; background: #f6efdc; white-space: pre-line; }
+.card { position: relative; margin-top: 14px; padding: 18px 12px 8px; border-radius: 26px; background: var(--c); overflow: hidden; scroll-margin-top: 110px; }
 .card .shape { position: absolute; right: -24px; top: -24px; width: 110px; height: 110px; opacity: .55; }
-.card h2 { position: relative; margin: 0 0 8px; font: 400 32px/1.05 var(--display); }
+.card h2 { position: relative; margin: 0 6px 8px; font: 400 26px/1.05 var(--display); }
 .card h2 small { display: block; margin-bottom: 4px; font: 600 12px var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--soft); }
-.item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; width: 100%; margin-bottom: 8px; padding: 13px 14px; border: 0; border-radius: 18px; background: rgba(255,255,255,.72); text-align: left; cursor: pointer; }
+.item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; width: 100%; margin-bottom: 4px; padding: 10px 12px; border: 0; border-radius: 16px; background: rgba(255,255,255,.75); text-align: left; cursor: pointer; }
 .item .n { display: block; font-weight: 700; font-size: 15.5px; line-height: 1.25; }
-.item .d { display: block; margin-top: 2px; font-size: 13px; color: var(--soft); }
-.item .tags { display: flex; gap: 6px; margin-top: 6px; }
+.item .d { display: block; margin-top: 1px; font-size: 12.5px; color: var(--soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.item .tags { display: flex; gap: 6px; margin-top: 4px; }
 .item .tags span { padding: 1px 8px; border-radius: 999px; background: var(--c); font-size: 11px; font-weight: 700; }
 .item .p { padding: 6px 11px; border-radius: 14px; background: #fff; font: 700 14px var(--body); white-space: nowrap; font-variant-numeric: tabular-nums; }
 footer { margin-top: 30px; padding-block: 24px calc(32px + env(safe-area-inset-bottom)); text-align: center; color: var(--soft); font-size: 14px; }
@@ -56,8 +56,8 @@ footer a { color: var(--ink); font-weight: 700; }
 .m-name { margin: 0; font: 400 32px/1.05 var(--display); }
 .m-desc { margin: 10px 0 0; color: var(--soft); }
 .m-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 16px; align-items: center; }
-.m-price { padding: 6px 16px; border-radius: 999px; background: #ffd9e4; font-weight: 700; font-size: 17px; }
-.m-badge { padding: 4px 10px; border-radius: 999px; background: #d8ecff; font-size: 12px; font-weight: 700; }
+.m-price { padding: 6px 16px; border-radius: 999px; background: #f6e6e8; font-weight: 700; font-size: 17px; }
+.m-badge { padding: 4px 10px; border-radius: 999px; background: #e3edf6; font-size: 12px; font-weight: 700; }
 .m-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border: 0; border-radius: 50%; background: #fff; font-size: 22px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
 button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 </style>
@@ -68,7 +68,7 @@ button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 <script>
 const { esc } = Menu;
 const $app = document.getElementById("app");
-const COLORS = ["#ffe1ea", "#dcecff", "#e3f6dc", "#fff1c9", "#ece3ff", "#ffe6d6"];
+const COLORS = ["#f6e6e8", "#e3edf6", "#e5f0e1", "#f6efdc", "#ebe6f4", "#f6e9df"];
 // Decorative shapes, one per category in turn: flower, star, circles, arch.
 const SHAPES = [
   '<svg viewBox="0 0 100 100"><g fill="#fff">' + [0, 60, 120, 180, 240, 300].map((a) => `<ellipse cx="50" cy="26" rx="14" ry="24" transform="rotate(${a} 50 50)"/>`).join("") + '<circle cx="50" cy="50" r="12"/></g></svg>',
