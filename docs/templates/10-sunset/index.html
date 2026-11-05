@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sunset</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* 10 Sunset: beach bar. Warm gradient header with a wave edge, sand background, soft rounded cards. */
-:root { --sand: #fff8f1; --card: #ffffff; --ink: #3a2438; --soft: #8a7386; --line: #f1e3d6; --coral: #ff7a5c; --berry: #c8487e; --sea: #1fa6a9; --sun: #ffc35a; --display: "Fredoka", "Trebuchet MS", sans-serif; --body: "Nunito", system-ui, sans-serif; }
+:root { --sand: #fff8f1; --card: #ffffff; --ink: #3a2438; --soft: #8a7386; --line: #f1e3d6; --coral: #ff7a5c; --berry: #c8487e; --sea: #1fa6a9; --sun: #ffc35a; --display: "Lexend", "Helvetica Neue", Arial, sans-serif; --body: "Lexend", system-ui, sans-serif; }
 * { box-sizing: border-box; }
 button { font: inherit; color: inherit; }
 body { margin: 0; background: var(--sand); color: var(--ink); font: 15px/1.5 var(--body); -webkit-font-smoothing: antialiased; }
@@ -20,7 +20,7 @@ body { margin: 0; background: var(--sand); color: var(--ink); font: 15px/1.5 var
 .sky .pad { position: relative; z-index: 1; }
 .sun { position: absolute; right: -34px; bottom: -40px; width: 210px; height: 210px; border-radius: 50%; object-fit: cover; border: 6px solid rgba(255,255,255,.55); box-shadow: 0 0 0 18px rgba(255,255,255,.14), 0 0 0 40px rgba(255,255,255,.08); }
 .sky .top { position: relative; z-index: 2; }
-.sky h1 { max-width: 62%; text-shadow: 0 2px 12px rgba(120,30,60,.35); margin: 18px 0 0; font: 600 clamp(42px, 12vw, 64px)/1 var(--display); }
+.sky h1 { max-width: 62%; letter-spacing: -.03em; text-shadow: 0 2px 12px rgba(120,30,60,.35); margin: 18px 0 0; font: 600 clamp(42px, 12vw, 64px)/1 var(--display); }
 .sky p { margin: 4px 0 0; font: 500 18px var(--display); opacity: .92; }
 .wave { display: block; width: 100%; height: 28px; margin-top: -27px; }
 .bar { position: sticky; top: 0; z-index: 5; background: var(--sand); padding: 6px 0 8px; border-bottom: 1px solid var(--line); }
@@ -50,7 +50,7 @@ body { margin: 0; background: var(--sand); color: var(--ink); font: 15px/1.5 var
 .c .d { display: block; margin-top: 2px; font-size: 13.5px; color: var(--soft); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .c .meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; }
 .c .p { font: 600 16px var(--display); color: var(--berry); font-variant-numeric: tabular-nums; }
-.c .b { padding: 2px 8px; border-radius: 999px; background: #e1f4f4; color: #17807f; font: 800 10.5px var(--body); text-transform: uppercase; letter-spacing: .04em; }
+.c .b { padding: 2px 8px; border-radius: 999px; background: #e1f4f4; color: #17807f; font: 700 10.5px var(--body); text-transform: uppercase; letter-spacing: .04em; }
 .c .b.sold { background: #f6e4ec; color: var(--berry); }
 .c.sold .ph { filter: grayscale(1); opacity: .6; }
 footer { margin: 36px 0 0; padding: 22px 0 calc(28px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); text-align: center; display: grid; gap: 4px; color: var(--soft); font-size: 14px; }
@@ -64,7 +64,7 @@ footer a { color: var(--berry); font-weight: 800; }
 .m-desc { margin: 6px 0 0; color: var(--soft); }
 .m-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center; }
 .m-price { font: 600 22px var(--display); }
-.m-badge { padding: 3px 9px; border-radius: 999px; background: #e1f4f4; color: #17807f; font: 800 11px var(--body); text-transform: uppercase; }
+.m-badge { padding: 3px 9px; border-radius: 999px; background: #e1f4f4; color: #17807f; font: 700 11px var(--body); text-transform: uppercase; }
 .m-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border: 0; border-radius: 50%; background: #fff; color: var(--ink); font-size: 22px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
 button:focus-visible { outline: 3px solid var(--sea); outline-offset: 3px; }
 </style>

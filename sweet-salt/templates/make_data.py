@@ -8,9 +8,13 @@ import hashlib, json, pathlib
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 menu = json.loads((ROOT / "sweet-salt" / "menu.json").read_text())
 
+# The templates leave out the custom-cakes section (it has no dishes) and don't show sold-out marks.
+menu["sections"] = [s for s in menu["sections"] if s["id"] != "bolos-por-encomenda"]
+
 for s in menu["sections"]:
     for c in s["categories"]:
         for i in c["items"]:
+            i.pop("soldOut", None)
             url = i.pop("imgBig")
             i.pop("img", None)
             key = hashlib.md5(url.encode()).hexdigest()[:8] if url else None

@@ -49,7 +49,6 @@
     categories: (s = Menu.section) => s.categories.filter((c) => c.items.length),
     badges(item) {
       const out = item.labels.filter((l) => Menu.t[l]).map((l) => ({ cls: l, text: Menu.t[l] }));
-      if (item.soldOut) out.push({ cls: "sold", text: Menu.t.soldOut });
       return out;
     },
     featured: (s = Menu.section) => s.categories.flatMap((c) => c.items).filter((i) => i.labels.includes("recommended") && i.img && !i.soldOut),
