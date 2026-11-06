@@ -42,7 +42,7 @@ footer { margin-top: 36px; color: var(--soft); font-size: 14px; }
   <h2 class="group">With photos</h2>
   <div class="list" id="list"></div>
   <h2 class="group">No photos</h2>
-  <p class="intro">For restaurants without food photos. These use the logo, or the restaurant's initials when there is no logo, and colour and shapes instead of pictures.</p>
+  <p class="intro">For restaurants without food photos. These use the logo, or the restaurant's initials when there is no logo, and clean black-and-white geometric shapes instead of pictures. No photos needed, and they still look full and modern.</p>
   <div class="list" id="list2"></div>
   <footer>All fifteen read <code>templates/menu.json</code>, so changing that file updates every design.</footer>
 </div>
@@ -60,11 +60,11 @@ const T = [
   ["10-sunset", "Sunset", "Sunset gradient header with the top dish as the sun, tall recommended cards and soft rounded dish cards.", "Beach bars and holiday spots", ["#fff7ee", "#ff6f61", "#2bb5b8"], "Lexend"],
 ];
 const T2 = [
-  ["11-bands", "Bands", "Soft earthy colour bands, one per category, with compact rows and the price on the right. Quick to scan.", "Bistros, tascas, casual restaurants", ["#efe5d6", "#dde6d5", "#dbe4ec"], "Fraunces + Figtree"],
-  ["12-pastel", "Pastel", "Soft and cute: logo in a round badge, each category a gentle pastel card with a small shape; tight one-line rows.", "Cafés, bakeries, dessert and brunch spots", ["#f6e6e8", "#e3edf6", "#e5f0e1"], "Gloock + Plus Jakarta Sans"],
-  ["13-index", "Index", "Light and fast: a menu summary up top, then every category as a panel that opens and closes. Calm olive accent.", "Big menus where guests want to scan quickly", ["#f4f1ec", "#ffffff", "#6b7d4f"], "Outfit + Inter Tight"],
-  ["14-garden", "Garden", "Calm sage green: logo in a ring, one rounded white card per category with a tidy list, a little leaf on each heading.", "Cafés, healthy food, terraces", ["#eef2ea", "#ffffff", "#5f7f64"], "Lora + Nunito Sans"],
-  ["15-blocks", "Blocks", "Muted coloured tiles: every dish is a soft block and the first of each category is a wide one.", "Family restaurants, casual dining", ["#f2dccb", "#f2e6c4", "#d9e6d2"], "DM Serif Display + Work Sans"],
+  ["11-mono", "Mono", "Black and white: one big circle, underlined tabs, numbered categories with bold rules and clean price rows.", "Any restaurant that wants a sharp, modern look", ["#ffffff", "#111111", "#f2f2f2"], "Archivo + Inter"],
+  ["12-shapes", "Shapes", "Warm off-white with one soft arch in the header, segmented tabs and white cards.", "Cafés, bakeries, brunch spots", ["#f4f3ef", "#1a1a1a", "#e2dfd8"], "Bricolage Grotesque + Figtree"],
+  ["13-line", "Line", "Dark and quiet: one thin line ring, a big italic serif and hairline rows. Elegant at night.", "Wine bars, cocktail bars, evening dining", ["#0f0f0f", "#f2f2f0", "#8d8d8a"], "Instrument Serif + Inter"],
+  ["14-stone", "Stone", "Calm stone grey: one soft quarter-circle, a dark tab track and light rounded cards.", "Calm cafés, healthy food, terraces", ["#e9e7e2", "#f6f5f2", "#262624"], "Sora"],
+  ["15-bauhaus", "Bauhaus", "One bold triangle, square buttons, uppercase type; every category opens with a full-width black band.", "Burger bars, casual and street food", ["#ffffff", "#0d0d0d", "#9a9a9a"], "Syne + DM Sans"],
 ];
 const card = ([slug, name, what, forWho, sw, font], k) => `
   <article class="t">
